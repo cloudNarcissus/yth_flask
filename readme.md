@@ -9,4 +9,4 @@ python+django+vue架构web项目，项目主要实现公共基础功能，辅助
 
 
 
-> 首次接触到此项目，请先阅读 [开发规范](docs/specification/index.md)
+> 首次接触到此项目，请先阅读 [开发规范](start.py)
