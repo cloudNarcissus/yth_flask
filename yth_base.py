@@ -4,12 +4,15 @@ import logging.handlers
 import time
 
 
-from flask import Flask,Blueprint
-from flask_restful import reqparse, abort, Api, Resource
+# from flask import Flask,Blueprint
+# from flask_restful import reqparse, abort, Api, Resource
+#
+# #yth_base = Blueprint('yth_base',__name__)
+# app = Flask(__name__)
+# api = Api(app)
 
-yth_base = Blueprint('yth_base',__name__)
-app = Flask(__name__)
-api = Api(app)
+
+from yth_server import api, Resource, reqparse
 
 from MyException.error import Success,NotFound
 
@@ -414,6 +417,49 @@ class ESClient(object):
                               )
 
 
+    # --------------------查询最近5个关注-----------------------------------
+    def get_interested(self,index_name, size=5, from__=0):
+        """
+
+        :param index_name: 文档：yth_fileana  行为：yth_base
+        :param size:
+        :param from__:
+        :return:
+        """
+        self.log.debug('进入 get_interested 函数, 获取最近关注的5条文档')
+
+        """
+        返回最近结果
+        :return: 返回用户最近关注的5条数据
+       """
+        sort = [
+            {
+                "interested_time":
+                    {"order": "desc",
+                     'missing': '_last'}
+            },
+        ]
+
+        body = {
+            "query": {
+                'term': {
+                    'interested': {
+                        'value': True
+                    }
+                }
+            },
+            'sort': sort
+        }
+
+        self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
+        self.log.debug('排序语句：{0}'.format(sort))
+        return self.es.search(index_name, 'mytype', body,
+                              size=size,
+                              from_=from__,
+                              _source_exclude=['__Content-text'],  # 返回内容不包含全文
+                              )
+
+
     # -------------------------关注或者取消关注------------------------
     def update_interested(self, index_name, index_id, interested_or_cancel):
         self.log.debug('进入 update_interested 函数, 对一条数据进行关注或者取消关注')
@@ -466,7 +512,7 @@ class ESClient(object):
     #
 
 
-@yth_base.route('/yth_base')
+
 @api.resource('/v1.0/action/')
 class SearchYthBase(Resource):
     parser = reqparse.RequestParser()
@@ -487,7 +533,6 @@ class SearchYthBase(Resource):
         return es_client.search_yth_base(parameter)
 
 
-@yth_base.route('/yth_base')
 @api.resource('/v1.0/fileana/')
 class SearchYthFileana(Resource):
     parser = reqparse.RequestParser()
@@ -517,12 +562,13 @@ class SearchYthFileana(Resource):
 
 @api.resource('/v1.0/interested/')
 class Interested(Resource):
-    parser = reqparse.RequestParser()
-    parser.add_argument('index_name', type=str)
-    parser.add_argument('index_id', type=str)
-    parser.add_argument('interested_or_cancel', type=str)
 
     def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('index_name', type=str)
+        parser.add_argument('index_id', type=str)
+        parser.add_argument('interested_or_cancel', type=str)
+
         es_client = ESClient(config_path, logger)
         parameter = self.parser.parse_args(strict=True)
 
@@ -530,6 +576,17 @@ class Interested(Resource):
             return Success()
         else:
             raise NotFound(description="更新异常")
+
+    def get(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('index_name', type=str)
+        parser.add_argument('size', type=int)
+        parser.add_argument('from__', type=int)
+
+        es_client = ESClient(config_path, logger)
+        parameter = self.parser.parse_args(strict=True)
+
+        return es_client.get_interested(parameter['index_name'],parameter['size'],parameter['from__'])
 
 
 @api.resource('/v1.0/rarchildren/')
@@ -550,19 +607,19 @@ class RarChildren(Resource):
 
 
 
-
-
-if __name__ == '__main__':
-    # log_file = "./es_logger.log"
-    # logging.basicConfig(filename=log_file, level=logging.DEBUG)
-    # es_client = ESClient('192.168.10.136:9200', logging)
-    # parameter = Parameter()
-    # parameter.set_match_str('国家保密局')
-    # parameter.set_time('2019-05-16', '2019-05-21')
-    # parameter.set_from_size(0, 10)
-    # print(es_client.search_yth_fileana(parameter))
-    app.run(host="0.0.0.0", port=10001)
-
-
-    # print(es_client.search_yth_base(parameter))
-    # print(es_client.query_yth_rarchildren('dfdf'))
+#
+#
+# if __name__ == '__main__':
+#     # log_file = "./es_logger.log"
+#     # logging.basicConfig(filename=log_file, level=logging.DEBUG)
+#     # es_client = ESClient('192.168.10.136:9200', logging)
+#     # parameter = Parameter()
+#     # parameter.set_match_str('国家保密局')
+#     # parameter.set_time('2019-05-16', '2019-05-21')
+#     # parameter.set_from_size(0, 10)
+#     # print(es_client.search_yth_fileana(parameter))
+#     app.run(host="0.0.0.0", port=10001)
+#
+#
+#     # print(es_client.search_yth_base(parameter))
+#     # print(es_client.query_yth_rarchildren('dfdf'))

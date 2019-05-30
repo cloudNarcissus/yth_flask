@@ -1,12 +1,14 @@
 import config
 import pymysql
 import json
-from flask import Flask,Blueprint
-from flask_restful import reqparse, abort, Api, Resource
+# from flask import Flask,Blueprint
+# from flask_restful import reqparse, abort, Api, Resource
+#
+# #yth_mysql = Blueprint('yth_mysql',__name__)
+# app = Flask(__name__)
+# api = Api(app)
 
-yth_mysql = Blueprint('yth_mysql',__name__)
-app = Flask(__name__)
-api = Api(app)
+from yth_server import api, Resource, reqparse
 
 import logging
 import logging.handlers
@@ -111,7 +113,7 @@ class mysqlConnect(object):
             conn.close()
 
 
-@yth_mysql.route('/yth_mysql')
+#@yth_mysql.route('/yth_mysql')
 @api.resource('/v1.0/dict/')
 class getDict(Resource):
     '''
@@ -128,6 +130,6 @@ class getDict(Resource):
             return result[1]
 
 
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0",port=10001)
+#
+# if __name__ == '__main__':
+#     app.run(host="0.0.0.0",port=10001)

@@ -1,12 +1,12 @@
 from flask import Flask
-from yth_base import yth_base
-from yth_mysql import yth_mysql
-from flask_restful import reqparse, abort, Api, Resource
+import yth_base
+import yth_mysql
+# from flask_restful import reqparse, abort, Api, Resource
+#
+# app = Flask(__name__)
+# api = Api(app)
 
-app = Flask(__name__)
-app.register_blueprint(yth_base)
-app.register_blueprint(yth_mysql)
-api = Api(app)
+from yth_server import app
 
 
 if __name__ == '__main__':
