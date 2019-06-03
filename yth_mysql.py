@@ -14,10 +14,10 @@ import logging
 import logging.handlers
 import os
 if 'nt' != os.name:
-    _log_path = './es_logger.log'
+    _log_path = './my_logger.log'
 else:
     _path = os.path.dirname(__file__)
-    _log_path = os.path.join(_path, os.path.pardir, os.path.pardir, 'logs')
+    _log_path = os.path.join(_path, 'my_logger.log')
 
 logger = logging.getLogger('yth_mysql')
 logger.setLevel(logging.INFO)
@@ -30,9 +30,9 @@ config_path = 'config.json'
 class mysqlConnect(object):
     conf = None
 
-    def __init__(self, config_path,log):
+    def __init__(self, config_path,logger):
         self.conf = config.Config(config_path)
-        self.log = log
+        self.log = logger
 
     def _connect(self, encoding='utf8'):
         """
@@ -58,6 +58,23 @@ class mysqlConnect(object):
             # log.error(conn_err)
             return conn, conn_err
 
+    def _get_exception_msg(self, e):
+
+        if len(e.args) < 2:
+            err = 'unknown db error'
+            return err
+        msg = e.args[1]
+        idx = msg.find('DB-Lib')
+        if idx != -1:
+            msg = msg[0:idx]
+        err = msg
+        return err
+
+    def handle_connect_err(self, conn_err):
+        msg = conn_err
+        print('无法连接到数据库: {err}'.format(err=msg))
+        return msg
+
     # 把查询出来的数据搞成  json: [{}] 结构  # 认为只有一个结果集
     def parse_result_to_json(self, cur):
         data = []
@@ -78,40 +95,102 @@ class mysqlConnect(object):
 
         return json.dumps(data, ensure_ascii=False)
 
-    def pro_dict_query(self, args=None, output_args=None):
+    def pro_dict_query(self):
         """
         查询字典
         :param proc:
         :param args:
         :param output_args:
-        :return:
+        :return:err,json
         """
         cur = None
         conn, conn_err = self._connect('utf8')
         if conn is None:
             err = self.handle_connect_err(conn_err)
-            return err,'conn is None!'
+            return False,err
 
-        has_output = output_args is not None
         try:
             cur = conn.cursor()
             cur.execute('call pro_dict_query()')
-            # 这句需要写到最后  不然前一句不能取不到输出参数
-            conn.commit()
-            if has_output:
-                # sql.insert(0, self._build_output_param(output_args))
-                cur.execute(self._build_output_query(output_args))
 
             result = self.parse_result_to_json(cur)
-            return 0,result
+            return True,result
         except Exception as e:
             err = self._get_exception_msg(e)
-            return err,'execute error！'
+            return False,err
 
         finally:
             cur.close()
             conn.close()
 
+    def fun_alarm_list_exists(self,__md5):
+        """
+        查询alarm_list是否存在某个md5的条目
+        :return:bool
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+            cur = conn.cursor()
+            sql = '''select fun_alarm_list_exists('%s')'''%__md5
+            cur.execute(sql)
+            result = cur.fetchall()
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    def pro_alarm_list_add(self,params_dict):
+        """
+        加入告警
+        :param params_dict: 参数字典
+        :return:
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False,err
+
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_alarm_list_add'
+            sql += ('(' + (''' "%s",''' * len(params_dict))[:-1] + ')')%(
+                params_dict.get('yth_fileana_id'),
+                params_dict.get('__md5'),
+                params_dict.get('__connectTime'),
+                params_dict.get('__title'),
+                params_dict.get('__alarmLevel'),
+                params_dict.get('__alarmSour'),
+                params_dict.get('summary'),
+                params_dict.get('__alarmKey'),
+                params_dict.get('__document'),
+                params_dict.get('__industry'),
+                params_dict.get('__security'),
+                params_dict.get('__ips'),
+             )
+            # 构造(%s,%s,...)
+            cur.execute(sql)
+            conn.commit()
+            return True, '插入成功'
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
 
 #@yth_mysql.route('/yth_mysql')
 @api.resource('/v1.0/dict/')
@@ -131,5 +210,22 @@ class getDict(Resource):
 
 
 #
-# if __name__ == '__main__':
-#     app.run(host="0.0.0.0",port=10001)
+if __name__ == '__main__':
+    mc = mysqlConnect(config_path, logger)
+    params_dict = {}
+    params_dict['yth_fileana_id'] = '10000'
+    params_dict['__md5'] = 'md5-1'
+    params_dict['__connectTime'] = '2019-05-31'
+    params_dict['__title'] ='这是个标题'
+    params_dict['__alarmLevel']=5
+    params_dict['__alarmSour']=2
+    params_dict['unit']='王安科技'
+    params_dict['summary']='''XXXXXXXXXX发生时间，涉密终端以XXXip地址通过网卡：xxx Adapter 直连互联网；本机地址：192.168.0.100 网管：192.168.0.1'''
+    params_dict['__alarmKey']=''
+    params_dict['__document']=''
+    params_dict['__industry']=''
+    params_dict['__security']=''
+    params_dict['__ips']='192.168.0.1,192.168.0.2'
+
+    print(mc.pro_alarm_list_add(params_dict))
+

@@ -3,6 +3,7 @@ from elasticsearch_dsl import query, aggs, function
 import logging.handlers
 import time
 
+import yth_mysql
 
 # from flask import Flask,Blueprint
 # from flask_restful import reqparse, abort, Api, Resource
@@ -509,7 +510,47 @@ class ESClient(object):
         self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
         return self.es.search('yth_rarchildren', 'mytype', body,size=10)
 
-    #
+
+    # -------------------------查询yth_base--------------------------------
+    
+
+    # -------------------------加入告警到alarm——list------------------------
+    def add_alarm_list(self,index_id,__md5):
+        # 判断alarm_list中是否存在
+        mc = yth_mysql.mysqlConnect(config_path, logger)
+        err,exists =  mc.fun_alarm_list_exists(__md5)
+        if err == 0:
+            if exists == 0: #不存在
+                self.log.debug('查询yth_fileana，并将结果导入alarm_list')
+
+                if self.es.exists(index='yth_fileana', doc_type='mytype', id=index_id):
+                    esDoc = self.es.get(index='yth_fileana', doc_type='mytype', id=index_id)
+                    params_dict = {}
+                    params_dict['yth_fileana_id'] = index_id
+                    params_dict['__md5'] = esDoc['__md5']
+                    params_dict['__connectTime'] = esDoc['__connectTime']
+                    params_dict['__title'] = esDoc['FileName']
+                    params_dict['__alarmLevel'] = 5 #固定为5
+                    params_dict['__alarmSour'] = 2
+                    params_dict['summary'] = esDoc['file_summary']
+                    params_dict['__alarmKey'] = esDoc['__alarmKey']
+                    params_dict['__document'] = esDoc['__document']
+                    params_dict['__industry'] = esDoc['__industry']
+                    params_dict['__security'] = esDoc['__security']
+                    params_dict['__ips'] = esDoc['__ips']
+                    # 入库alarm_list
+                    result = mc.pro_alarm_list_add(params_dict)
+                    if result[0]:
+                        # 接下来入 action_list
+                        # 查询 yth_action
+                        pass
+
+                    else:
+                        self.log.error('入库pro_alarm_list_add失败')
+                        return False
+
+
+
 
 
 

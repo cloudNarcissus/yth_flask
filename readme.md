@@ -5,8 +5,11 @@ Url:/v1.0/get_dict/
 方法：GET
 返回：[{\"key\": \"", \"remark\": null, \"type\": \"actiontype\", \"value\": \""},...]
 4.2查询行为数据
+
 Url：/v1.0/action/
+
 Body:
+```json
 {
 "begin_time":"2019-05-16", 
 "end_time":"2019-05-27", 
@@ -18,6 +21,8 @@ Body:
 "size":10,
 "from":0,
 }
+```
+
 方法：POST
 
 4.3查询文档数据
