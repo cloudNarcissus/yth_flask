@@ -4,6 +4,8 @@ import logging.handlers
 import time
 
 import yth_mysql
+from add_head import addHead
+from yth_mysql import config_path
 
 # from flask import Flask,Blueprint
 # from flask_restful import reqparse, abort, Api, Resource
@@ -25,7 +27,7 @@ else:
     _log_path = os.path.join(_path, os.path.pardir, os.path.pardir, 'logs')
 
 import config
-config_path = 'config.json'
+
 
 logger = logging.getLogger('yth_base')
 logger.setLevel(logging.INFO)
@@ -123,7 +125,10 @@ class ESClient(object):
         self.es = Elasticsearch(hosts=self.conf.es_hosts)
         self.log = log
 
+
+
     # --------------------查询行为数据----------------------------------
+    @addHead()
     def search_yth_base(self, parameter):
         L = []
         for name, value in parameter.items():
@@ -229,13 +234,14 @@ class ESClient(object):
             "highlight": highlight
         }
         self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
-        return self.es.search('yth_base', 'mytype', body,
+        return True,self.es.search('yth_base', 'mytype', body,
                               size=parameter['size'],
                               from_=parameter['from']
                               )
 
 
     # --------------------查询文档数据-----------------------------------
+    @addHead()
     def search_yth_fileana(self,parameter):
         """
 
@@ -411,7 +417,7 @@ class ESClient(object):
         }
 
         self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
-        return self.es.search('yth_fileana', 'mytype', body,
+        return True,self.es.search('yth_fileana', 'mytype', body,
                               size= parameter['size'] if md5 is None else 1,
                               from_=parameter['from'],
                               _source_exclude=['__Content-text'],  # 返回内容不包含全文
@@ -419,6 +425,7 @@ class ESClient(object):
 
 
     # --------------------查询最近5个关注-----------------------------------
+    @addHead()
     def get_interested(self,index_name, size=5, from__=0):
         """
 
@@ -462,6 +469,7 @@ class ESClient(object):
 
 
     # -------------------------关注或者取消关注------------------------
+    @addHead()
     def update_interested(self, index_name, index_id, interested_or_cancel):
         self.log.debug('进入 update_interested 函数, 对一条数据进行关注或者取消关注')
 
@@ -484,12 +492,13 @@ class ESClient(object):
         self.log.debug('更新关注数据，语句为{0}'.format(body))
         try:
             self.es.update(index_name,'mytype',index_id,body)
-            return True
+            return True,'更新成功'
         except :
             self.log.error('更新关注数据,some error')
-            return False
+            return False,'更新关注数据,some error'
 
     # ----------------快速预览中，若遇到rar或者嵌套文件，则查询其子文件（传入md5查询子记录)-------------
+    @addHead()
     def query_yth_rarchildren(self,rootmd5):
         """
 
@@ -508,46 +517,108 @@ class ESClient(object):
         }
 
         self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
-        return self.es.search('yth_rarchildren', 'mytype', body,size=10)
+        return True,self.es.search('yth_rarchildren', 'mytype', body,size=10)
 
 
-    # -------------------------查询yth_base--------------------------------
-    
+    # -------------------------查询某个MD5的yth_base记录--------------------------------
+    def query_yth_base_by_md5(self,__md5,__connectTime = None):
+        self.log.debug('进入 query_yth_base_by_md5 函数，查询MD5：%s的行为记录'%__md5)
+
+        filter_query = query.Term(_expand__to_dot=False, __md5=__md5)
+
+        if '__connectTime' is not None:
+            date_query = query.Range(_expand__to_dot=False, __connectTime={'gt': __connectTime})
+            filter_query = filter_query & date_query
+
+
+        body = {
+            "query":{
+                "bool": {
+                    "filter": filter_query.to_dict()
+                }
+            },
+            'sort': [
+                        {
+                            "__connectTime": {
+                                "order": "desc"
+                            }
+                        }
+            ]
+        }
+        #self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
+        return self.es.search('yth_base', 'mytype', body, size=20)
 
     # -------------------------加入告警到alarm——list------------------------
+    @addHead()
     def add_alarm_list(self,index_id,__md5):
+        def query_yth_base_then_insert_alarm_list(__md5,__connectTime,redPoint):
+            # 先查询 yth_base，然后入action_list
+            action_dict = self.query_yth_base_by_md5(__md5,__connectTime)
+            action_count = action_dict.get('hits').get('total')
+            if action_count > 0:
+                action_list = action_dict.get('hits').get('hits')
+                for row in action_list:
+                    params_dict = {
+                        'yth_base_id': row['_id'],
+                        '__md5': row['__md5'],
+                        'platform': row['__platform'],
+                        'actiontype': row['__actionType'],
+                        'redPoint': redPoint,
+                        'unit': None,
+                        '__connectTime': row['__connectTime'],
+                    }
+                    mc.pro_action_list_add(params_dict)
+            return True,''
+
+        def add_alarm_list():
+            if self.es.exists(index='yth_fileana', doc_type='mytype', id=index_id):
+                es_doc = self.es.get(index='yth_fileana', doc_type='mytype', id=index_id)
+                params_dict = {'yth_fileana_id': index_id, '__md5': es_doc['__md5'],
+                               '__connectTime': es_doc['__connectTime'], '__title': es_doc['FileName'],
+                               '__alarmLevel': 5, '__alarmSour': 2, 'summary': es_doc['file_summary'],
+                               '__alarmKey': es_doc['__alarmKey'], '__document': es_doc['__document'],
+                               '__industry': es_doc['__industry'], '__security': es_doc['__security'],
+                               '__ips': es_doc['__ips']}
+                # 入库alarm_list
+                result = mc.pro_alarm_list_add(params_dict)
+            else:
+                result = False,'yth_fileana找不到该文档记录'
+
+            return result
+
+
         # 判断alarm_list中是否存在
         mc = yth_mysql.mysqlConnect(config_path, logger)
-        err,exists =  mc.fun_alarm_list_exists(__md5)
+        err,exists = mc.fun_alarm_list_exists(__md5)
         if err == 0:
             if exists == 0: #不存在
                 self.log.debug('查询yth_fileana，并将结果导入alarm_list')
+                result = add_alarm_list()
+                if result[0]:
+                    # 先查询 yth_base，然后入action_list
+                    query_yth_base_then_insert_alarm_list(__md5,None,False)
+                else:
+                    self.log.error('入库pro_alarm_list_add失败')
+                    return False,'入库pro_alarm_list_add失败'
 
-                if self.es.exists(index='yth_fileana', doc_type='mytype', id=index_id):
-                    esDoc = self.es.get(index='yth_fileana', doc_type='mytype', id=index_id)
-                    params_dict = {}
-                    params_dict['yth_fileana_id'] = index_id
-                    params_dict['__md5'] = esDoc['__md5']
-                    params_dict['__connectTime'] = esDoc['__connectTime']
-                    params_dict['__title'] = esDoc['FileName']
-                    params_dict['__alarmLevel'] = 5 #固定为5
-                    params_dict['__alarmSour'] = 2
-                    params_dict['summary'] = esDoc['file_summary']
-                    params_dict['__alarmKey'] = esDoc['__alarmKey']
-                    params_dict['__document'] = esDoc['__document']
-                    params_dict['__industry'] = esDoc['__industry']
-                    params_dict['__security'] = esDoc['__security']
-                    params_dict['__ips'] = esDoc['__ips']
-                    # 入库alarm_list
-                    result = mc.pro_alarm_list_add(params_dict)
-                    if result[0]:
-                        # 接下来入 action_list
-                        # 查询 yth_action
-                        pass
-
-                    else:
-                        self.log.error('入库pro_alarm_list_add失败')
-                        return False
+            elif exists == 2: #存在且被判定为违规
+                # 获取上次时间
+                result = mc.fun_action_list_getLastTime(__md5)
+                if result[0]:
+                    # 先查询 yth_base，然后入action_list
+                    query_yth_base_then_insert_alarm_list(__md5, result[1], True)
+                else:
+                    return False, '存在且被判定为违规,fun_action_list_getLastTime(%s) error' % __md5
+            elif exists == 1: #存在，但未被判定为违规
+                # 获取上次时间
+                result = mc.fun_action_list_getLastTime(__md5)
+                if result[0]:
+                    # 先查询 yth_base，然后入action_list
+                    query_yth_base_then_insert_alarm_list(__md5, result[1], False)
+                else:
+                    return False,'存在，但未被判定为违规,fun_action_list_getLastTime(%s) error'%__md5
+        else:
+            return False,'fun_alarm_list_exists(%s) error'%__md5
 
 
 
@@ -601,6 +672,19 @@ class SearchYthFileana(Resource):
         return es_client.search_yth_fileana(parameter)
 
 
+@api.resource('/v1.0/fileana/alarm')
+class AddAlarmToList(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('index_id', type=str, required=True)
+    parser.add_argument('__md5', type=str, required=True)
+
+    def post(self):
+        es_client = ESClient(config_path, logger)
+        parameter = self.parser.parse_args(strict=True)
+        return es_client.add_alarm_list(parameter['index_id'],parameter['md5'])
+
+
+
 @api.resource('/v1.0/interested/')
 class Interested(Resource):
 
@@ -648,19 +732,13 @@ class RarChildren(Resource):
 
 
 
-#
-#
-# if __name__ == '__main__':
-#     # log_file = "./es_logger.log"
-#     # logging.basicConfig(filename=log_file, level=logging.DEBUG)
-#     # es_client = ESClient('192.168.10.136:9200', logging)
-#     # parameter = Parameter()
-#     # parameter.set_match_str('国家保密局')
-#     # parameter.set_time('2019-05-16', '2019-05-21')
-#     # parameter.set_from_size(0, 10)
-#     # print(es_client.search_yth_fileana(parameter))
-#     app.run(host="0.0.0.0", port=10001)
-#
-#
-#     # print(es_client.search_yth_base(parameter))
-#     # print(es_client.query_yth_rarchildren('dfdf'))
+
+
+if __name__ == '__main__':
+
+    es_client = ESClient(config_path, logger)
+    # parameter = Parameter()
+    #parameter.set_match_str('国家保密局')
+    #parameter.set_time('2019-05-16', '2019-05-21')
+    #parameter.set_from_size(0, 10)
+    print(es_client.query_yth_base_by_md5('a976d6a0db827fded103a98817ccf0bf'))

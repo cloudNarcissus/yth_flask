@@ -1,13 +1,14 @@
 import config
 import pymysql
-import json
+
+
 # from flask import Flask,Blueprint
 # from flask_restful import reqparse, abort, Api, Resource
 #
 # #yth_mysql = Blueprint('yth_mysql',__name__)
 # app = Flask(__name__)
 # api = Api(app)
-
+from add_head import addHead
 from yth_server import api, Resource, reqparse
 
 import logging
@@ -93,8 +94,10 @@ class mysqlConnect(object):
                     temp[key] = val
                 data.append(temp)
 
-        return json.dumps(data, ensure_ascii=False)
+        #return json.dumps(data, ensure_ascii=False)
+        return data
 
+    @addHead()
     def pro_dict_query(self):
         """
         查询字典
@@ -137,6 +140,31 @@ class mysqlConnect(object):
         try:
             cur = conn.cursor()
             sql = '''select fun_alarm_list_exists('%s')'''%__md5
+            cur.execute(sql)
+            result = cur.fetchall()
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    def fun_action_list_getLastTime(self,__md5):
+        """
+        获取action_list上次最大时间
+        :param __md5:
+        :return: varchar
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+            cur = conn.cursor()
+            sql = '''select fun_action_list_getLastTime('%s')''' % __md5
             cur.execute(sql)
             result = cur.fetchall()
             return True, result
@@ -192,7 +220,47 @@ class mysqlConnect(object):
             cur.close()
             conn.close()
 
-#@yth_mysql.route('/yth_mysql')
+    def pro_action_list_add(self,params_dict):
+        """
+        加入告警行为表（子表）
+        :param params_dict:
+        :return:
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_action_list_add'
+            sql += ('(' + (''' "%s",''' * len(params_dict))[:-1] + ')') % (
+                params_dict.get('yth_base_id'),
+                params_dict.get('__md5'),
+                params_dict.get('platform'),
+                params_dict.get('actiontype'),
+                params_dict.get('redPoint'),
+                params_dict.get('unit'),
+                params_dict.get('__connectTime'),
+            )
+            # 构造(%s,%s,...)
+            cur.execute(sql)
+            conn.commit()
+            return True, '插入成功'
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+
+
 @api.resource('/v1.0/dict/')
 class getDict(Resource):
     '''
@@ -201,31 +269,29 @@ class getDict(Resource):
 
     def get(self):
         mc = mysqlConnect(config_path,logger)
-        result = mc.pro_dict_query()
-        if result[0] == 0:
-            return result[1]
-        else:
-            logger.error(result[1])
-            return result[1]
+        return mc.pro_dict_query()
+
 
 
 #
 if __name__ == '__main__':
     mc = mysqlConnect(config_path, logger)
-    params_dict = {}
-    params_dict['yth_fileana_id'] = '10000'
-    params_dict['__md5'] = 'md5-1'
-    params_dict['__connectTime'] = '2019-05-31'
-    params_dict['__title'] ='这是个标题'
-    params_dict['__alarmLevel']=5
-    params_dict['__alarmSour']=2
-    params_dict['unit']='王安科技'
-    params_dict['summary']='''XXXXXXXXXX发生时间，涉密终端以XXXip地址通过网卡：xxx Adapter 直连互联网；本机地址：192.168.0.100 网管：192.168.0.1'''
-    params_dict['__alarmKey']=''
-    params_dict['__document']=''
-    params_dict['__industry']=''
-    params_dict['__security']=''
-    params_dict['__ips']='192.168.0.1,192.168.0.2'
+    print(mc.pro_dict_query())
 
-    print(mc.pro_alarm_list_add(params_dict))
+
+    # params_dict = {}
+    # params_dict['yth_fileana_id'] = '10000'
+    # params_dict['__md5'] = 'md5-1'
+    # params_dict['__connectTime'] = '2019-05-31'
+    # params_dict['__title'] ='这是个标题'
+    # params_dict['__alarmLevel']=5
+    # params_dict['__alarmSour']=2
+    # params_dict['unit']='王安科技'
+    # params_dict['summary']='''XXXXXXXXXX发生时间，涉密终端以XXXip地址通过网卡：xxx Adapter 直连互联网；本机地址：192.168.0.100 网管：192.168.0.1'''
+    # params_dict['__alarmKey']=''
+    # params_dict['__document']=''
+    # params_dict['__industry']=''
+    # params_dict['__security']=''
+    # params_dict['__ips']='192.168.0.1,192.168.0.2'
+    # print(mc.pro_alarm_list_add(params_dict))
 

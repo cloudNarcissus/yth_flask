@@ -1,10 +1,15 @@
 # 概述
-四、接口说明
-4.1查询字典数据
+##四、接口说明
+
+###4.1查询字典数据
+
 Url:/v1.0/get_dict/
+
 方法：GET
+
 返回：[{\"key\": \"", \"remark\": null, \"type\": \"actiontype\", \"value\": \""},...]
-4.2查询行为数据
+
+###4.2查询行为数据
 
 Url：/v1.0/action/
 
@@ -25,7 +30,7 @@ Body:
 
 方法：POST
 
-4.3查询文档数据
+###4.3查询文档数据
 Url：/v1.0/fileana/
 
 ('begin_time', type=str)
@@ -44,15 +49,33 @@ Url：/v1.0/fileana/
 ('size', type=int, required=True)
 ('from', type=int, required=True)
 ('__actionType', type=str)
+
 方法：post
-4.4关注某条数据
+
+###4.4关注某条数据
+
 Url:/v1.0/interested/
+
 方法：post
+
 ('index_name', type=str)
 ('index_id', type=str)
 ('interested_or_cancel', type=str)
 
-4.5对rar或者嵌套文件，查询其子文件
+###4.5对rar或者嵌套文件，查询其子文件
+
 Url:/v1.0/rarchildren/
+
 方法：post
+
 ('rootmd5', type=str)
+
+###4.6在文档页面，加入告警
+
+Url:/v1.0/fileana/alarm
+
+参数：
+{
+“index_id”:文档的_id，
+“__md5”:文件md5
+}
