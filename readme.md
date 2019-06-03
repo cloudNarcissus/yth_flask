@@ -79,3 +79,19 @@ Url:/v1.0/fileana/alarm
 “index_id”:文档的_id，
 “__md5”:文件md5
 }
+
+
+###4.7在文档页面，查看相似文档
+
+URL：
+
+/v1.0/fileana/simdoc
+
+参数：
+
+{
+“index_id”:文档的_id，
+“__md5”:文件md5
+}
+
+方法 POST

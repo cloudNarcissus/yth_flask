@@ -520,7 +520,7 @@ class ESClient(object):
         return True,self.es.search('yth_rarchildren', 'mytype', body,size=10)
 
 
-    # -------------------------查询某个MD5的yth_base记录--------------------------------
+    # -------------------------查询某个MD5的yth_base记录-------------------------------------------
     def query_yth_base_by_md5(self,__md5,__connectTime = None):
         self.log.debug('进入 query_yth_base_by_md5 函数，查询MD5：%s的行为记录'%__md5)
 
@@ -548,7 +548,7 @@ class ESClient(object):
         #self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
         return self.es.search('yth_base', 'mytype', body, size=20)
 
-    # -------------------------加入告警到alarm——list------------------------
+    # -------------------------加入告警到alarm——list-------------------------------------------
     @addHead()
     def add_alarm_list(self,index_id,__md5):
         def query_yth_base_then_insert_alarm_list(__md5,__connectTime,redPoint):
@@ -620,7 +620,37 @@ class ESClient(object):
         else:
             return False,'fun_alarm_list_exists(%s) error'%__md5
 
+    # -------------------------查询相似文档------------------------------------------------------
+    @addHead()
+    def search_sim_doc(self, index_id, __md5):
+        self.log.debug('进入 search_sim_doc 函数')
 
+        from stop_list_sim import stop_list
+        q = query.MoreLikeThis(
+            _expand__to_dot=False,
+            fields=['__Content-text'],
+            like=[
+                {
+                    "_index": "yth_fileana",
+                    "_type": "mytype",
+                    "_id": index_id
+                }
+            ],
+            min_term_freq=1,
+            max_query_terms=25,
+            min_doc_freq=1,
+            min_word_length=2,
+            minimum_should_match='85%',
+            stop_words=stop_list
+        )
+
+        body = {
+            'query': query.Bool(must=q.to_dict(), must_not=query.Match(_expand__to_dot=False, __MD5=__md5)).to_dict()
+        }
+
+        logging.debug('使用查询语句:{0}，从es中搜索文档相似数据数据'.format(body))
+        return True,self.es.search('yth_fileana', 'mytype', body=body,
+                              _source_exclude=['__Content-text'])
 
 
 
@@ -681,7 +711,20 @@ class AddAlarmToList(Resource):
     def post(self):
         es_client = ESClient(config_path, logger)
         parameter = self.parser.parse_args(strict=True)
-        return es_client.add_alarm_list(parameter['index_id'],parameter['md5'])
+        return es_client.add_alarm_list(parameter['index_id'],parameter['__md5'])
+
+
+
+@api.resource('/v1.0/fileana/simdoc')
+class AddAlarmToList(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('index_id', type=str, required=True)
+    parser.add_argument('__md5', type=str, required=True)
+
+    def post(self):
+        es_client = ESClient(config_path, logger)
+        parameter = self.parser.parse_args(strict=True)
+        return es_client.search_sim_doc(parameter['index_id'],parameter['__md5'])
 
 
 
