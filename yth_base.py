@@ -550,7 +550,7 @@ class ESClient(object):
 
     # -------------------------加入告警到alarm——list-------------------------------------------
     @addHead()
-    def add_alarm_list(self,index_id,__md5):
+    def add_alarm_list(self,index_id,__md5,__alarmSour):
         def query_yth_base_then_insert_alarm_list(__md5,__connectTime,redPoint):
             # 先查询 yth_base，然后入action_list
             action_dict = self.query_yth_base_by_md5(__md5,__connectTime)
@@ -570,12 +570,12 @@ class ESClient(object):
                     mc.pro_action_list_add(params_dict)
             return True,''
 
-        def add_alarm_list():
+        def add_alarm_list(__alarmSour):
             if self.es.exists(index='yth_fileana', doc_type='mytype', id=index_id):
                 es_doc = self.es.get(index='yth_fileana', doc_type='mytype', id=index_id)
                 params_dict = {'yth_fileana_id': index_id, '__md5': es_doc['__md5'],
                                '__connectTime': es_doc['__connectTime'], '__title': es_doc['FileName'],
-                               '__alarmLevel': 5, '__alarmSour': 2, 'summary': es_doc['file_summary'],
+                               '__alarmLevel': 5, '__alarmSour': __alarmSour, 'summary': es_doc['file_summary'],
                                '__alarmKey': es_doc['__alarmKey'], '__document': es_doc['__document'],
                                '__industry': es_doc['__industry'], '__security': es_doc['__security'],
                                '__ips': es_doc['__ips']}
@@ -586,6 +586,20 @@ class ESClient(object):
 
             return result
 
+        def update_yth_fileana_alarmed(index_id):
+            body = {
+                'doc': {
+                    '_alarmed': True
+                }
+            }
+            self.log.debug('更新告警数据，语句为{0}'.format(body))
+            try:
+                self.es.update('yth_fileana', 'mytype', index_id, body)
+                return True, '更新成功'
+            except:
+                self.log.error('更新关注数据,some error')
+                return False, '更新关注数据,some error'
+
 
         # 判断alarm_list中是否存在
         mc = yth_mysql.mysqlConnect(config_path, logger)
@@ -593,7 +607,7 @@ class ESClient(object):
         if err == 0:
             if exists == 0: #不存在
                 self.log.debug('查询yth_fileana，并将结果导入alarm_list')
-                result = add_alarm_list()
+                result = add_alarm_list(__alarmSour)
                 if result[0]:
                     # 先查询 yth_base，然后入action_list
                     query_yth_base_then_insert_alarm_list(__md5,None,False)
@@ -617,6 +631,12 @@ class ESClient(object):
                     query_yth_base_then_insert_alarm_list(__md5, result[1], False)
                 else:
                     return False,'存在，但未被判定为违规,fun_action_list_getLastTime(%s) error'%__md5
+
+            #手动加入告警列表以后，要把状态变为“已加入告警”; 注意自动加入告警的，是直接写的时候就把alarmed=true的
+            if __alarmSour == 2:
+                update_yth_fileana_alarmed(index_id)
+
+
         else:
             return False,'fun_alarm_list_exists(%s) error'%__md5
 
@@ -716,7 +736,7 @@ class AddAlarmToList(Resource):
 
 
 @api.resource('/v1.0/fileana/simdoc')
-class AddAlarmToList(Resource):
+class GetSimDoc(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('index_id', type=str, required=True)
     parser.add_argument('__md5', type=str, required=True)

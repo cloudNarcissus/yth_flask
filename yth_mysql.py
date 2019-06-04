@@ -220,6 +220,89 @@ class mysqlConnect(object):
             cur.close()
             conn.close()
 
+    def pro_alarm_list_query(self, params_dict):
+        """
+        查询告警清单
+        :param params_dict: 参数字典
+        :return: 
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_alarm_list_query'
+            # 构造(%s,%s,...)
+            sql += ('(' + (''' "%s",''' * len(params_dict))[:-1] + ')') % (
+                params_dict.get('begin_day'),
+                params_dict.get('end_day'),
+                params_dict.get('alarmlevel_query'),
+                params_dict.get('fulltext_query'),
+                params_dict.get('platform'),
+                params_dict.get('__alarmSour'),
+                params_dict.get('cz_status'),
+                params_dict.get('_interested'),
+                params_dict.get('orderby'),
+                params_dict.get('page_capa'),
+                params_dict.get('page_num'),
+            )
+
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    def pro_alarm_list_left(self,params_dict):
+        """
+        查询左侧统计切换区
+        :param params_dict: 
+        :return: 
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_alarm_list_left'
+            # 构造(%s,%s,...)
+            sql += ('(' + (''' "%s",''' * len(params_dict))[:-1] + ')') % (
+                params_dict.get('begin_day'),
+                params_dict.get('end_day'),
+                params_dict.get('alarmlevel_query'),
+                params_dict.get('fulltext_query'),
+                params_dict.get('platform'),
+                params_dict.get('__alarmSour')
+            )
+
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
     def pro_action_list_add(self,params_dict):
         """
         加入告警行为表（子表）
@@ -261,15 +344,59 @@ class mysqlConnect(object):
 
 
 
+
 @api.resource('/v1.0/dict/')
-class getDict(Resource):
+class Dict(Resource):
     '''
     获取字典
     '''
 
     def get(self):
         mc = mysqlConnect(config_path,logger)
-        return mc.pro_dict_query()
+        return mc.pro_alarm_list_query()
+
+@api.resource('/v1.0/alarmlist/')
+class AlarmList(Resource):
+    '''
+    查询告警清单
+    '''
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('begin_day', type=str, required=True)
+        parser.add_argument('end_day', type=str, required=True)
+        parser.add_argument('alarmlevel_query', type=str, required=True)
+        parser.add_argument('fulltext_query', type=str, required=True)
+        parser.add_argument('platform', type=int, required=True)
+        parser.add_argument('__alarmSour', type=int, required=True)
+        parser.add_argument('cz_status', type=int, required=True)
+        parser.add_argument('_interested', type=int, required=True)
+        parser.add_argument('orderby', type=str, required=True)
+        parser.add_argument('page_capa', type=int, required=True)
+        parser.add_argument('page_num', type=int, required=True)
+
+        mc = mysqlConnect(config_path, logger)
+        parameters = self.parser.parse_args(strict=True)
+        return mc.pro_alarm_list_query(parameters)
+
+@api.resource('/v1.0/alarmlist/left')
+class AlarmListLeft(Resource):
+    '''
+    查询告警清单左侧栏的统计切换区
+    '''
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('begin_day', type=str, required=True)
+        parser.add_argument('end_day', type=str, required=True)
+        parser.add_argument('alarmlevel_query', type=str, required=True)
+        parser.add_argument('fulltext_query', type=str, required=True)
+        parser.add_argument('platform', type=int, required=True)
+        parser.add_argument('__alarmSour', type=int, required=True)
+
+        mc = mysqlConnect(config_path, logger)
+        parameters = self.parser.parse_args(strict=True)
+        return mc.pro_alarm_list_left(parameters)
 
 
 
