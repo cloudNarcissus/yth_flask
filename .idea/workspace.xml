@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="告警清单的查询">
+    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="查询行为追踪">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/yth_mysql.py" afterPath="$PROJECT_DIR$/yth_mysql.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -513,7 +511,14 @@
       <option name="project" value="LOCAL" />
       <updated>1559636746784</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="查询行为追踪">
+      <created>1559702263909</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1559702263909</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -552,7 +557,8 @@
     <MESSAGE value="增加加入告警的流程" />
     <MESSAGE value="查询相似文档" />
     <MESSAGE value="告警清单的查询" />
-    <option name="LAST_COMMIT_MESSAGE" value="告警清单的查询" />
+    <MESSAGE value="查询行为追踪" />
+    <option name="LAST_COMMIT_MESSAGE" value="查询行为追踪" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
