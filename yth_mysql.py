@@ -342,6 +342,34 @@ class mysqlConnect(object):
             cur.close()
             conn.close()
 
+    def pro_action_list_query(self, __md5):
+        """
+        查询某个告警清单的行为追踪
+        :param __md5: 
+        :return: 
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = '''call pro_action_list_query('%s')'''%__md5
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
 
 
 
@@ -379,7 +407,7 @@ class AlarmList(Resource):
         parameters = self.parser.parse_args(strict=True)
         return mc.pro_alarm_list_query(parameters)
 
-@api.resource('/v1.0/alarmlist/left')
+@api.resource('/v1.0/alarmlist/left/')
 class AlarmListLeft(Resource):
     '''
     查询告警清单左侧栏的统计切换区
@@ -398,6 +426,18 @@ class AlarmListLeft(Resource):
         parameters = self.parser.parse_args(strict=True)
         return mc.pro_alarm_list_left(parameters)
 
+@api.resource('/v1.0/actionlist/')
+class ActionList(Resource):
+    '''
+    查询行为追踪
+    '''
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('__md5', type=str, required=True)
+
+        mc = mysqlConnect(config_path, logger)
+        parameters = self.parser.parse_args(strict=True)
+        return mc.pro_action_list_query(parameters['__md5'])
 
 
 #
