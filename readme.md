@@ -63,7 +63,6 @@ Url：/v1.0/fileana/
 
 ('from', type=int, required=True)
 
-('__actionType', type=str)
 
 方法：post
 

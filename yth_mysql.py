@@ -156,6 +156,7 @@ class mysqlConnect(object):
         :param __md5:
         :return: varchar
         """
+
         cur = None
         conn, conn_err = self._connect('utf8')
         if conn is None:
@@ -175,10 +176,10 @@ class mysqlConnect(object):
             cur.close()
             conn.close()
 
-    def pro_alarm_list_add(self,params_dict):
+    def pro_alarm_list_add(self,params):
         """
         加入告警
-        :param params_dict: 参数字典
+        :param params: 参数字典
         :return:
         """
         cur = None
@@ -193,19 +194,19 @@ class mysqlConnect(object):
 
             cur = conn.cursor()
             sql = 'call pro_alarm_list_add'
-            sql += ('(' + (''' "%s",''' * len(params_dict))[:-1] + ')')%(
-                params_dict.get('yth_fileana_id'),
-                params_dict.get('__md5'),
-                params_dict.get('__connectTime'),
-                params_dict.get('__title'),
-                params_dict.get('__alarmLevel'),
-                params_dict.get('__alarmSour'),
-                params_dict.get('summary'),
-                params_dict.get('__alarmKey'),
-                params_dict.get('__document'),
-                params_dict.get('__industry'),
-                params_dict.get('__security'),
-                params_dict.get('__ips'),
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')')%(
+                params.get('yth_fileana_id'),
+                params.get('__md5'),
+                params.get('__connectTime'),
+                params.get('__title'),
+                params.get('__alarmLevel'),
+                params.get('__alarmSour'),
+                params.get('summary'),
+                params.get('__alarmKey'),
+                params.get('__document'),
+                params.get('__industry'),
+                params.get('__security'),
+                params.get('__ips'),
              )
             # 构造(%s,%s,...)
             cur.execute(sql)
@@ -220,10 +221,10 @@ class mysqlConnect(object):
             cur.close()
             conn.close()
 
-    def pro_alarm_list_query(self, params_dict):
+    def pro_alarm_list_query(self, params):
         """
         查询告警清单
-        :param params_dict: 参数字典
+        :param params: 参数字典
         :return: 
         """
         cur = None
@@ -238,18 +239,18 @@ class mysqlConnect(object):
             cur = conn.cursor()
             sql = 'call pro_alarm_list_query'
             # 构造(%s,%s,...)
-            sql += ('(' + (''' "%s",''' * len(params_dict))[:-1] + ')') % (
-                params_dict.get('begin_day'),
-                params_dict.get('end_day'),
-                params_dict.get('alarmlevel_query'),
-                params_dict.get('fulltext_query'),
-                params_dict.get('platform'),
-                params_dict.get('__alarmSour'),
-                params_dict.get('cz_status'),
-                params_dict.get('_interested'),
-                params_dict.get('orderby'),
-                params_dict.get('page_capa'),
-                params_dict.get('page_num'),
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+                params.get('begin_day'),
+                params.get('end_day'),
+                params.get('alarmlevel_query'),
+                params.get('fulltext_query'),
+                params.get('platform'),
+                params.get('__alarmSour'),
+                params.get('cz_status'),
+                params.get('_interested'),
+                params.get('orderby'),
+                params.get('page_capa'),
+                params.get('page_num'),
             )
 
             cur.execute(sql)
@@ -264,10 +265,11 @@ class mysqlConnect(object):
             cur.close()
             conn.close()
 
-    def pro_alarm_list_left(self,params_dict):
+    @addHead()
+    def pro_alarm_list_left(self,params):
         """
         查询左侧统计切换区
-        :param params_dict: 
+        :param params: 
         :return: 
         """
         cur = None
@@ -282,13 +284,13 @@ class mysqlConnect(object):
             cur = conn.cursor()
             sql = 'call pro_alarm_list_left'
             # 构造(%s,%s,...)
-            sql += ('(' + (''' "%s",''' * len(params_dict))[:-1] + ')') % (
-                params_dict.get('begin_day'),
-                params_dict.get('end_day'),
-                params_dict.get('alarmlevel_query'),
-                params_dict.get('fulltext_query'),
-                params_dict.get('platform'),
-                params_dict.get('__alarmSour')
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+                params.get('begin_day'),
+                params.get('end_day'),
+                params.get('alarmlevel_query'),
+                params.get('fulltext_query'),
+                params.get('platform'),
+                params.get('__alarmSour')
             )
 
             cur.execute(sql)
@@ -303,10 +305,10 @@ class mysqlConnect(object):
             cur.close()
             conn.close()
 
-    def pro_action_list_add(self,params_dict):
+    def pro_action_list_add(self,params):
         """
         加入告警行为表（子表）
-        :param params_dict:
+        :param params:
         :return:
         """
         cur = None
@@ -320,14 +322,14 @@ class mysqlConnect(object):
 
             cur = conn.cursor()
             sql = 'call pro_action_list_add'
-            sql += ('(' + (''' "%s",''' * len(params_dict))[:-1] + ')') % (
-                params_dict.get('yth_base_id'),
-                params_dict.get('__md5'),
-                params_dict.get('platform'),
-                params_dict.get('actiontype'),
-                params_dict.get('redPoint'),
-                params_dict.get('unit'),
-                params_dict.get('__connectTime'),
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+                params.get('yth_base_id'),
+                params.get('__md5'),
+                params.get('platform'),
+                params.get('actiontype'),
+                params.get('redPoint'),
+                params.get('unit'),
+                params.get('__connectTime'),
             )
             # 构造(%s,%s,...)
             cur.execute(sql)
@@ -342,6 +344,7 @@ class mysqlConnect(object):
             cur.close()
             conn.close()
 
+    @addHead()
     def pro_action_list_query(self, __md5):
         """
         查询某个告警清单的行为追踪
@@ -378,10 +381,9 @@ class Dict(Resource):
     '''
     获取字典
     '''
-
     def get(self):
         mc = mysqlConnect(config_path,logger)
-        return mc.pro_alarm_list_query()
+        return mc.pro_dict_query()
 
 @api.resource('/v1.0/alarmlist/')
 class AlarmList(Resource):
@@ -404,8 +406,8 @@ class AlarmList(Resource):
         parser.add_argument('page_num', type=int, required=True)
 
         mc = mysqlConnect(config_path, logger)
-        parameters = self.parser.parse_args(strict=True)
-        return mc.pro_alarm_list_query(parameters)
+        params = parser.parse_args(strict=True)
+        return mc.pro_alarm_list_query(params)
 
 @api.resource('/v1.0/alarmlist/left/')
 class AlarmListLeft(Resource):
@@ -423,8 +425,8 @@ class AlarmListLeft(Resource):
         parser.add_argument('__alarmSour', type=int, required=True)
 
         mc = mysqlConnect(config_path, logger)
-        parameters = self.parser.parse_args(strict=True)
-        return mc.pro_alarm_list_left(parameters)
+        params = parser.parse_args(strict=True)
+        return mc.pro_alarm_list_left(params)
 
 @api.resource('/v1.0/actionlist/')
 class ActionList(Resource):
@@ -436,8 +438,8 @@ class ActionList(Resource):
         parser.add_argument('__md5', type=str, required=True)
 
         mc = mysqlConnect(config_path, logger)
-        parameters = self.parser.parse_args(strict=True)
-        return mc.pro_action_list_query(parameters['__md5'])
+        params = parser.parse_args(strict=True)
+        return mc.pro_action_list_query(params['__md5'])
 
 
 #
@@ -446,19 +448,19 @@ if __name__ == '__main__':
     print(mc.pro_dict_query())
 
 
-    # params_dict = {}
-    # params_dict['yth_fileana_id'] = '10000'
-    # params_dict['__md5'] = 'md5-1'
-    # params_dict['__connectTime'] = '2019-05-31'
-    # params_dict['__title'] ='这是个标题'
-    # params_dict['__alarmLevel']=5
-    # params_dict['__alarmSour']=2
-    # params_dict['unit']='王安科技'
-    # params_dict['summary']='''XXXXXXXXXX发生时间，涉密终端以XXXip地址通过网卡：xxx Adapter 直连互联网；本机地址：192.168.0.100 网管：192.168.0.1'''
-    # params_dict['__alarmKey']=''
-    # params_dict['__document']=''
-    # params_dict['__industry']=''
-    # params_dict['__security']=''
-    # params_dict['__ips']='192.168.0.1,192.168.0.2'
-    # print(mc.pro_alarm_list_add(params_dict))
+    # params = {}
+    # params['yth_fileana_id'] = '10000'
+    # params['__md5'] = 'md5-1'
+    # params['__connectTime'] = '2019-05-31'
+    # params['__title'] ='这是个标题'
+    # params['__alarmLevel']=5
+    # params['__alarmSour']=2
+    # params['unit']='王安科技'
+    # params['summary']='''XXXXXXXXXX发生时间，涉密终端以XXXip地址通过网卡：xxx Adapter 直连互联网；本机地址：192.168.0.100 网管：192.168.0.1'''
+    # params['__alarmKey']=''
+    # params['__document']=''
+    # params['__industry']=''
+    # params['__security']=''
+    # params['__ips']='192.168.0.1,192.168.0.2'
+    # print(mc.pro_alarm_list_add(params))
 

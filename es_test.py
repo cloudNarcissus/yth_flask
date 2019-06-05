@@ -90,29 +90,29 @@ class ESClient(object):
 
         self.log = log
 
-    def search_yth_base(self, parameter):
-        self.log.debug('进入 search_yth_base 函数,%s'%parameter.return_all_members())
+    def search_yth_base(self, params):
+        self.log.debug('进入 search_yth_base 函数,%s'%params.return_all_members())
 
         # #####################过滤条件###############################
         filter_query = query.MatchAll()
         # 日期
         date_query = query.Range(_expand__to_dot=False, __connectTime={
-            'gte': parameter.query['begin_time'],
-            'lte': parameter.query['end_time'], 'format': parameter.query['format']})
+            'gte': params.query['begin_time'],
+            'lte': params.query['end_time'], 'format': params.query['format']})
         filter_query = filter_query & date_query
 
         # 行为分类
-        if '__actionType' in parameter.query:
+        if '__actionType' in params.query:
             filter_query = filter_query & query.Term(_expand__to_dot=False,
-                                                     __actionType=parameter.query['__actionType'])
+                                                     __actionType=params.query['__actionType'])
 
 
 
         # #####################查询条件###############################
         match_query = query.MatchAll()
-        if 'match_str' in parameter.query:
-            qs = parameter.query['match_str']
-            if parameter.query['exact_query']:
+        if 'match_str' in params.query:
+            qs = params.query['match_str']
+            if params.query['exact_query']:
                 qs = '\"' + qs + '\"'
             highlight_query = match_query & query.QueryString(
                         default_field="__full_query",

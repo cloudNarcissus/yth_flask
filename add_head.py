@@ -1,5 +1,6 @@
-
+import inspect
 from functools import wraps
+
 
 def addHead():
     """
@@ -9,20 +10,31 @@ def addHead():
 
     def invoke_addHead(func):
         @wraps(func)
-        def addhead(request):
-            success, result = func(request)
+        def addhead(self, params=None):
+            params = inspect.getfullargspec(func)
+
+            try:
+                if len(params) == 1:
+                    success, result = func(self)
+                elif len(params) == 2:
+                    success, result = func(self, params)
+            except Exception as e:
+                success = False
+                result = str(e)
+
             if success:
                 data = {
-                    'err': None,
+                    'message': None,
                     'data': result
                 }
             else:
                 data = {
-                    'err': result,
+                    'message': result,
                     'data': None
                 }
 
             return data
+
         return addhead
 
     return invoke_addHead
