@@ -28,6 +28,18 @@ Body:
 }
 ```
 
+    parser.add_argument('begin_time', type=str)
+    parser.add_argument('end_time', type=str)
+    parser.add_argument('time_format', type=str)
+    parser.add_argument('match_str', type=str)
+    parser.add_argument('exact_query', type=bool)
+    parser.add_argument('order', type=str)
+    parser.add_argument('orderType', type=str)
+    parser.add_argument('size', type=int, required=True)
+    parser.add_argument('from', type=int, required=True)
+    parser.add_argument('__actionType', type=str)
+    
+
 方法：POST
 
 ### 4.3查询文档数据

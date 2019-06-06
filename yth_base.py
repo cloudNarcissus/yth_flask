@@ -74,6 +74,7 @@ class ESClient(object):
 
         # #####################查询条件###############################
         match_query = query.MatchAll()
+        highlight = {}
         if params['match_str'] is not None:
             qs = params['match_str']
             if params['exact_query']:
@@ -93,19 +94,19 @@ class ESClient(object):
             )
 
         # #####################高亮内容###############################
-        highlight = {
-            "pre_tags": [
-                "<font color=\\\"red\\\">"
-            ],
-            "post_tags": [
-                "</font>"
-            ],
-            "fields": {
-                "__summary": {
-                    "highlight_query": highlight_query.to_dict()
+            highlight = {
+                "pre_tags": [
+                    "<font color=\\\"red\\\">"
+                ],
+                "post_tags": [
+                    "</font>"
+                ],
+                "fields": {
+                    "__summary": {
+                        "highlight_query": highlight_query.to_dict()
+                    }
                 }
             }
-        }
 
         # #####################聚合内容###############################
         actionType_agg = aggs.Filter(query.Bool(must_not=query.Match(_expand__to_dot=False, __actionType='')))
@@ -196,6 +197,7 @@ class ESClient(object):
 
         # #####################查询条件###############################
         match_query = query.MatchAll()
+        highlight = {}
         if params['match_str'] is not None:
             qs = params['match_str']
             if params['exact_query']:
@@ -204,8 +206,8 @@ class ESClient(object):
                 default_field="__Content-text",
                 query=qs
             )
-        # 高亮内容
-        highlight = {
+            # 高亮内容
+            highlight = {
             "pre_tags": [
                 "<font color=\\\"red\\\">"
             ],
