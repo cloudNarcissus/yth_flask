@@ -36,86 +36,6 @@ fhtime.setFormatter(logging.Formatter("%(asctime)s-%(levelname)s-%(message)s"))
 logger.addHandler(fhtime)
 
 
-# 查询参数结构体
-class Parameter(object):
-    def __init__(self):
-        self.query = dict()
-        self.query['exact_query'] = False
-        self.set_order('__connectTime', 'desc')
-
-    def list_all_members(self):
-        for name, value in vars(self).items():
-            print('%s=%s' % (name, value))
-
-    def return_all_members(self):
-        L = []
-        for name, value in vars(self).items():
-            L.append('%s=%s' % (name, value))
-        return L
-
-    def set_time(self, begin, end, time_format=None):
-        # 输入时间段、时间格式，时间格式默认为yyyy-MM-dd
-        self.query['begin_time'] = begin
-        self.query['end_time'] = end
-        self.query['format'] = 'yyyy-MM-dd'
-        if format is not None:
-            self.query['time_format'] = time_format
-        self.query['exact_query'] = False
-
-    def set_from_size(self, from_, size):
-        self.query['from'] = from_
-        self.query['size'] = size
-
-    def set_match_str(self, qstr):
-        # 输入查询语句框内查询内容
-        self.query['match_str'] = qstr
-
-    def set_order(self, order, orderType):
-        """
-        当前有按挖掘时间 和 默认 相关度打分模式
-        :param order:  按时间填写字符串 __connectTime， 默认填写 __bornTime
-        :return:
-        """
-        self.query['order'] = order
-        self.query['orderType'] = orderType
-
-    # 行为分类#http,im,netdisk,email,filetransfer,other,csmp,docaudit,website
-    def set_actionType(self, actionType):
-        self.query['__actionType'] = actionType
-
-    # 平台
-    def set_platform(self, platform):
-        self.query['__platform'] = platform
-
-    def set_industry(self, industry):
-        # 输入行业名称，参数为list格式
-        if isinstance(industry, list) is False:
-            print("industry input must be list!!")
-        self.query['__industry'] = industry
-
-    def set_document(self, document):
-        # 输入版式名称
-        self.query['__document'] = document
-
-    def set_security(self, security):
-        # 输入密级
-        self.query['__security'] = security
-
-    def set_alarm_key(self, alarmkey):
-        # 输入关键词，参数为list
-        if isinstance(alarmkey, list) is False:
-            print("alarmkey input must be list")
-        self.query['__alarmKey'] = alarmkey
-
-    def set_exact_query(self, exact_query):
-        # 输入是否是精确语法查找,是为true，否为false
-        self.query['exact_query'] = exact_query
-
-    def set_extention(self, extention):
-        # 输入扩展名
-        self.query['extention'] = extention
-
-
 # ES操作
 class ESClient(object):
     conf = None
@@ -136,25 +56,25 @@ class ESClient(object):
         # #####################过滤条件###############################
         filter_query = query.MatchAll()
         # 日期
-        if 'begin_time' in params and 'end_time' in params:
+        if params['begin_time'] is not None and params['end_time'] is not None:
             date_query = query.Range(_expand__to_dot=False, __connectTime={
                 'gte': params['begin_time'],
                 'lte': params['end_time'], 'format': params['time_format']})
             filter_query = filter_query & date_query
 
         # 行为类型
-        if '__actionType' in params:
+        if params['__actionType'] is not None:
             filter_query = filter_query & query.Term(_expand__to_dot=False,
                                                      __actionType=params['__actionType'])
 
         # 平台
-        # if '__platform' in params:
+        # if params['__platform'] is not None:
         #     filter_query = filter_query & query.Term(_expand__to_dot=False,
         #                                              __actionType=params['__platform'])
 
         # #####################查询条件###############################
         match_query = query.MatchAll()
-        if 'match_str' in params:
+        if params['match_str'] is not None:
             qs = params['match_str']
             if params['exact_query']:
                 qs = '\"' + qs + '\"'
@@ -204,7 +124,7 @@ class ESClient(object):
 
         # 排序  按接入时间或采集时间排序
         sort = []
-        if 'order' in params:
+        if params['order'] is not None:
             if params['order'] == '__connectTime':
                 self.log.debug('按接入时间排序')
                 sort = [
@@ -249,34 +169,34 @@ class ESClient(object):
         # #####################过滤条件###############################
         filter_query = query.MatchAll()
         # 日期
-        if 'begin_time' in params and 'end_time' in params:
+        if params['begin_time'] is not None and params['end_time'] is not None:
             date_query = query.Range(_expand__to_dot=False, __connectTime={
                 'gte': params['begin_time'],
-                'lte': params['end_time'], 'format': params['format']})
+                'lte': params['end_time'], 'format': params.get('time_format','yyyy-MM-dd')})
             filter_query = filter_query & date_query
 
         # 文档md5（这在行为中，快速预览的时候查单条会用到）
         md5 = None
-        if '__md5' in params:
+        if params['__md5'] is not None and params['__md5'] is not None:
             md5 = params['__md5']
             filter_query = filter_query & query.Term(_expand__to_dot=False, __md5=md5)
 
         # 密级分类
-        if '__security' in params:
+        if params['__security'] is not None:
             filter_query = filter_query & query.Term(_expand__to_dot=False, __security=params['__security'])
 
         # 公文版式
-        if '__document' in params:
+        if params['__document'] is not None:
             filter_query = filter_query & query.Term(_expand__to_dot=False, __document=params['__document'])
 
         # 行业分类
-        if '__industry' in params:
+        if params['__industry'] is not None:
             for v in params['__industry']:
                 filter_query = filter_query & query.Match(_expand__to_dot=False, __industry=v)
 
         # #####################查询条件###############################
         match_query = query.MatchAll()
-        if 'match_str' in params:
+        if params['match_str'] is not None:
             qs = params['match_str']
             if params['exact_query']:
                 qs = '\"' + qs + '\"'
@@ -300,7 +220,7 @@ class ESClient(object):
         }
 
         # 平台
-        if '_platform' in params:
+        if params['_platform'] is not None:
             match_query = match_query & query.QueryString(
                 default_field="_platforms",
                 query=params['_platform']
@@ -308,7 +228,7 @@ class ESClient(object):
 
         # 关键词(嵌套文档查询)
         __alarmKey_list = []
-        if '__alarmKey' in params:
+        if params['__alarmKey'] is not None:
             for keyword in params['__alarmKey']:
                 __alarmKey_list.append({"term": {"__alarmKey.__keyword": keyword}})
 
@@ -348,7 +268,7 @@ class ESClient(object):
 
         # 排序  按接入时间或涉密风险值排序
         sort = []
-        if 'order' in params:
+        if params['order'] is not None:
             if params['order'] == '__connectTime':
                 self.log.debug('按接入时间排序')
                 sort = [
@@ -457,7 +377,7 @@ class ESClient(object):
                               _source_exclude=['__Content-text'],  # 返回内容不包含全文
                               )
 
-    # -------------------------关注或者取消关注------------------------
+    # --------------------关注或者取消关注-----------------------------------
     @addHead()
     def update_interested(self, params):
 
@@ -491,20 +411,20 @@ class ESClient(object):
             self.log.error('更新关注数据,some error')
             return False, '更新关注数据,some error'
 
-    # ----------------快速预览中，若遇到rar或者嵌套文件，则查询其子文件（传入md5查询子记录)-------------
+    # --------------------快速预览的文件树-----------------------------------
     @addHead()
     def query_yth_rarchildren(self, params):
         """
-
-        :param rootmd5:根文件的md5
+        若该文件有父节点，则说明该文件是rar或者嵌套文件的子文件，则查询其父的所有子文件（传入md5查询子记录)
+        :param __md5:子文件的md5
         :return:
         """
 
-        rootmd5 = params['rootmd5']
+        __rootmd5 = params['__rootmd5']
 
         self.log.debug('进入 query_yth_rarchildren 函数，查询根文件下面的子文件')
 
-        filter_query = query.Term(_expand__to_dot=False, __rootmd5=rootmd5)
+        filter_query = query.Term(_expand__to_dot=False, __rootmd5=__rootmd5)
         body = {
             "query": {
                 "bool": {
@@ -513,10 +433,17 @@ class ESClient(object):
             }
         }
 
-        self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
-        return True, self.es.search('yth_rarchildren', 'mytype', body, size=10)
+        self.log.debug('使用查询语句:{0}，从yth_fileana和yth_raroot中搜索数据'.format(body))
+        children = self.es.search('yth_fileana', 'mytype', body, size=10)
+        root = self.es.search('yth_raroot', 'mytype', body, size=1)
+        result = {
+            "root":root,
+            "children":children
+        }
 
-    # -------------------------查询某个MD5的yth_base记录-------------------------------------------
+        return True,result
+
+    # -------------------------查询某个MD5的yth_base记录----------------------------------------
     def query_yth_base_by_md5(self, __md5, __connectTime=None):
         self.log.debug('进入 query_yth_base_by_md5 函数，查询MD5：%s的行为记录' % __md5)
 
@@ -639,7 +566,7 @@ class ESClient(object):
         else:
             return False, 'fun_alarm_list_exists(%s) error' % __md5
 
-    # -------------------------查询相似文档------------------------------------------------------
+    # -------------------------查询相似文档-----------------------------------------------------
     @addHead()
     def search_sim_doc(self, params):
         self.log.debug('进入 search_sim_doc 函数')
@@ -682,7 +609,7 @@ class SearchYthBase(Resource):
     parser.add_argument('end_time', type=str)
     parser.add_argument('time_format', type=str)
     parser.add_argument('match_str', type=str)
-    parser.add_argument('exact_query', type=int)
+    parser.add_argument('exact_query', type=bool)
     parser.add_argument('order', type=str)
     parser.add_argument('orderType', type=str)
     parser.add_argument('size', type=int, required=True)
@@ -704,11 +631,11 @@ class SearchYthFileana(Resource):
     parser.add_argument('__md5', type=str)
     parser.add_argument('__security', type=str)
     parser.add_argument('__document', type=str)  # 公文
-    parser.add_argument('__industry', type=str)  # 行业(list)
+    parser.add_argument('__industry', type=list)  # 行业(list)
     parser.add_argument('match_str', type=str)
-    parser.add_argument('exact_query', type=int)
+    parser.add_argument('exact_query', type=bool)
     parser.add_argument('_platform', type=int)
-    parser.add_argument('__alarmKey', type=str)  # 关键字list
+    parser.add_argument('__alarmKey', type=list)  # 关键字list
     parser.add_argument('order', type=str)
     parser.add_argument('orderType', type=str)
     parser.add_argument('size', type=int, required=True)
@@ -725,6 +652,7 @@ class AddAlarmToList(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('index_id', type=str, required=True)
     parser.add_argument('__md5', type=str, required=True)
+    parser.add_argument('__alarmSour', type=int, required=True)
 
     def post(self):
         es_client = ESClient(config_path, logger)
@@ -775,7 +703,7 @@ class Interested(Resource):
 @api.resource('/v1.0/rarchildren/')
 class RarChildren(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('rootmd5', type=str)
+    parser.add_argument('__rootmd5', type=str)
 
     def post(self):
         es_client = ESClient(config_path, logger)

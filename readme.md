@@ -84,7 +84,7 @@ Url:/v1.0/rarchildren/
 
 方法：post
 
-('rootmd5', type=str)
+('__rootmd5', type=str)
 
 ### 4.6在文档页面，加入告警
 
@@ -98,7 +98,7 @@ Url:/v1.0/fileana/alarm
 
 “__md5”:文件md5
 
-“__alarmSour”：后台填1  手动填2
+“__alarmSour”：后台填1  手动UI填2
 
 }
 

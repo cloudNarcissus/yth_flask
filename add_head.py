@@ -11,12 +11,12 @@ def addHead():
     def invoke_addHead(func):
         @wraps(func)
         def addhead(self, params=None):
-            params = inspect.getfullargspec(func)
+            params_ = inspect.getfullargspec(func)[0]
 
             try:
-                if len(params) == 1:
+                if len(params_) == 1:
                     success, result = func(self)
-                elif len(params) == 2:
+                elif len(params_) == 2:
                     success, result = func(self, params)
             except Exception as e:
                 success = False
