@@ -418,32 +418,39 @@ class ESClient(object):
     def query_yth_rarchildren(self, params):
         """
         若该文件有父节点，则说明该文件是rar或者嵌套文件的子文件，则查询其父的所有子文件（传入md5查询子记录)
-        :param __md5:子文件的md5
+        :param __md5:子文件的md5   __rootmd5:根节点md5列表（1个或若干个）
         :return:
         """
-
-        __rootmd5 = params['__rootmd5']
-
         self.log.debug('进入 query_yth_rarchildren 函数，查询根文件下面的子文件')
 
-        filter_query = query.Term(_expand__to_dot=False, __rootmd5=__rootmd5)
-        body = {
-            "query": {
-                "bool": {
-                    "filter": filter_query.to_dict()
+        __rootmd5s = params['__rootmd5s']
+
+        forest = [] #森林（多棵树）
+
+        for __rootmd5 in __rootmd5s:
+            body = {
+                "query": {
+                    "bool": {
+                        "must": [
+                            {"term":
+                                {
+                                    "__rootmd5": {"value": __rootmd5}
+                                }
+                            }
+
+                        ]
+                    }
                 }
             }
-        }
+            root = self.es.search('yth_raroot', 'mytype', body, size=1)
+            children = self.es.search('yth_fileana', 'mytype', body, size=10)
+            tree = {
+                "root": root,
+                "children": children
+            }
+            forest.append(tree)
 
-        self.log.debug('使用查询语句:{0}，从yth_fileana和yth_raroot中搜索数据'.format(body))
-        children = self.es.search('yth_fileana', 'mytype', body, size=10)
-        root = self.es.search('yth_raroot', 'mytype', body, size=1)
-        result = {
-            "root":root,
-            "children":children
-        }
-
-        return True,result
+        return True,forest
 
     # -------------------------查询某个MD5的yth_base记录----------------------------------------
     def query_yth_base_by_md5(self, __md5, __connectTime=None):
@@ -705,7 +712,7 @@ class Interested(Resource):
 @api.resource('/v1.0/rarchildren/')
 class RarChildren(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('__rootmd5', type=str)
+    parser.add_argument('__rootmd5s', type=str)
 
     def post(self):
         es_client = ESClient(config_path, logger)

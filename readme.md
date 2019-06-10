@@ -96,7 +96,9 @@ Url:/v1.0/rarchildren/
 
 方法：post
 
-('__rootmd5', type=str)
+('__rootmd5s', type=str) 
+
+注意：__rootmd5s不止一个md5，这是多个md5构成的列表（数组），每一个root对应一棵树
 
 ### 4.6在文档页面，加入告警
 
@@ -208,7 +210,14 @@ __md5
 
 
 
+### 4.11 处置告警
+url : '/v1.0/alarmlist/cz'
 
+参数：
+
+cz_status ：  PASS：处置为正常  JIMI:处置为机密 MIMI:处置为秘密  JUEMI：处置为绝密
+
+__md5:文档md5
 
 
 
