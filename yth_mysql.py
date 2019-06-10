@@ -221,6 +221,7 @@ class mysqlConnect(object):
             cur.close()
             conn.close()
 
+    @addHead()
     def pro_alarm_list_query(self, params):
         """
         查询告警清单
@@ -395,12 +396,12 @@ class AlarmList(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('begin_day', type=str, required=True)
         parser.add_argument('end_day', type=str, required=True)
-        parser.add_argument('alarmlevel_query', type=str, required=True)
-        parser.add_argument('fulltext_query', type=str, required=True)
-        parser.add_argument('platform', type=int, required=True)
-        parser.add_argument('__alarmSour', type=int, required=True)
-        parser.add_argument('cz_status', type=int, required=True)
-        parser.add_argument('_interested', type=int, required=True)
+        parser.add_argument('alarmlevel_query', type=str)
+        parser.add_argument('fulltext_query', type=str)
+        parser.add_argument('platform', type=int)
+        parser.add_argument('__alarmSour', type=int)
+        parser.add_argument('cz_status', type=int)
+        parser.add_argument('_interested', type=int)
         parser.add_argument('orderby', type=str, required=True)
         parser.add_argument('page_capa', type=int, required=True)
         parser.add_argument('page_num', type=int, required=True)
