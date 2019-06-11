@@ -307,7 +307,7 @@ class mysqlConnect(object):
             conn.close()
 
     @addHead()
-    def pro_action_list_cz(self,params):
+    def pro_alarm_list_cz(self,params):
         """
         加入告警行为表（子表）
         :param params:
@@ -323,7 +323,7 @@ class mysqlConnect(object):
         try:
 
             cur = conn.cursor()
-            sql = 'call pro_action_list_cz'
+            sql = 'call pro_alarm_list_cz'
             sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
                 params.get('__md5'),
                 params.get('cz_status'),
@@ -434,7 +434,7 @@ class AlarmListcz(Resource):
 
         mc = mysqlConnect(config_path, logger)
         params = parser.parse_args(strict=True)
-        return mc.pro_alarm_list_query(params)
+        return mc.pro_alarm_list_cz(params)
 
 
 @api.resource('/v1.0/alarmlist/left/')
