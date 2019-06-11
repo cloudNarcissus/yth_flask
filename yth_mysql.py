@@ -412,6 +412,47 @@ class mysqlConnect(object):
 
 
 
+    # ------------------- 告警中心的统计 ---------------------
+
+    def pro_tj_action_list_cz(self, params):
+        """
+        统计处置告警数
+        :param params: 参数字典
+        :return: 
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_tj_action_list_cz'
+            # 构造(%s,%s,...)
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+                params.get('begin_day'),
+                params.get('end_day'),
+            )
+
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+
+
+
+
 @api.resource('/v1.0/dict/')
 class Dict(Resource):
     '''
@@ -455,6 +496,25 @@ class AlarmListLeft(Resource):
         mc = mysqlConnect(config_path, logger)
         params = parser.parse_args(strict=True)
         return mc.pro_alarm_list_left(params)
+
+
+@api.resource('/v1.0/alarmlist/cz/tj')
+class AlarmListcztj(Resource):
+    '''
+    统计处置数量
+    '''
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('begin_day', type=str, required=True)
+        parser.add_argument('end_day', type=str, required=True)
+
+
+
+        mc = mysqlConnect(config_path, logger)
+        params = parser.parse_args(strict=True)
+        return mc.pro_tj_action_list_cz(params)
+
 
 
 @api.resource('/v1.0/alarmlist/')
