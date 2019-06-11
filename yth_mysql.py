@@ -422,7 +422,7 @@ class Dict(Resource):
         return mc.pro_dict_query()
 
 @api.resource('/v1.0/alarmlist/cz')
-class AlarmList(Resource):
+class AlarmListcz(Resource):
     '''
     处置告警清单
     '''
