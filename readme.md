@@ -227,4 +227,11 @@ url： /v1.0/alarmlist/tj
 
 参数：
 
+起始日期
+
+parser.add_argument('begin_day', type=str, required=True)
+
+结束时间 
+
+parser.add_argument('end_day', type=str, required=True)
 

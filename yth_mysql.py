@@ -481,7 +481,7 @@ class mysqlConnect(object):
             cur.close()
             conn.close()
 
-    # 3. 统计违规条目（违规的alarm数目）以及红点（未读的action）
+    # 3. 统计告警等级
     def pro_tj_alarm_list_level(self,params):
         cur = None
         conn, conn_err = self._connect('utf8')
@@ -512,8 +512,8 @@ class mysqlConnect(object):
             cur.close()
             conn.close()
 
-    # 4. 统计告警来源
-    def pro_tj_alarm_list_platform(self,params):
+    # 4. 统计行为类型actiontype
+    def pro_tj_action_list_actiontype(self,params):
         cur = None
         conn, conn_err = self._connect('utf8')
 
@@ -611,10 +611,10 @@ class AlarmListLeft(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('begin_day', type=str, required=True)
         parser.add_argument('end_day', type=str, required=True)
-        parser.add_argument('alarmlevel_query', type=str, required=True)
-        parser.add_argument('fulltext_query', type=str, required=True)
-        parser.add_argument('platform', type=int, required=True)
-        parser.add_argument('__alarmSour', type=int, required=True)
+        parser.add_argument('alarmlevel_query', type=str)
+        parser.add_argument('fulltext_query', type=str)
+        parser.add_argument('platform', type=int)
+        parser.add_argument('__alarmSour', type=int)
 
         mc = mysqlConnect(config_path, logger)
         params = parser.parse_args(strict=True)
