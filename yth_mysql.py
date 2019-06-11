@@ -414,7 +414,8 @@ class mysqlConnect(object):
 
     # ------------------- 告警中心的统计 ---------------------
 
-    def pro_tj_action_list_cz(self, params):
+    # 1. 统计处置数量
+    def pro_tj_alarm_list_cz(self, params):
         """
         统计处置告警数
         :param params: 参数字典
@@ -430,7 +431,7 @@ class mysqlConnect(object):
         try:
 
             cur = conn.cursor()
-            sql = 'call pro_tj_action_list_cz'
+            sql = 'call pro_tj_alarm_list_cz'
             # 构造(%s,%s,...)
             sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
                 params.get('begin_day'),
@@ -449,7 +450,129 @@ class mysqlConnect(object):
             cur.close()
             conn.close()
 
+    # 2. 统计违规条目（违规的alarm数目）以及红点（未读的action）
+    def pro_tj_alarm_list_weigui(self,params):
+        cur = None
+        conn, conn_err = self._connect('utf8')
 
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_tj_alarm_list_weigui'
+            # 构造(%s,%s,...)
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+                params.get('begin_day'),
+                params.get('end_day'),
+            )
+
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    # 3. 统计违规条目（违规的alarm数目）以及红点（未读的action）
+    def pro_tj_alarm_list_level(self,params):
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_tj_alarm_list_level'
+            # 构造(%s,%s,...)
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+                params.get('begin_day'),
+                params.get('end_day'),
+            )
+
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    # 4. 统计告警来源
+    def pro_tj_alarm_list_platform(self,params):
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_tj_alarm_list_platform'
+            # 构造(%s,%s,...)
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+                params.get('begin_day'),
+                params.get('end_day'),
+            )
+
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    # 综合：将几个统计结果集都集成起来
+    @addHead()
+    def pro_tj_alarm_list_center(self,params):
+        result = {}
+
+        result1 = self.pro_tj_alarm_list_cz(params)
+        if result1[0]:
+            result["cz"] = result1[1]
+        else:
+            result["cz"] = "error"
+
+        result1 = self.pro_tj_alarm_list_weigui(params)
+        if result1[0]:
+            result["weigui"] = result1[1]
+        else:
+            result["weigui"] = "error"
+
+        result1 = self.pro_tj_alarm_list_level(params)
+        if result1[0]:
+            result["level"] = result1[1]
+        else:
+            result["level"] = "error"
+
+        result1 = self.pro_tj_alarm_list_platform(params)
+        if result1[0]:
+            result["platform"] = result1[1]
+        else:
+            result["platform"] = "error"
+
+        return True,result
 
 
 
@@ -498,23 +621,18 @@ class AlarmListLeft(Resource):
         return mc.pro_alarm_list_left(params)
 
 
-@api.resource('/v1.0/alarmlist/cz/tj')
-class AlarmListcztj(Resource):
+@api.resource('/v1.0/alarmlist/tj')
+class AlarmListtj(Resource):
     '''
     统计处置数量
     '''
-
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('begin_day', type=str, required=True)
         parser.add_argument('end_day', type=str, required=True)
-
-
-
         mc = mysqlConnect(config_path, logger)
         params = parser.parse_args(strict=True)
-        return mc.pro_tj_action_list_cz(params)
-
+        return mc.pro_tj_alarm_list_center(params)
 
 
 @api.resource('/v1.0/alarmlist/')

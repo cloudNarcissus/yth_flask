@@ -6,10 +6,12 @@ app = Flask(__name__)
 api = Api(app)
 
 
-# def error500(e):
-#     return jsonify({
-#         'message': repr(e)
-#     }), 500
-#
-#
-# api.handle_error = error500
+def error_handler(e):
+    print(repr(e))
+    return jsonify({
+        'message': e.description
+    }), e.code
+
+
+app.register_error_handler(500, error_handler)
+app.register_error_handler(404, error_handler)

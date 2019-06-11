@@ -253,8 +253,6 @@ class ESClient(object):
         }
 
         # 聚合内容
-        alarm_agg = aggs.Filter(query.Bool(must_not=query.Match(_expand__to_dot=False, __alarmKey='')))
-        alarm_agg.bucket('alarm', 'terms', field='__alarmKey', size=50)
 
         document_agg = aggs.Filter(query.Bool(must_not=query.Match(_expand__to_dot=False, __document='')))
         document_agg.bucket('document', 'terms', field='__document', size=20)
@@ -296,7 +294,6 @@ class ESClient(object):
 
         body = {
             "aggs": {
-                "alarmKey": alarm_agg.to_dict(),
                 "document": document_agg.to_dict(),
                 "industry": industry_agg.to_dict(),
                 "security": security_agg.to_dict(),
