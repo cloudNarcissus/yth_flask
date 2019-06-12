@@ -93,7 +93,7 @@ class ESClient(object):
                 )
             )
 
-        # #####################高亮内容###############################
+            # #####################高亮内容###############################
             highlight = {
                 "pre_tags": [
                     "<font color=\\\"red\\\">"
@@ -173,7 +173,7 @@ class ESClient(object):
         if params['begin_time'] is not None and params['end_time'] is not None:
             date_query = query.Range(_expand__to_dot=False, __connectTime={
                 'gte': params['begin_time'],
-                'lte': params['end_time'], 'format': params.get('time_format','yyyy-MM-dd')})
+                'lte': params['end_time'], 'format': params.get('time_format', 'yyyy-MM-dd')})
             filter_query = filter_query & date_query
 
         # 文档md5（这在行为中，快速预览的时候查单条会用到）
@@ -208,18 +208,18 @@ class ESClient(object):
             )
             # 高亮内容
             highlight = {
-            "pre_tags": [
-                "<font color=\\\"red\\\">"
-            ],
-            "post_tags": [
-                "</font>"
-            ],
-            "fields": {
-                "__Content-text": {
-                    "highlight_query": match_query.to_dict()
+                "pre_tags": [
+                    "<font color=\\\"red\\\">"
+                ],
+                "post_tags": [
+                    "</font>"
+                ],
+                "fields": {
+                    "__Content-text": {
+                        "highlight_query": match_query.to_dict()
+                    }
                 }
             }
-        }
 
         # 平台
         if params['_platform'] is not None:
@@ -229,10 +229,10 @@ class ESClient(object):
             )
 
         # 关键词(嵌套文档查询)
-        __alarmKey_list = []
+        alarmKey_list = []
         if params['__alarmKey'] is not None:
             for keyword in params['__alarmKey']:
-                __alarmKey_list.append({"term": {"__alarmKey.__keyword": keyword}})
+                alarmKey_list.append({"term": {"__alarmKey.__keyword": keyword}})
 
         # 查询语句
         all_query = {
@@ -420,18 +420,18 @@ class ESClient(object):
         """
         self.log.debug('进入 query_yth_rarchildren 函数，查询根文件下面的子文件')
 
-        __rootmd5s = params['__rootmd5s']
+        rootmd5s = params['__rootmd5s']
 
-        forest = [] #森林（多棵树）
+        forest = []  # 森林（多棵树）
 
-        for __rootmd5 in __rootmd5s:
+        for rootmd5 in rootmd5s:
             body = {
                 "query": {
                     "bool": {
                         "must": [
                             {"term":
                                 {
-                                    "__rootmd5": {"value": __rootmd5}
+                                    "__rootmd5": {"value": rootmd5}
                                 }
                             }
 
@@ -447,16 +447,16 @@ class ESClient(object):
             }
             forest.append(tree)
 
-        return True,forest
+        return True, forest
 
     # -------------------------查询某个MD5的yth_base记录----------------------------------------
-    def query_yth_base_by_md5(self, __md5, __connectTime=None):
-        self.log.debug('进入 query_yth_base_by_md5 函数，查询MD5：%s的行为记录' % __md5)
+    def query_yth_base_by_md5(self, md5, connectTime=None):
+        self.log.debug('进入 query_yth_base_by_md5 函数，查询MD5：%s的行为记录' % md5)
 
-        filter_query = query.Term(_expand__to_dot=False, __md5=__md5)
+        filter_query = query.Term(_expand__to_dot=False, __md5=md5)
 
-        if '__connectTime' is not None:
-            date_query = query.Range(_expand__to_dot=False, __connectTime={'gt': __connectTime})
+        if connectTime is not None:
+            date_query = query.Range(_expand__to_dot=False, __connectTime={'gt': connectTime})
             filter_query = filter_query & date_query
 
         body = {
@@ -481,12 +481,12 @@ class ESClient(object):
     def add_alarm_list(self, params):
 
         index_id = params['index_id']
-        __md5 = params['__md5']
-        __alarmSour = params['__alarmSour']
+        md5 = params.get('__md5')
+        alarmSour = params['__alarmSour']
 
-        def query_yth_base_then_insert_alarm_list(__md5, __connectTime, redPoint):
+        def query_yth_base_then_insert_action_list(md5, connectTime, redPoint):
             # 先查询 yth_base，然后入action_list
-            action_dict = self.query_yth_base_by_md5(__md5, __connectTime)
+            action_dict = self.query_yth_base_by_md5(md5, connectTime)
             action_count = action_dict.get('hits').get('total')
             if action_count > 0:
                 action_list = action_dict.get('hits').get('hits')
@@ -503,15 +503,15 @@ class ESClient(object):
                     mc.pro_action_list_add(params_dict)
             return True, ''
 
-        def add_alarm_list(__alarmSour):
+        def add_alarm_list(alarmSour):
             if self.es.exists(index='yth_fileana', doc_type='mytype', id=index_id):
-                es_doc = self.es.get(index='yth_fileana', doc_type='mytype', id=index_id)
+                es_doc = self.es.get(index='yth_fileana', doc_type='mytype', id=index_id).get('_source')
                 params_dict = {'yth_fileana_id': index_id, '__md5': es_doc['__md5'],
                                '__connectTime': es_doc['__connectTime'], '__title': es_doc['FileName'],
-                               '__alarmLevel': 5, '__alarmSour': __alarmSour, 'summary': es_doc['file_summary'],
+                               '__alarmLevel': 5, '__alarmSour': alarmSour, 'summary': es_doc['file_summary'],
                                '__alarmKey': es_doc['__alarmKey'], '__document': es_doc['__document'],
                                '__industry': es_doc['__industry'], '__security': es_doc['__security'],
-                               '__ips': es_doc['__ips']}
+                               '__ips': es_doc.get('__ips',None)}
                 # 入库alarm_list
                 result = mc.pro_alarm_list_add(params_dict)
             else:
@@ -535,42 +535,48 @@ class ESClient(object):
 
         # 判断alarm_list中是否存在
         mc = yth_mysql.mysqlConnect(config_path, logger)
-        err, exists = mc.fun_alarm_list_exists(__md5)
-        if err == 0:
+        err, exists = mc.fun_alarm_list_exists(md5)
+        if err:
             if exists == 0:  # 不存在
                 self.log.debug('查询yth_fileana，并将结果导入alarm_list')
-                result = add_alarm_list(__alarmSour)
+                result = add_alarm_list(alarmSour)
                 if result[0]:
                     # 先查询 yth_base，然后入action_list
-                    query_yth_base_then_insert_alarm_list(__md5, None, False)
+                    if not query_yth_base_then_insert_action_list(md5, None, False)[0]:
+                        self.log.error('入库insert_action_list失败')
+                        return False, '入库insert_action_list失败'
                 else:
                     self.log.error('入库pro_alarm_list_add失败')
                     return False, '入库pro_alarm_list_add失败'
 
             elif exists == 2:  # 存在且被判定为违规
                 # 获取上次时间
-                result = mc.fun_action_list_getLastTime(__md5)
+                result = mc.fun_action_list_getLastTime(md5)
                 if result[0]:
                     # 先查询 yth_base，然后入action_list
-                    query_yth_base_then_insert_alarm_list(__md5, result[1], True)
+                    if not query_yth_base_then_insert_action_list(md5, result[1], True)[0]:
+                        self.log.error('入库insert_action_list失败')
+                        return False, '入库insert_action_list失败'
                 else:
-                    return False, '存在且被判定为违规,fun_action_list_getLastTime(%s) error' % __md5
+                    return False, '存在且被判定为违规,fun_action_list_getLastTime(%s) error' % md5
             elif exists == 1:  # 存在，但未被判定为违规
                 # 获取上次时间
-                result = mc.fun_action_list_getLastTime(__md5)
+                result = mc.fun_action_list_getLastTime(md5)
                 if result[0]:
                     # 先查询 yth_base，然后入action_list
-                    query_yth_base_then_insert_alarm_list(__md5, result[1], False)
+                    if not query_yth_base_then_insert_action_list(md5, result[1], False)[0]:
+                        self.log.error('入库insert_action_list失败')
+                        return False, '入库insert_action_list失败'
                 else:
-                    return False, '存在，但未被判定为违规,fun_action_list_getLastTime(%s) error' % __md5
+                    return False, '存在，但未被判定为违规,fun_action_list_getLastTime(%s) error' % md5
 
             # 手动加入告警列表以后，要把状态变为“已加入告警”; 注意自动加入告警的，是直接写的时候就把alarmed=true的
-            if __alarmSour == 2:
-                update_yth_fileana_alarmed(index_id)
+            if alarmSour == 2:
+                return update_yth_fileana_alarmed(index_id)
 
 
         else:
-            return False, 'fun_alarm_list_exists(%s) error' % __md5
+            return False, 'fun_alarm_list_exists(%s) error' % md5
 
     # -------------------------查询相似文档-----------------------------------------------------
     @addHead()
@@ -578,7 +584,7 @@ class ESClient(object):
         self.log.debug('进入 search_sim_doc 函数')
 
         index_id = params['index_id']
-        __md5 = params['__md5']
+        md5 = params['__md5']
 
         from stop_list_sim import stop_list
         q = query.MoreLikeThis(
@@ -600,7 +606,7 @@ class ESClient(object):
         )
 
         body = {
-            'query': query.Bool(must=q.to_dict(), must_not=query.Match(_expand__to_dot=False, __MD5=__md5)).to_dict()
+            'query': query.Bool(must=q.to_dict(), must_not=query.Match(_expand__to_dot=False, __MD5=md5)).to_dict()
         }
 
         logging.debug('使用查询语句:{0}，从es中搜索文档相似数据数据'.format(body))
@@ -653,7 +659,7 @@ class SearchYthFileana(Resource):
         return es_client.search_yth_fileana(params)
 
 
-@api.resource('/v1.0/fileana/alarm')
+@api.resource('/v1.0/fileana/alarm/')
 class AddAlarmToList(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('index_id', type=str, required=True)
@@ -666,7 +672,7 @@ class AddAlarmToList(Resource):
         return es_client.add_alarm_list(params)
 
 
-@api.resource('/v1.0/fileana/simdoc')
+@api.resource('/v1.0/fileana/simdoc/')
 class GetSimDoc(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('index_id', type=str, required=True)

@@ -142,7 +142,7 @@ class mysqlConnect(object):
             sql = '''select fun_alarm_list_exists('%s')'''%__md5
             cur.execute(sql)
             result = cur.fetchall()
-            return True, result
+            return True, result[0][0]
         except Exception as e:
             err = self._get_exception_msg(e)
             return False, err
@@ -168,7 +168,7 @@ class mysqlConnect(object):
             sql = '''select fun_action_list_getLastTime('%s')''' % __md5
             cur.execute(sql)
             result = cur.fetchall()
-            return True, result
+            return True, result[0][0]
         except Exception as e:
             err = self._get_exception_msg(e)
             return False, err
@@ -245,7 +245,7 @@ class mysqlConnect(object):
                 params.get('end_day'),
                 params.get('alarmlevel_query'),
                 params.get('fulltext_query'),
-                params.get('platform'),
+                params.get('actiontype'),
                 params.get('__alarmSour'),
                 params.get('cz_status'),
                 params.get('_interested'),
@@ -524,7 +524,7 @@ class mysqlConnect(object):
         try:
 
             cur = conn.cursor()
-            sql = 'call pro_tj_alarm_list_platform'
+            sql = 'call pro_tj_action_list_actiontype'
             # 构造(%s,%s,...)
             sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
                 params.get('begin_day'),
@@ -566,7 +566,7 @@ class mysqlConnect(object):
         else:
             result["level"] = "error"
 
-        result1 = self.pro_tj_alarm_list_platform(params)
+        result1 = self.pro_tj_action_list_actiontype(params)
         if result1[0]:
             result["platform"] = result1[1]
         else:

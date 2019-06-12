@@ -155,9 +155,31 @@ alarmlevel_query  varchar(10), -- 等于5：=5  大于3：>=3  等于全部：''
 
 fulltext_query text, -- 关键字查询
 
-platform  int,  -- 0全部  1234    这个字段就是页面上的告警分类
+actiontype  char(20),  -- 
+'' 全部   行为类型  代替 “来源”
 
-__alarmSour int,  -- 告警来源0:全部 1：告警模型  2：手动加入
+ /*
+
+http	056-网页发布  
+
+im	056-即时通讯
+
+netdisk	056-网盘
+
+email	056-电子邮件
+
+filetransfer	056-文件传输
+
+other	056-其他
+
+csmp	三合一
+
+docaudit	文档审计
+
+website	门户网站
+*/
+
+__alarmSour int,  -- 告警来源 代替告警产生  0:全部 1：告警模型  2：手动加入
 
 cz_status  int , -- 1:待处置 2：已处置  3：违规  0:无此查询
 
