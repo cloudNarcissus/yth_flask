@@ -243,7 +243,7 @@ class ESClient(object):
                              "path": "__alarmKey",
                              "query": {
                                  "bool": {
-                                     "should": __alarmKey_list
+                                     "should": alarmKey_list
                                  }
                              }
                          }}
@@ -522,7 +522,8 @@ class ESClient(object):
         def update_yth_fileana_alarmed(index_id):
             body = {
                 'doc': {
-                    '_alarmed': True
+                    '_alarmed': True,
+                    '__alarmLevel':5  # 手动加入的告警都是5级
                 }
             }
             self.log.debug('更新告警数据，语句为{0}'.format(body))
