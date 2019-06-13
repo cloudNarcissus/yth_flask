@@ -143,6 +143,14 @@ class ESClient(object):
                         }
                     }]
 
+        sort.append(
+            {
+                "_id": {
+                    "order": "asc"
+                }
+            }
+        )
+
         # 查询、聚合,总体组合
         body = {
             "aggs": {
@@ -291,6 +299,14 @@ class ESClient(object):
                         }
                     }
                 ]
+
+        sort.append(
+            {
+                "_id": {
+                    "order": "asc"
+                }
+            }
+        )
 
         body = {
             "aggs": {
