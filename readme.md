@@ -260,3 +260,16 @@ parser.add_argument('begin_day', type=str, required=True)
 
 parser.add_argument('end_day', type=str, required=True)
 
+
+post
+
+
+### 4.13 查询处置历史清单
+
+url: /v1.0/czlist/
+
+
+参数：__md5 
+
+
+方法：post
