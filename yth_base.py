@@ -397,8 +397,8 @@ class ESClient(object):
 
         body = {
             'doc': {
-                'interested': interested_or_cancel,
-                'interested_time': timestr
+                '_interested': interested_or_cancel,
+                '_interested_time': timestr
             }
         }
 
@@ -687,25 +687,23 @@ class GetSimDoc(Resource):
 
 @api.resource('/v1.0/interested/')
 class Interested(Resource):
+    parser = reqparse.RequestParser()
+
     def post(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('index_name', type=str)
-        parser.add_argument('index_id', type=str)
-        parser.add_argument('interested_or_cancel', type=str)
+        self.parser.add_argument('index_name', type=str)
+        self.parser.add_argument('index_id', type=str)
+        self.parser.add_argument('interested_or_cancel', type=bool)
 
         es_client = ESClient(config_path, logger)
         params = self.parser.parse_args(strict=True)
 
-        if es_client.update_interested(params):
-            return Success()
-        else:
-            raise NotFound(description="更新异常")
+        return  es_client.update_interested(params)
+
 
     def get(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('index_name', type=str)
-        parser.add_argument('size', type=int)
-        parser.add_argument('from__', type=int)
+        self.parser.add_argument('index_name', type=str)
+        self.parser.add_argument('size', type=int)
+        self.parser.add_argument('from__', type=int)
 
         es_client = ESClient(config_path, logger)
         params = self.parser.parse_args(strict=True)

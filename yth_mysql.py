@@ -325,8 +325,11 @@ class mysqlConnect(object):
             cur = conn.cursor()
             sql = 'call pro_alarm_list_cz'
             sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+                params.get('cz_user'),
                 params.get('__md5'),
                 params.get('cz_status'),
+                params.get('cz_summary'),
+                params.get('cz_detail'),
             )
             # 构造(%s,%s,...)
             cur.execute(sql)
@@ -593,8 +596,11 @@ class AlarmListcz(Resource):
 
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('cz_status', type=str,required=True)
+        parser.add_argument('cz_user', type=str, required=True) #处置用户
+        parser.add_argument('cz_status', type=str,required=True) # NO: 未处置  PASS：处置为正常  JIMI: 处置为机密   MIMI: 处置为秘密    JUEMI：处置为绝密
         parser.add_argument('__md5', type=str,required=True)
+        parser.add_argument('cz_summary', type=str, required=True) #涉密摘要 （处置摘要），改为正常的话要值为空
+        parser.add_argument('cz_detail', type=str, required=True) #ui自行组织字段，用于在历史记录里面显示的
 
         mc = mysqlConnect(config_path, logger)
         params = parser.parse_args(strict=True)
