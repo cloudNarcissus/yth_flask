@@ -619,7 +619,7 @@ class Dict(Resource):
         mc = mysqlConnect(config_path,logger)
         return mc.pro_dict_query()
 
-@api.resource('/v1.0/alarmlist/cz')
+@api.resource('/v1.0/alarmlist/cz/')
 class AlarmListcz(Resource):
     '''
     处置告警清单
@@ -658,7 +658,7 @@ class AlarmListLeft(Resource):
         return mc.pro_alarm_list_left(params)
 
 
-@api.resource('/v1.0/alarmlist/tj')
+@api.resource('/v1.0/alarmlist/tj/')
 class AlarmListtj(Resource):
     '''
     统计处置数量

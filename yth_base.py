@@ -456,10 +456,10 @@ class ESClient(object):
                 }
             }
             root = self.es.search('yth_raroot', 'mytype', body, size=1)
-            children = self.es.search('yth_fileana', 'mytype', body, size=10)
+            #children = self.es.search('yth_fileana', 'mytype', body, size=10)
             tree = {
                 "root": root,
-                "children": children
+                "children": "暂无"#children
             }
             forest.append(tree)
 
