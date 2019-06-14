@@ -144,55 +144,55 @@ URL：
 
 参数：
 
-{
-
-
-begin_day  date, -- 2019-06-04
-
-end_day  date,
-
-alarmlevel_query  varchar(10), -- 等于5：=5  大于3：>=3  等于全部：'' 没有大于全部小于全部
-
-fulltext_query text, -- 关键字查询
-
-actiontype  char(20),  -- 
-'' 全部   行为类型  代替 “来源”
-
- /*
-
-http	056-网页发布  
-
-im	056-即时通讯
-
-netdisk	056-网盘
-
-email	056-电子邮件
-
-filetransfer	056-文件传输
-
-other	056-其他
-
-csmp	三合一
-
-docaudit	文档审计
-
-website	门户网站
-*/
-
-__alarmSour int,  -- 告警来源 代替告警产生  0:全部 1：告警模型  2：手动加入
-
-cz_status  int , -- 1:待处置 2：已处置  3：违规  0:无此查询
-
-_interested int, -- 0: 全部  1：关注  2：未关注
-
-
-orderby varchar(30), -- __alarmLevel/__connectTime/__alarmTime + asc /desc
-
-page_capa  int , -- 每页的容量（400）
-
-page_num  int -- 跳页数（ 首页为0 ，第二页是1 ）
-
-}
+    {
+    
+    
+    begin_day  date, -- 2019-06-04
+    
+    end_day  date,
+    
+    alarmlevel_query  varchar(10), -- 等于5：=5  大于3：>=3  等于全部：'' 没有大于全部小于全部
+    
+    fulltext_query text, -- 关键字查询
+    
+    actiontype  char(20),  -- 
+    '' 全部   行为类型  代替 “来源”
+    
+     /*
+    
+    http	056-网页发布  
+    
+    im	056-即时通讯
+    
+    netdisk	056-网盘
+    
+    email	056-电子邮件
+    
+    filetransfer	056-文件传输
+    
+    other	056-其他
+    
+    csmp	三合一
+    
+    docaudit	文档审计
+    
+    website	门户网站
+    */
+    
+    __alarmSour int,  -- 告警来源 代替告警产生  0:全部 1：告警模型  2：手动加入
+    
+    cz_status  int , -- 1:待处置 2：已处置  3：违规  0:无此查询
+    
+    _interested int, -- 0: 全部  1：关注  2：未关注
+    
+    
+    orderby varchar(30), -- __alarmLevel/__connectTime/__alarmTime + asc /desc
+    
+    page_capa  int , -- 每页的容量（400）
+    
+    page_num  int -- 跳页数（ 首页为0 ，第二页是1 ）
+    
+    }
 
 方法 POST
 /v1.0/alarmlist/
@@ -273,3 +273,21 @@ url: /v1.0/czlist/
 
 
 方法：post
+
+
+
+### 4.14 添加事件（同时关联行为）
+
+url ： /v1.0//eventlist/add
+
+方法：post
+
+        parser.add_argument('event_id', type=str, required=True)#事件编号
+        parser.add_argument('event_name', type=str, required=True)#事件名
+        parser.add_argument('event_type', type=int, required=True)# 1,传输涉密 2，存储涉密  3，违规外联
+        parser.add_argument('event_miji', type=str, required=True)# JIMI:机密 MIMI:秘密  JUEMI：绝密  NEIBU:内部
+        parser.add_argument('event_status', type=int, required=True) # 1.待处理 2.不移交  3移交未反馈  4移交已反馈
+        parser.add_argument('content', type=str, required=True) # 内容 显示 文件名 或者 违规外联描述
+        parser.add_argument('remark', type=str, required=True)# 备注
+        parser.add_argument('add_user', type=str, required=True)  # 添加者
+        parser.add_argument('report', type=str, required=True)  # 这是ui自行组织的json，用于打印报告

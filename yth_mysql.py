@@ -443,7 +443,48 @@ class mysqlConnect(object):
             cur.close()
             conn.close()
 
+    @addHead()
+    def pro_event_list_add(self, params):
+        """
+        插入事件列表,同时将关联的行为插入
+        :param params: 一堆参数
+        :return: err:true/false  msg:文字信息
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
 
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = '''call pro_event_list_add'''
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+                params.get('__md5'),
+                params.get('event_id'),
+                params.get('event_name'),
+                params.get('event_type'),
+                params.get('event_miji'),
+                params.get('event_status'),
+                params.get('content'),
+                params.get('remark'),
+                params.get('add_user'),
+                params.get('report')
+            )
+            cur.execute(sql)
+            conn.commit()
+            result = self.parse_result_to_json(cur)
+            return result[0].get('err'),result[0].get('msg'),
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+        conn.close()
 
 
     # ------------------- 告警中心的统计 ---------------------
@@ -724,6 +765,27 @@ class CzList(Resource):
         params = parser.parse_args(strict=True)
         return mc.pro_cz_list_query(params)
 
+@api.resource('/v1.0//eventlist/add')
+class EventListAdd(Resource):
+    '''
+    插入事件列表,同时将关联的行为插入
+    '''
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('event_id', type=str, required=True)#事件编号
+        parser.add_argument('event_name', type=str, required=True)#事件名
+        parser.add_argument('event_type', type=int, required=True)# 1,传输涉密 2，存储涉密  3，违规外联
+        parser.add_argument('event_miji', type=str, required=True)# JIMI:机密 MIMI:秘密  JUEMI：绝密  NEIBU:内部
+        parser.add_argument('event_status', type=int, required=True) # 1.待处理 2.不移交  3移交未反馈  4移交已反馈
+        parser.add_argument('content', type=str, required=True) # 内容 显示 文件名 或者 违规外联描述
+        parser.add_argument('remark', type=str, required=True)# 备注
+        parser.add_argument('add_user', type=str, required=True)  # 添加者
+        parser.add_argument('report', type=str, required=True)  # 这是ui自行组织的json，用于打印报告
+
+        mc = mysqlConnect(config_path, logger)
+        params = parser.parse_args(strict=True)
+        return mc.pro_event_list_add(params)
 
 
 
