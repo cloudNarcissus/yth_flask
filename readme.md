@@ -282,11 +282,18 @@ url ： /v1.0//eventlist/add
 
 方法：post
 
+        parser = reqparse.RequestParser()
         parser.add_argument('event_id', type=str, required=True)#事件编号
         parser.add_argument('event_name', type=str, required=True)#事件名
-        parser.add_argument('event_type', type=int, required=True)# 1,传输涉密 2，存储涉密  3，违规外联
-        parser.add_argument('event_miji', type=str, required=True)# JIMI:机密 MIMI:秘密  JUEMI：绝密  NEIBU:内部
-        parser.add_argument('event_status', type=int, required=True) # 1.待处理 2.不移交  3移交未反馈  4移交已反馈
+        parser.add_argument('event_type', type=int, required=True)# 字典里有
+        #
+        # 1       违规外联
+        # 2       互联网传输泄密
+        # 3       网络攻击窃密
+        # 4       违规存储 / 处理涉密信息
+        #
+        parser.add_argument('event_miji', type=str, required=True)#字典里有
+        parser.add_argument('event_status', type=int, required=True) #字典里有 1.待处理 2.不移交  3移交未反馈  4移交已反馈
         parser.add_argument('content', type=str, required=True) # 内容 显示 文件名 或者 违规外联描述
         parser.add_argument('remark', type=str, required=True)# 备注
         parser.add_argument('add_user', type=str, required=True)  # 添加者
