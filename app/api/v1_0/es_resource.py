@@ -80,7 +80,6 @@ class Interested(Resource):
         self.parser.add_argument('interested_or_cancel', type=bool)
 
         params = self.parser.parse_args(strict=True)
-
         return ec.update_interested(params)
 
     def get(self):
@@ -89,7 +88,6 @@ class Interested(Resource):
         self.parser.add_argument('from__', type=int)
 
         params = self.parser.parse_args(strict=True)
-
         return ec.get_interested(params)
 
 
@@ -100,8 +98,8 @@ class RarChildren(Resource):
 
     def post(self):
         params = self.parser.parse_args(strict=True)
-
         return ec.query_yth_rarchildren(params)
+
 
 
 @api.resource('/interested/list/')
@@ -113,5 +111,15 @@ class InterestedList(Resource):
 
     def get(self):
         params = self.parser.parse_args(strict=True)
-
         return ec.search_all_interested(params)
+
+
+
+@api.resource('/fileana/view/')
+class FileanaView(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('__md5', type=str, required=True)
+
+    def get(self):
+        params = self.parser.parse_args(strict=True)
+        return ec.query_content_text(params)

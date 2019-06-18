@@ -635,7 +635,7 @@ class ESClient(object):
                                     from_=params['size'],
                                     _source_exclude=['__Content-text'])
 
-
+    @addHead()
     def query_content_text(self,params):
         '''
         查询单个文件的文本内容
