@@ -604,11 +604,6 @@ class ESClient(object):
                                     _source_exclude=['__Content-text'])
 
 
-        def
-
-
-        def
-
     @addHead()
     def search_all_interested(self,params):
         '''
