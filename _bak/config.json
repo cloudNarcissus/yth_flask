@@ -1,0 +1,24 @@
+{
+	"UPDATE_INTERVAL":2000000,
+	"HBASE":{
+		"hosts":"192.168.10.136:9090"
+	},
+	"MQ":{
+		"hosts":"192.168.10.136:5672",
+		"credentials":"guest:guest"
+	},
+	"MYSQL":{
+		"hosts":"192.168.10.136:3306",
+		"credentials":"root:123asd!@#",
+		"db":"yth_alarm",
+		"encode":"utf8mb4"
+	},
+	"HIVE":{
+		"hosts":"192.168.10.137:10000",
+		"credentials":"hive:"
+	},
+	"ElasticSearch":{
+		"hosts":"192.168.10.136:9200",
+		"credentials":"test:test"
+	}
+}

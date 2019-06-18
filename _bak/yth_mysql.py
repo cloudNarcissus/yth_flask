@@ -1,16 +1,38 @@
-import logging
-
+import config
 import pymysql
 
-from app.config import Config
-from app.utils.common import addHead
 
-logger = logging.getLogger(__name__)
+# from flask import Flask,Blueprint
+# from flask_restful import reqparse, abort, Api, Resource
+#
+# #yth_mysql = Blueprint('yth_mysql',__name__)
+# app = Flask(__name__)
+# api = Api(app)
+from add_head import addHead
+from yth_server import api, Resource, reqparse
 
+import logging
+import logging.handlers
+import os
+if 'nt' != os.name:
+    _log_path = './my_logger.log'
+else:
+    _path = os.path.dirname(__file__)
+    _log_path = os.path.join(_path, 'my_logger.log')
 
-class MysqlConnect(object):
-    def __init__(self):
-        self.conf = Config
+logger = logging.getLogger('yth_mysql')
+logger.setLevel(logging.INFO)
+fhtime = logging.handlers.TimedRotatingFileHandler(_log_path, when='D', interval=1, backupCount=10)
+fhtime.setFormatter(logging.Formatter("%(asctime)s-%(levelname)s-%(message)s"))
+logger.addHandler(fhtime)
+
+config_path = 'config.json'
+
+class mysqlConnect(object):
+    conf = None
+
+    def __init__(self, config_path,logger):
+        self.conf = config.Config(config_path)
         self.log = logger
 
     def _connect(self, encoding='utf8'):
@@ -72,7 +94,7 @@ class MysqlConnect(object):
                     temp[key] = val
                 data.append(temp)
 
-        # return json.dumps(data, ensure_ascii=False)
+        #return json.dumps(data, ensure_ascii=False)
         return data
 
     @addHead()
@@ -84,28 +106,27 @@ class MysqlConnect(object):
         :param output_args:
         :return:err,json
         """
-        self.log.debug('test')
         cur = None
         conn, conn_err = self._connect('utf8')
         if conn is None:
             err = self.handle_connect_err(conn_err)
-            return False, err
+            return False,err
 
         try:
             cur = conn.cursor()
             cur.execute('call pro_dict_query()')
 
             result = self.parse_result_to_json(cur)
-            return True, result
+            return True,result
         except Exception as e:
             err = self._get_exception_msg(e)
-            return False, err
+            return False,err
 
         finally:
             cur.close()
             conn.close()
 
-    def fun_alarm_list_exists(self, __md5):
+    def fun_alarm_list_exists(self,__md5):
         """
         查询alarm_list是否存在某个md5的条目
         :return:bool
@@ -118,7 +139,7 @@ class MysqlConnect(object):
 
         try:
             cur = conn.cursor()
-            sql = '''select fun_alarm_list_exists('%s')''' % __md5
+            sql = '''select fun_alarm_list_exists('%s')'''%__md5
             cur.execute(sql)
             result = cur.fetchall()
             return True, result[0][0]
@@ -129,7 +150,7 @@ class MysqlConnect(object):
             cur.close()
             conn.close()
 
-    def fun_action_list_getLastTime(self, __md5):
+    def fun_action_list_getLastTime(self,__md5):
         """
         获取action_list上次最大时间
         :param __md5:
@@ -155,7 +176,7 @@ class MysqlConnect(object):
             cur.close()
             conn.close()
 
-    def pro_alarm_list_add(self, params):
+    def pro_alarm_list_add(self,params):
         """
         加入告警
         :param params: 参数字典
@@ -164,15 +185,16 @@ class MysqlConnect(object):
         cur = None
         conn, conn_err = self._connect('utf8')
 
+
         if conn is None:
             err = self.handle_connect_err(conn_err)
-            return False, err
+            return False,err
 
         try:
 
             cur = conn.cursor()
             sql = 'call pro_alarm_list_add'
-            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')')%(
                 params.get('yth_fileana_id'),
                 params.get('__md5'),
                 params.get('__connectTime'),
@@ -185,7 +207,7 @@ class MysqlConnect(object):
                 params.get('__industry'),
                 params.get('__security'),
                 params.get('__ips'),
-            )
+             )
             # 构造(%s,%s,...)
             cur.execute(sql)
             conn.commit()
@@ -245,7 +267,7 @@ class MysqlConnect(object):
             conn.close()
 
     @addHead()
-    def pro_alarm_list_left(self, params):
+    def pro_alarm_list_left(self,params):
         """
         查询左侧统计切换区
         :param params: 
@@ -285,7 +307,7 @@ class MysqlConnect(object):
             conn.close()
 
     @addHead()
-    def pro_alarm_list_cz(self, params):
+    def pro_alarm_list_cz(self,params):
         """
         加入告警行为表（子表）
         :param params:
@@ -322,7 +344,7 @@ class MysqlConnect(object):
             cur.close()
             conn.close()
 
-    def pro_action_list_add(self, params):
+    def pro_action_list_add(self,params):
         """
         加入告警行为表（子表）
         :param params:
@@ -378,7 +400,7 @@ class MysqlConnect(object):
         try:
 
             cur = conn.cursor()
-            sql = '''call pro_action_list_query('%s')''' % params['__md5']
+            sql = '''call pro_action_list_query('%s')'''%params['__md5']
             cur.execute(sql)
             result = self.parse_result_to_json(cur)
             return True, result
@@ -454,7 +476,7 @@ class MysqlConnect(object):
             cur.execute(sql)
             conn.commit()
             result = self.parse_result_to_json(cur)
-            return result[0].get('err'), result[0].get('msg'),
+            return result[0].get('err'),result[0].get('msg'),
         except Exception as e:
             err = self._get_exception_msg(e)
             logger.error(sql)
@@ -493,6 +515,7 @@ class MysqlConnect(object):
         finally:
             cur.close()
             conn.close()
+
 
     # ------------------- 告警中心的统计 ---------------------
 
@@ -533,7 +556,7 @@ class MysqlConnect(object):
             conn.close()
 
     # 2. 统计违规条目（违规的alarm数目）以及红点（未读的action）
-    def pro_tj_alarm_list_weigui(self, params):
+    def pro_tj_alarm_list_weigui(self,params):
         cur = None
         conn, conn_err = self._connect('utf8')
 
@@ -564,7 +587,7 @@ class MysqlConnect(object):
             conn.close()
 
     # 3. 统计告警等级
-    def pro_tj_alarm_list_level(self, params):
+    def pro_tj_alarm_list_level(self,params):
         cur = None
         conn, conn_err = self._connect('utf8')
 
@@ -595,7 +618,7 @@ class MysqlConnect(object):
             conn.close()
 
     # 4. 统计行为类型actiontype
-    def pro_tj_action_list_actiontype(self, params):
+    def pro_tj_action_list_actiontype(self,params):
         cur = None
         conn, conn_err = self._connect('utf8')
 
@@ -627,7 +650,7 @@ class MysqlConnect(object):
 
     # 综合：将几个统计结果集都集成起来
     @addHead()
-    def pro_tj_alarm_list_center(self, params):
+    def pro_tj_alarm_list_center(self,params):
         result = {}
 
         result1 = self.pro_tj_alarm_list_cz(params)
@@ -654,14 +677,157 @@ class MysqlConnect(object):
         else:
             result["platform"] = "error"
 
-        return True, result
+        return True,result
 
 
-mc = MysqlConnect()
+
+@api.resource('/v1.0/dict/')
+class Dict(Resource):
+    '''
+    获取字典
+    '''
+    def get(self):
+        mc = mysqlConnect(config_path,logger)
+        return mc.pro_dict_query()
+
+@api.resource('/v1.0/alarmlist/cz/')
+class AlarmListcz(Resource):
+    '''
+    处置告警清单
+    '''
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('cz_user', type=str, required=True) #处置用户
+        parser.add_argument('cz_status', type=str,required=True) # NO: 未处置  PASS：处置为正常  JIMI: 处置为机密   MIMI: 处置为秘密    JUEMI：处置为绝密
+        parser.add_argument('__md5', type=str,required=True)
+        parser.add_argument('cz_summary', type=str, required=True) #涉密摘要 （处置摘要），改为正常的话要值为空
+        parser.add_argument('cz_detail', type=str, required=True) #ui自行组织字段，用于在历史记录里面显示的
+
+        mc = mysqlConnect(config_path, logger)
+        params = parser.parse_args(strict=True)
+        return mc.pro_alarm_list_cz(params)
+
+
+@api.resource('/v1.0/alarmlist/left/')
+class AlarmListLeft(Resource):
+    '''
+    查询告警清单左侧栏的统计切换区
+    '''
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('begin_day', type=str, required=True)
+        parser.add_argument('end_day', type=str, required=True)
+        parser.add_argument('alarmlevel_query', type=str)
+        parser.add_argument('fulltext_query', type=str)
+        parser.add_argument('platform', type=int)
+        parser.add_argument('__alarmSour', type=int)
+
+        mc = mysqlConnect(config_path, logger)
+        params = parser.parse_args(strict=True)
+        return mc.pro_alarm_list_left(params)
+
+
+@api.resource('/v1.0/alarmlist/tj/')
+class AlarmListtj(Resource):
+    '''
+    统计处置数量
+    '''
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('begin_day', type=str, required=True)
+        parser.add_argument('end_day', type=str, required=True)
+        mc = mysqlConnect(config_path, logger)
+        params = parser.parse_args(strict=True)
+        return mc.pro_tj_alarm_list_center(params)
+
+
+@api.resource('/v1.0/alarmlist/')
+class AlarmList(Resource):
+    '''
+    查询告警清单
+    '''
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('begin_day', type=str, required=True)
+        parser.add_argument('end_day', type=str, required=True)
+        parser.add_argument('alarmlevel_query', type=str)
+        parser.add_argument('fulltext_query', type=str)
+        parser.add_argument('actiontype', type=str)
+        parser.add_argument('__alarmSour', type=int)
+        parser.add_argument('cz_status', type=int)
+        parser.add_argument('_interested', type=int)
+        parser.add_argument('orderby', type=str, required=True)
+        parser.add_argument('page_capa', type=int, required=True)
+        parser.add_argument('page_num', type=int, required=True)
+
+        mc = mysqlConnect(config_path, logger)
+        params = parser.parse_args(strict=True)
+        return mc.pro_alarm_list_query(params)
+
+
+@api.resource('/v1.0/actionlist/')
+class ActionList(Resource):
+    '''
+    查询行为追踪
+    '''
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('__md5', type=str, required=True)
+
+        mc = mysqlConnect(config_path, logger)
+        params = parser.parse_args(strict=True)
+        return mc.pro_action_list_query(params)
+
+@api.resource('/v1.0/czlist/')
+class CzList(Resource):
+    '''
+    查询处置历史清单
+    '''
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('__md5', type=str, required=True)
+
+        mc = mysqlConnect(config_path, logger)
+        params = parser.parse_args(strict=True)
+        return mc.pro_cz_list_query(params)
+
+@api.resource('/v1.0//eventlist/add')
+class EventListAdd(Resource):
+    '''
+    插入事件列表,同时将关联的行为插入
+    '''
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('event_id', type=str, required=True)#事件编号
+        parser.add_argument('event_name', type=str, required=True)#事件名
+        parser.add_argument('event_type', type=int, required=True)# 字典里有
+        #
+        # 1       违规外联
+        # 2       互联网传输泄密
+        # 3       网络攻击窃密
+        # 4       违规存储 / 处理涉密信息
+        #
+        parser.add_argument('event_miji', type=str, required=True)#字典里有
+        parser.add_argument('event_status', type=int, required=True) #字典里有 1.待处理 2.不移交  3移交未反馈  4移交已反馈
+        parser.add_argument('content', type=str, required=True) # 内容 显示 文件名 或者 违规外联描述
+        parser.add_argument('remark', type=str, required=True)# 备注
+        parser.add_argument('add_user', type=str, required=True)  # 添加者
+        parser.add_argument('report', type=str, required=True)  # 这是ui自行组织的json，用于打印报告
+
+        mc = mysqlConnect(config_path, logger)
+        params = parser.parse_args(strict=True)
+        return mc.pro_event_list_add(params)
+
+
 
 #
 if __name__ == '__main__':
-    mc = MysqlConnect(config_path, logger)
+    mc = mysqlConnect(config_path, logger)
     print(mc.pro_dict_query())
 
 
@@ -680,3 +846,4 @@ if __name__ == '__main__':
     # params['__security']=''
     # params['__ips']='192.168.0.1,192.168.0.2'
     # print(mc.pro_alarm_list_add(params))
+

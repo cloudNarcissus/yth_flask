@@ -1,21 +1,45 @@
+import logging.handlers
+import os
 import time
-import logging
 
+from add_head import addHead
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import query, aggs
+from yth_server import api, Resource, reqparse
 
-from app.config import Config
-from app.utils.common import addHead
-from app.db.mysql import mc
+from _bak import yth_mysql
+from _bak.yth_mysql import config_path
 
-logger = logging.getLogger(__name__)
+# from flask import Flask,Blueprint
+# from flask_restful import reqparse, abort, Api, Resource
+#
+# #yth_base = Blueprint('yth_base',__name__)
+# app = Flask(__name__)
+# api = Api(app)
+
+if 'nt' != os.name:
+    _log_path = './es_logger.log'
+else:
+    _path = os.path.dirname(__file__)
+    _log_path = os.path.join(_path, os.path.pardir, os.path.pardir, 'logs')
+
+import config
+
+logger = logging.getLogger('yth_base')
+logger.setLevel(logging.INFO)
+fhtime = logging.handlers.TimedRotatingFileHandler(_log_path, when='D', interval=1, backupCount=10)
+fhtime.setFormatter(logging.Formatter("%(asctime)s-%(levelname)s-%(message)s"))
+logger.addHandler(fhtime)
 
 
 # ES操作
 class ESClient(object):
-    def __init__(self):
-        self.es = Elasticsearch(hosts=Config.es_hosts)
-        self.log = logger
+    conf = None
+
+    def __init__(self, config_path, log):
+        self.conf = config.Config(config_path)
+        self.es = Elasticsearch(hosts=self.conf.es_hosts)
+        self.log = log
 
     # --------------------查询行为数据----------------------------------
     @addHead()
@@ -523,6 +547,7 @@ class ESClient(object):
                 return False, '更新关注数据,some error'
 
         # 判断alarm_list中是否存在
+        mc = yth_mysql.mysqlConnect(config_path, logger)
         err, exists = mc.fun_alarm_list_exists(md5)
         if err:
             if exists == 0:  # 不存在
@@ -576,7 +601,7 @@ class ESClient(object):
         index_id = params['index_id']
         md5 = params['__md5']
 
-        from app.utils.stopwords import stop_list
+        from stop_list_sim import stop_list
         q = query.MoreLikeThis(
             _expand__to_dot=False,
             fields=['__Content-text'],
@@ -603,12 +628,119 @@ class ESClient(object):
         return True, self.es.search('yth_fileana', 'mytype', body=body,
                                     _source_exclude=['__Content-text'])
 
-ec = ESClient()
+
+@api.resource('/v1.0/action/')
+class SearchYthBase(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('begin_time', type=str)
+    parser.add_argument('end_time', type=str)
+    parser.add_argument('time_format', type=str)
+    parser.add_argument('match_str', type=str)
+    parser.add_argument('exact_query', type=bool)
+    parser.add_argument('order', type=str)
+    parser.add_argument('orderType', type=str)
+    parser.add_argument('size', type=int, required=True)
+    parser.add_argument('from', type=int, required=True)
+    parser.add_argument('__actionType', type=str)
+
+    def post(self):
+        es_client = ESClient(config_path, logger)
+        params = self.parser.parse_args(strict=True)
+        return es_client.search_yth_base(params)
+
+
+@api.resource('/v1.0/fileana/')
+class SearchYthFileana(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('begin_time', type=str)
+    parser.add_argument('end_time', type=str)
+    parser.add_argument('time_format', type=str)
+    parser.add_argument('__md5', type=str)
+    parser.add_argument('__security', type=str)
+    parser.add_argument('__document', type=str)  # 公文
+    parser.add_argument('__industry', type=list)  # 行业(list)
+    parser.add_argument('match_str', type=str)
+    parser.add_argument('exact_query', type=bool)
+    parser.add_argument('_platform', type=int)
+    parser.add_argument('__alarmKey', type=list)  # 关键字list
+    parser.add_argument('order', type=str)
+    parser.add_argument('orderType', type=str)
+    parser.add_argument('size', type=int, required=True)
+    parser.add_argument('from', type=int, required=True)
+
+    def post(self):
+        es_client = ESClient(config_path, logger)
+        params = self.parser.parse_args(strict=True)
+        return es_client.search_yth_fileana(params)
+
+
+@api.resource('/v1.0/fileana/alarm/')
+class AddAlarmToList(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('index_id', type=str, required=True)
+    parser.add_argument('__md5', type=str, required=True)
+    parser.add_argument('__alarmSour', type=int, required=True)
+
+    def post(self):
+        es_client = ESClient(config_path, logger)
+        params = self.parser.parse_args(strict=True)
+        return es_client.add_alarm_list(params)
+
+
+@api.resource('/v1.0/fileana/simdoc/')
+class GetSimDoc(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('index_id', type=str, required=True)
+    parser.add_argument('__md5', type=str, required=True)
+
+    def post(self):
+        es_client = ESClient(config_path, logger)
+        params = self.parser.parse_args(strict=True)
+        return es_client.search_sim_doc(params)
+
+
+@api.resource('/v1.0/interested/')
+class Interested(Resource):
+    parser = reqparse.RequestParser()
+
+    def post(self):
+        self.parser.add_argument('index_name', type=str)
+        self.parser.add_argument('index_id', type=str)
+        self.parser.add_argument('interested_or_cancel', type=bool)
+
+        es_client = ESClient(config_path, logger)
+        params = self.parser.parse_args(strict=True)
+
+        return  es_client.update_interested(params)
+
+
+    def get(self):
+        self.parser.add_argument('index_name', type=str)
+        self.parser.add_argument('size', type=int)
+        self.parser.add_argument('from__', type=int)
+
+        es_client = ESClient(config_path, logger)
+        params = self.parser.parse_args(strict=True)
+
+        return es_client.get_interested(params)
+
+
+@api.resource('/v1.0/rarchildren/')
+class RarChildren(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('__rootmd5s', type=str)
+
+    def post(self):
+        es_client = ESClient(config_path, logger)
+        params = self.parser.parse_args(strict=True)
+
+        return es_client.query_yth_rarchildren(params)
+
 
 if __name__ == '__main__':
-
+    es_client = ESClient(config_path, logger)
     # params = params()
     # params.set_match_str('国家保密局')
     # params.set_time('2019-05-16', '2019-05-21')
     # params.set_from_size(0, 10)
-    print(ec.query_yth_base_by_md5('a976d6a0db827fded103a98817ccf0bf'))
+    print(es_client.query_yth_base_by_md5('a976d6a0db827fded103a98817ccf0bf'))

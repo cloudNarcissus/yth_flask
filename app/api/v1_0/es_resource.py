@@ -1,7 +1,7 @@
 from flask_restful import Resource, reqparse
 
 from . import api
-from app.db.es import es_client
+from app.db.es import ec
 
 
 @api.resource('/action/')
@@ -20,7 +20,7 @@ class SearchYthBase(Resource):
 
     def post(self):
         params = self.parser.parse_args(strict=True)
-        return es_client.search_yth_base(params)
+        return ec.search_yth_base(params)
 
 
 @api.resource('/fileana/')
@@ -44,7 +44,7 @@ class SearchYthFileana(Resource):
 
     def post(self):
         params = self.parser.parse_args(strict=True)
-        return es_client.search_yth_fileana(params)
+        return ec.search_yth_fileana(params)
 
 
 @api.resource('/fileana/alarm/')
@@ -56,7 +56,7 @@ class AddAlarmToList(Resource):
 
     def post(self):
         params = self.parser.parse_args(strict=True)
-        return es_client.add_alarm_list(params)
+        return ec.add_alarm_list(params)
 
 
 @api.resource('/fileana/simdoc/')
@@ -67,7 +67,7 @@ class GetSimDoc(Resource):
 
     def post(self):
         params = self.parser.parse_args(strict=True)
-        return es_client.search_sim_doc(params)
+        return ec.search_sim_doc(params)
 
 
 @api.resource('/interested/')
@@ -81,7 +81,7 @@ class Interested(Resource):
 
         params = self.parser.parse_args(strict=True)
 
-        return es_client.update_interested(params)
+        return ec.update_interested(params)
 
     def get(self):
         self.parser.add_argument('index_name', type=str)
@@ -90,7 +90,7 @@ class Interested(Resource):
 
         params = self.parser.parse_args(strict=True)
 
-        return es_client.get_interested(params)
+        return ec.get_interested(params)
 
 
 @api.resource('/rarchildren/')
@@ -101,4 +101,4 @@ class RarChildren(Resource):
     def post(self):
         params = self.parser.parse_args(strict=True)
 
-        return es_client.query_yth_rarchildren(params)
+        return ec.query_yth_rarchildren(params)
