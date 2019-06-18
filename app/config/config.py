@@ -16,6 +16,7 @@ class Config(object):
     mysql_user = _cfg_parser.mysql_user
     mysql_pwd = _cfg_parser.mysql_pwd
     mysql_encode = _cfg_parser.mysql_encode
+    hb_hosts = _cfg_parser.hbase_host
 
 
 if __name__ == '__main__':
