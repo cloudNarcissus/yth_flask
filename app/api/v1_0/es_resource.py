@@ -106,4 +106,12 @@ class RarChildren(Resource):
 
 @api.resource('/interested/list/')
 class InterestedList(Resource):
-    pass
+    parser = reqparse.RequestParser()
+    parser.add_argument('index_name', type=str, required=True, choices=['yth_fileana', 'yth_base'])
+    parser.add_argument('from', type=int, required=True)
+    parser.add_argument('size', type=int, required=True)
+
+    def get(self):
+        params = self.parser.parse_args(strict=True)
+
+        return ec.search_all_interested(params)
