@@ -24,7 +24,7 @@ Body:
 "order":"__bornTime",
 "orderType":"desc",
 "size":10,
-"from":0,
+"from":0
 }
 ```
 
@@ -278,7 +278,7 @@ url: /v1.0/czlist/
 
 ### 4.14 添加事件（同时关联行为）
 
-url ： /v1.0//eventlist/add
+url ： /v1.0/eventlist/add
 
 方法：post
 
@@ -298,3 +298,15 @@ url ： /v1.0//eventlist/add
         parser.add_argument('remark', type=str, required=True)# 备注
         parser.add_argument('add_user', type=str, required=True)  # 添加者
         parser.add_argument('report', type=str, required=True)  # 这是ui自行组织的json，用于打印报告
+
+
+### 4.15 查询全部关注数据
+
+```
+GET /v1.0/interested/list
+```
+请求参数
+* index_name:数据类型（索引名），取值为：`yth_fileana`或`yth_base`
+* from:从第多少条记录开始返回
+* size:最大返回记录条数
+

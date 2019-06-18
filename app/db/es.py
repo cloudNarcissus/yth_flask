@@ -56,13 +56,13 @@ class ESClient(object):
                 query=qs
             )
             match_query = match_query & (
-                query.QueryString(
-                    default_field="__full_query",
-                    query=qs
-                ) | query.QueryString(
-                    default_field="__summary",
-                    query=qs
-                )
+                    query.QueryString(
+                        default_field="__full_query",
+                        query=qs
+                    ) | query.QueryString(
+                default_field="__summary",
+                query=qs
+            )
             )
 
             # #####################高亮内容###############################
@@ -603,22 +603,37 @@ class ESClient(object):
         return True, self.es.search('yth_fileana', 'mytype', body=body,
                                     _source_exclude=['__Content-text'])
 
-
     @addHead()
-    def search_all_interested(self,params):
+    def search_all_interested(self, params):
         '''
         查询关注列表
-        :param params: index_name , 分页参数 
-        :return: 
+        :param params: index_name , 索引名
+        :param params: from
+        :param params: size
+        :return:
         '''
-        pass
+        body = {
+            'query': {
+                'bool': {
+                    'filter': {
+                        'term': {
+                            '_interested': True
+                        }
+                    }
+                }
+            },
+            'sort': [
+                {
+                    '_interested_time': {
+                        'order': 'desc'
+                    }
+                }
+            ]
+        }
+        return True, self.es.search(params['index_name'], 'mytype', body,
+                                    size=params['from'],
+                                    from_=params['size'],
+                                    _source_exclude=['__Content-text'])
+
 
 ec = ESClient()
-
-if __name__ == '__main__':
-
-    # params = params()
-    # params.set_match_str('国家保密局')
-    # params.set_time('2019-05-16', '2019-05-21')
-    # params.set_from_size(0, 10)
-    print(ec.query_yth_base_by_md5('a976d6a0db827fded103a98817ccf0bf'))
