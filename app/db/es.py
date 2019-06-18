@@ -613,6 +613,29 @@ class ESClient(object):
         '''
         pass
 
+
+    def query_content_text(self,params):
+        '''
+        查询单个文件的文本内容
+        :param params:__md5 
+        :return: 
+        '''
+        md5 = params.get('__md5')
+        self.log.debug('进入 query_content_text 函数 ,%s'% md5)
+
+        body = {
+            "query": {
+                'term': {
+                    '__md5': {
+                        'value': md5
+                    }
+                }
+            }
+        }
+        return True, self.es.search('yth_fileana', 'mytype', body=body,
+                                    _source_include=['__Content-text'])
+
+
 ec = ESClient()
 
 if __name__ == '__main__':
