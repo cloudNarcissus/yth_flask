@@ -603,6 +603,21 @@ class ESClient(object):
         return True, self.es.search('yth_fileana', 'mytype', body=body,
                                     _source_exclude=['__Content-text'])
 
+
+        def
+
+
+        def
+
+    @addHead()
+    def search_all_interested(self,params):
+        '''
+        查询关注列表
+        :param params: index_name , 分页参数 
+        :return: 
+        '''
+        pass
+
 ec = ESClient()
 
 if __name__ == '__main__':

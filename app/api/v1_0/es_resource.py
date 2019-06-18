@@ -102,3 +102,8 @@ class RarChildren(Resource):
         params = self.parser.parse_args(strict=True)
 
         return ec.query_yth_rarchildren(params)
+
+
+@api.resource('/interested/list/')
+class InterestedList(Resource):
+    pass
