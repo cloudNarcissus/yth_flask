@@ -185,6 +185,7 @@ class MysqlConnect(object):
                 params.get('__industry'),
                 params.get('__security'),
                 params.get('__ips'),
+                params.get('__alarmType'),
             )
             # 构造(%s,%s,...)
             cur.execute(sql)

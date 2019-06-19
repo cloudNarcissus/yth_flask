@@ -329,10 +329,11 @@ GET /v1.0/filedownload/
 ```
 请求参数
 * __md5 : 文件的md5
+* filename: 从行为列表返回的filename
 
 返回：
 
-正常情况：返回response
+正常情况：返回response,其中的
 
 异常情况：返回
 ```json

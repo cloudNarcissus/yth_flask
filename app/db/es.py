@@ -499,7 +499,7 @@ class ESClient(object):
                                '__alarmLevel': 5, '__alarmSour': alarmSour, 'summary': es_doc['file_summary'],
                                '__alarmKey': es_doc['__alarmKey'], '__document': es_doc['__document'],
                                '__industry': es_doc['__industry'], '__security': es_doc['__security'],
-                               '__ips': es_doc.get('__ips',None)}
+                               '__ips': es_doc.get('__ips',None), '__alarmType':es_doc.get('__alarmType',None)}
                 # 入库alarm_list
                 result = mc.pro_alarm_list_add(params_dict)
             else:

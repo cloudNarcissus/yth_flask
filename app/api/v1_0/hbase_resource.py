@@ -17,14 +17,14 @@ class Filedownload(Resource):
 
         parser = reqparse.RequestParser()
         parser.add_argument('__md5', type=str, required = True)
+        parser.add_argument('filename', type=str, required=True)
         params = parser.parse_args(strict=True)
 
         file = hbc.dowmload_wdp_files(params)
         if file[0]:
-            filename = file[1]['filename']
             content = file[1]['content']
             resp = make_response(content)
-            resp.headers.extend({'Content-Disposition': 'attachment;filename=' + quote(filename)})
+            resp.headers.extend({'Content-Disposition': 'attachment;filename=' + quote(params['filename'])})
             return resp
         else:
             return {
