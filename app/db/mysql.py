@@ -222,12 +222,12 @@ class MysqlConnect(object):
             sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
                 params.get('begin_day'),
                 params.get('end_day'),
-                params.get('alarmlevel_query'),
-                params.get('fulltext_query'),
-                params.get('actiontype'),
-                params.get('__alarmSour'),
-                params.get('cz_status'),
-                params.get('_interested'),
+                params.get('alarmlevel_query',''),
+                params.get('fulltext_query',''),
+                params.get('actiontype',''),
+                params.get('__alarmSour',0),
+                params.get('cz_status',0),
+                params.get('_interested',0),
                 params.get('orderby'),
                 params.get('page_capa'),
                 params.get('page_num'),
@@ -267,10 +267,10 @@ class MysqlConnect(object):
             sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
                 params.get('begin_day'),
                 params.get('end_day'),
-                params.get('alarmlevel_query'),
-                params.get('fulltext_query'),
-                params.get('platform'),
-                params.get('__alarmSour')
+                params.get('alarmlevel_query',''),
+                params.get('fulltext_query',''),
+                params.get('platform',0),
+                params.get('__alarmSour',0)
             )
 
             cur.execute(sql)
@@ -469,7 +469,7 @@ class MysqlConnect(object):
     def pro_event_list_query(self, params):
         """
         查询事件清单
-        :param __md5: 
+        :param 
         :return: 
         """
         cur = None
@@ -482,7 +482,19 @@ class MysqlConnect(object):
         try:
 
             cur = conn.cursor()
-            sql = '''call pro_event_list_query('%s')''' % params['__md5']
+            sql = 'call pro_event_list_query'
+            # 构造(%s,%s,...)
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+                params.get('begin_day'),
+                params.get('end_day'),
+                params.get('event_status', 0),
+                params.get('event_miji', ''),
+                params.get('event_type', ''),
+                params.get('fulltext_query', ''),
+                params.get('page_capa'),
+                params.get('page_num'),
+            )
+
             cur.execute(sql)
             result = self.parse_result_to_json(cur)
             return True, result
@@ -662,7 +674,7 @@ mc = MysqlConnect()
 
 #
 if __name__ == '__main__':
-    mc = MysqlConnect(config_path, logger)
+    mc = MysqlConnect()
     print(mc.pro_dict_query())
 
 
