@@ -319,3 +319,26 @@ GET /v1.0/fileana/view/
 ```
 请求参数
 * __md5 : 文件的md5
+
+
+### 4.17 下载文件
+
+
+```
+GET /v1.0/filedownload/
+```
+请求参数
+* __md5 : 文件的md5
+
+返回：
+
+正常情况：返回response
+
+异常情况：返回
+```json
+{
+   'message': 错误信息,
+   'data': None
+}
+
+```

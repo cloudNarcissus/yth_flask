@@ -20,25 +20,25 @@ class HbaseConnect(object):
         :return: 
         """
         md5 = params.get('__md5')
-        content = ''
+        content = b''
 
         try:
             with hbc.hb_pool.connection() as conn:
                 files = conn.table(b'files')
                 row = files.row(md5)
 
-                seg_count = int(row['info:seg_count'])
-                filename = str(row['info:filename'])
+                seg_count = int(row[b'info:seg_count'])
+                filename = row[b'info:filename']
 
                 for i in range(0, seg_count):
-                    column_name = "content:content" + str(i)
+                    column_name = bytes("content:content" + str(i),encoding="utf8")
                     content += row[column_name]
 
         except Exception as e:
             self.log.error(u'获取文件<Md5:%s>失败,%s', md5, e)
             return False,e
 
-        return True , {"filename":filename,"content":content}
+        return True , {"filename" : filename , "content" : content}
 
 
 hbc = HbaseConnect()

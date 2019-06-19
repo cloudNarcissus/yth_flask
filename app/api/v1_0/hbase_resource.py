@@ -16,8 +16,8 @@ class Filedownload(Resource):
     def get(self):
 
         parser = reqparse.RequestParser()
-        parser.add_argument('__md5', type=str,required=True)
-        params = self.parser.parse_args(strict=True)
+        parser.add_argument('__md5', type=str, required = True)
+        params = parser.parse_args(strict=True)
 
         file = hbc.dowmload_wdp_files(params)
         if file[0]:
