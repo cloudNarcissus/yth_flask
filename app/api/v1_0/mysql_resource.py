@@ -83,6 +83,7 @@ class AlarmList(Resource):
         parser.add_argument('__alarmSour', type=int)
         parser.add_argument('cz_status', type=int)
         parser.add_argument('_interested', type=int)
+        parser.add_argument('__alarmType', type=int)
         parser.add_argument('orderby', type=str, required=True)
         parser.add_argument('page_capa', type=int, required=True)
         parser.add_argument('page_num', type=int, required=True)

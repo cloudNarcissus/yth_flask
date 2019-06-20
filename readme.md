@@ -185,6 +185,7 @@ URL：
     
     _interested int, -- 0: 全部  1：关注  2：未关注
     
+    __alarmType int , -- 0:全部 其他见字典
     
     orderby varchar(30), -- __alarmLevel/__connectTime/__alarmTime + asc /desc
     

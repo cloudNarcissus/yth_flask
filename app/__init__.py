@@ -5,7 +5,7 @@ import logging.handlers
 from flask import Flask
 
 if 'nt' != os.name:
-    _log_path = '../my_logger.log'
+    _log_path = './yth_logger.log'
 else:
     _path = os.path.dirname(__file__)
     _log_path = os.path.join(_path, os.path.pardir, 'my_logger.log')

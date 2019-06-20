@@ -222,12 +222,13 @@ class MysqlConnect(object):
             sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
                 params.get('begin_day'),
                 params.get('end_day'),
-                params.get('alarmlevel_query',''),
-                params.get('fulltext_query',''),
-                params.get('actiontype',''),
+                params.get('alarmlevel_query') if params.get('alarmlevel_query') is not None else '' ,
+                params.get('fulltext_query')if params.get('fulltext_query') is not None else '',
+                params.get('actiontype')if params.get('actiontype') is not None else '',
                 params.get('__alarmSour',0),
                 params.get('cz_status',0),
                 params.get('_interested',0),
+                params.get('__alarmType',0),
                 params.get('orderby'),
                 params.get('page_capa'),
                 params.get('page_num'),
@@ -267,8 +268,8 @@ class MysqlConnect(object):
             sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
                 params.get('begin_day'),
                 params.get('end_day'),
-                params.get('alarmlevel_query',''),
-                params.get('fulltext_query',''),
+                params.get('alarmlevel_query') if params.get('alarmlevel_query') is not None else '',
+                params.get('fulltext_query')if params.get('fulltext_query') is not None else '',
                 params.get('platform',0),
                 params.get('__alarmSour',0)
             )
@@ -488,9 +489,9 @@ class MysqlConnect(object):
                 params.get('begin_day'),
                 params.get('end_day'),
                 params.get('event_status', 0),
-                params.get('event_miji', ''),
-                params.get('event_type', ''),
-                params.get('fulltext_query', ''),
+                params.get('event_miji')if params.get('event_miji')is not None else '',
+                params.get('event_type')if params.get('event_type')is not None else '',
+                params.get('fulltext_query')if params.get('fulltext_query')is not None else '',
                 params.get('page_capa'),
                 params.get('page_num'),
             )
