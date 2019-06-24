@@ -675,6 +675,37 @@ class MysqlConnect(object):
             cur.close()
             conn.close()
 
+    # 5. 统计告警类型alarmtype
+    def pro_tj_action_list_alarmtype(self, params):
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_tj_action_list_alarmtype'
+            # 构造(%s,%s,...)
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+                params.get('begin_day'),
+                params.get('end_day'),
+            )
+
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
     # 综合：将几个统计结果集都集成起来
     @addHead()
     def pro_tj_alarm_list_center(self, params):
@@ -703,6 +734,12 @@ class MysqlConnect(object):
             result["platform"] = result1[1]
         else:
             result["platform"] = "error"
+
+        result1 = self.pro_tj_action_list_alarmtype(params)
+        if result1[0]:
+            result["alarmtype"] = result1[1]
+        else:
+            result["alarmtype"] = "error"
 
         return True, result
 
