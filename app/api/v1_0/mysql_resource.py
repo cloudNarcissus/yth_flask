@@ -92,6 +92,21 @@ class AlarmList(Resource):
         return mc.pro_alarm_list_query(params)
 
 
+@api.resource('/alarmlist/interested/')
+class AlarmList(Resource):
+    '''
+    关注告警清单
+    '''
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('__md5', type=str, required=True)
+        parser.add_argument('_interested', type=bool, required=True)
+        params = parser.parse_args(strict=True)
+        return mc.pro_alarm_list_interested(params)
+
+
+
 @api.resource('/actionlist/')
 class ActionList(Resource):
     '''

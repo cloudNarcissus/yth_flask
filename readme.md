@@ -369,3 +369,12 @@ url ： /v1.0/eventlist/
         parser.add_argument('page_capa', type=int, required=True)  # 每页的容量（400）
         parser.add_argument('page_num', type=int, required=True)  # 跳页数（ 首页为0 ，第二页是1 ）
         
+
+### 4.15 关注告警清单
+
+url: post /alarmlist/interested/
+
+```buildoutcfg
+        parser.add_argument('__md5', type=str, required=True)
+        parser.add_argument('_interested', type=bool, required=True)
+```

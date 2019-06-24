@@ -84,7 +84,7 @@ class MysqlConnect(object):
         :param output_args:
         :return:err,json
         """
-        self.log.debug('test')
+        #self.log.debug('test')
         cur = None
         conn, conn_err = self._connect('utf8')
         if conn is None:
@@ -323,6 +323,42 @@ class MysqlConnect(object):
         finally:
             cur.close()
             conn.close()
+
+    @addHead()
+    def pro_alarm_list_interested(self, params):
+        """
+        告警清单加入关注
+        :param params:
+        :return:
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_alarm_list_interested'
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+                params.get('__md5'),
+                params.get('_interested'),
+            )
+            # 构造(%s,%s,...)
+            cur.execute(sql)
+            conn.commit()
+            return True, 'update interested ok'
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
 
     def pro_action_list_add(self, params):
         """
