@@ -93,7 +93,7 @@ class AlarmList(Resource):
 
 
 @api.resource('/alarmlist/interested/')
-class AlarmList(Resource):
+class AlarmListInterested(Resource):
     '''
     关注告警清单
     '''
