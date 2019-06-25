@@ -395,3 +395,20 @@ url: put /keyword/
 
 ```
 
+
+### 4.17 查询关键字
+
+url: get /keyword/
+
+```buildoutcfg
+	begin_day  date,
+	end_day		 date,
+	keylevel     int ,  -- 0:全部  1-5：其他等级
+	enabled			bool, -- true / false 
+	keyword    varchar(100),-- '':空串不加入该条件   
+	last_keylevel int, -- 只有在告警等级排序的时候，才传这个值，否则传0
+	last_auid  int, -- 0:首次  >0：上一页最大id
+	page_count  int , -- 每页数量
+	order_by  varchar(10), --  asc/desc  
+	keytype   int -- 0 : 无此条件  1：关键字  2正则表达式
+```

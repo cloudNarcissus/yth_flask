@@ -553,7 +553,7 @@ class MysqlConnect(object):
             cur.close()
             conn.close()
 
-    @addHead
+    @addHead()
     def pro_cfg_keyword_add(self,params):
         """
         添加关键字
@@ -591,6 +591,50 @@ class MysqlConnect(object):
         finally:
             cur.close()
         conn.close()
+
+    @addHead()
+    def pro_cfg_keyword_query(self, params):
+        """
+        查询事件清单
+        :param 
+        :return: 
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_cfg_keyword_query'
+            # 构造(%s,%s,...)
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+                params.get('begin_day'),
+                params.get('end_day'),
+                params.get('keylevel', 0),
+                params.get('enabled') if params.get('enabled')is not None else None,
+                params.get('keyword') if params.get('keyword')is not None else '',
+                params.get('last_keylevel', 0),
+                params.get('last_auid', 0),
+                params.get('page_count', 0),
+                params.get('order_by'),
+                params.get('keytype'),
+            )
+
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
 
 
 
