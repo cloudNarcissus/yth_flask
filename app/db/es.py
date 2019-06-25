@@ -56,13 +56,13 @@ class ESClient(object):
                 query=qs
             )
             match_query = match_query & (
-                    query.QueryString(
-                        default_field="__full_query",
-                        query=qs
-                    ) | query.QueryString(
-                default_field="__summary",
-                query=qs
-            )
+                query.QueryString(
+                    default_field="__full_query",
+                    query=qs
+                ) | query.QueryString(
+                    default_field="__summary",
+                    query=qs
+                )
             )
 
             # #####################高亮内容###############################
@@ -428,10 +428,10 @@ class ESClient(object):
                 }
             }
             root = self.es.search('yth_raroot', 'mytype', body, size=1)
-            #children = self.es.search('yth_fileana', 'mytype', body, size=10)
+            # children = self.es.search('yth_fileana', 'mytype', body, size=10)
             tree = {
                 "root": root,
-                "children": "暂无"#children
+                "children": "暂无"  # children
             }
             forest.append(tree)
 
@@ -485,8 +485,17 @@ class ESClient(object):
                         'platform': row['__platform'],
                         'actiontype': row['__actionType'],
                         'redPoint': redPoint,
-                        'unit': None,
+                        '__unit': row.get('__unit',''),
                         '__connectTime': row['__connectTime'],
+
+                        'website_info_name': row.get('website_info_name', ''),
+                        'account': row.get('app_opt', {}).get('account', {}),
+                        'url': row.get('url', ''),
+                        'ip': row.get('ip', ''),
+                        'smac': row.get('smac', ''),
+                        'sport': row.get('sport', ''),
+                        '__unitaddr':row.get('__unitaddr', ''),
+                        '__contact':row.get('__contact','')
                     }
                     mc.pro_action_list_add(params_dict)
             return True, ''
@@ -499,7 +508,7 @@ class ESClient(object):
                                '__alarmLevel': 5, '__alarmSour': alarmSour, 'summary': es_doc['file_summary'],
                                '__alarmKey': es_doc['__alarmKey'], '__document': es_doc['__document'],
                                '__industry': es_doc['__industry'], '__security': es_doc['__security'],
-                               '__ips': es_doc.get('__ips',None), '__alarmType':es_doc.get('__alarmType',None)}
+                               '__ips': es_doc.get('__ips', None), '__alarmType': es_doc.get('__alarmType', None)}
                 # 入库alarm_list
                 result = mc.pro_alarm_list_add(params_dict)
             else:
@@ -511,7 +520,7 @@ class ESClient(object):
             body = {
                 'doc': {
                     '_alarmed': True,
-                    '__alarmLevel':5  # 手动加入的告警都是5级
+                    '__alarmLevel': 5  # 手动加入的告警都是5级
                 }
             }
             self.log.debug('更新告警数据，语句为{0}'.format(body))
@@ -562,7 +571,7 @@ class ESClient(object):
             if alarmSour == 2:
                 return update_yth_fileana_alarmed(index_id)
             elif alarmSour == 1:
-                return True , '成功加入告警'
+                return True, '成功加入告警'
 
 
         else:
@@ -636,14 +645,14 @@ class ESClient(object):
                                     _source_exclude=['__Content-text'])
 
     @addHead()
-    def query_content_text(self,params):
+    def query_content_text(self, params):
         '''
         查询单个文件的文本内容
         :param params:__md5 
         :return: 
         '''
         md5 = params.get('__md5')
-        self.log.debug('进入 query_content_text 函数 ,%s'% md5)
+        self.log.debug('进入 query_content_text 函数 ,%s' % md5)
 
         body = {
             "query": {

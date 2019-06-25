@@ -359,7 +359,6 @@ class MysqlConnect(object):
             cur.close()
             conn.close()
 
-
     def pro_action_list_add(self, params):
         """
         加入告警行为表（子表）
@@ -383,8 +382,18 @@ class MysqlConnect(object):
                 params.get('platform'),
                 params.get('actiontype'),
                 params.get('redPoint'),
-                params.get('unit'),
+                params.get('__unit'),
                 params.get('__connectTime'),
+
+                params.get('website_info_name'),
+                params.get('account'),
+                params.get('url'),
+                params.get('ip'),
+                params.get('smac'),
+                params.get('sport'),
+                params.get('__unitaddr'),
+                params.get('__contact'),
+
             )
             # 构造(%s,%s,...)
             cur.execute(sql)
@@ -544,7 +553,7 @@ class MysqlConnect(object):
             cur.close()
             conn.close()
 
-    @addHead()
+    @addHead
     def pro_cfg_keyword_add(self,params):
         """
         添加关键字
