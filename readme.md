@@ -378,3 +378,20 @@ url: post /alarmlist/interested/
         parser.add_argument('__md5', type=str, required=True)
         parser.add_argument('_interested', type=bool, required=True)
 ```
+
+
+
+### 4.16 添加关键字
+
+url: put /keyword/
+
+```buildoutcfg
+        parser.add_argument('keyword', type=str, required=True)  # 关键字、正则表达式
+        parser.add_argument('keylevel', type=str, required=True)  # 等级
+        parser.add_argument('enabled', type=bool, required=True)  # true false
+        parser.add_argument('remark', type=str, required=True)  # 备注
+        parser.add_argument('add_user', type=str, required=True)  # 添加者
+        parser.add_argument('keytype', type=int, required=True,choices=[1,2])  # 1:关键词  2：正则表达式
+
+```
+
