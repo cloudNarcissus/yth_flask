@@ -183,7 +183,7 @@ class EventListAdd(Resource):
 
 
 @api.resource('/keyword/')
-class EventListAdd(Resource):
+class Keyword(Resource):
     '''
     插入事件列表,同时将关联的行为插入
     '''
