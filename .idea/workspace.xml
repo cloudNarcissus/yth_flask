@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="&#10;&#10;### 4.17 查询关键字&#10;&#10;url: get /keyword/">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/api/v1_0/mysql_resource.py" afterPath="$PROJECT_DIR$/app/api/v1_0/mysql_resource.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/es.py" afterPath="$PROJECT_DIR$/app/db/es.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -99,8 +96,8 @@
       <file leaf-file-name="mysql.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/db/mysql.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="490" column="39" lean-forward="true" selection-start-line="490" selection-start-column="39" selection-end-line="490" selection-end-column="39" />
+            <state relative-caret-position="104">
+              <caret line="510" column="0" lean-forward="false" selection-start-line="510" selection-start-column="0" selection-end-line="510" selection-end-column="0" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
                 <element signature="e#1296#1378#0" expanded="false" />
@@ -148,7 +145,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="readme.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="readme.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
@@ -180,11 +177,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mysql_resource.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mysql_resource.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/api/v1_0/mysql_resource.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="70">
-              <caret line="145" column="71" lean-forward="true" selection-start-line="145" selection-start-column="8" selection-end-line="145" selection-end-column="71" />
+            <state relative-caret-position="155">
+              <caret line="150" column="22" lean-forward="true" selection-start-line="150" selection-start-column="22" selection-end-line="150" selection-end-column="22" />
               <folding>
                 <element signature="e#1059#1595#0" expanded="false" />
                 <element signature="e#1663#1978#0" expanded="false" />
@@ -783,13 +780,6 @@
       <option name="presentableId" value="Default" />
       <updated>1557381008761</updated>
     </task>
-    <task id="LOCAL-00001" summary="把多个app-restful合成一个">
-      <created>1559178099052</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1559178099052</updated>
-    </task>
     <task id="LOCAL-00002" summary="把多个app-restful合成一个">
       <created>1559201868735</created>
       <option name="number" value="00002" />
@@ -1126,7 +1116,14 @@
       <option name="project" value="LOCAL" />
       <updated>1561463134454</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="&#10;&#10;### 4.17 查询关键字&#10;&#10;url: get /keyword/">
+      <created>1561520967270</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1561520967272</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1197,11 +1194,6 @@
           <url>file://$PROJECT_DIR$/app/db/mysql.py</url>
           <line>480</line>
           <option name="timeStamp" value="57" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/api/v1_0/mysql_resource.py</url>
-          <line>146</line>
-          <option name="timeStamp" value="59" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1543,18 +1535,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/api/v1_0/es_resource.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="107" column="98" lean-forward="true" selection-start-line="107" selection-start-column="63" selection-end-line="107" selection-end-column="98" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/db/mysql.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="490" column="39" lean-forward="true" selection-start-line="490" selection-start-column="39" selection-end-line="490" selection-end-column="39" />
+        <state relative-caret-position="104">
+          <caret line="510" column="0" lean-forward="false" selection-start-line="510" selection-start-column="0" selection-end-line="510" selection-end-column="0" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
             <element signature="e#1296#1378#0" expanded="false" />
@@ -1589,17 +1573,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/api/v1_0/mysql_resource.py">
+    <entry file="file://$PROJECT_DIR$/app/api/v1_0/es_resource.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="145" column="71" lean-forward="true" selection-start-line="145" selection-start-column="8" selection-end-line="145" selection-end-column="71" />
-          <folding>
-            <element signature="e#1059#1595#0" expanded="false" />
-            <element signature="e#1663#1978#0" expanded="false" />
-            <element signature="e#2041#2923#0" expanded="false" />
-            <element signature="e#3389#3633#0" expanded="false" />
-            <element signature="e#3690#3932#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="240">
+          <caret line="107" column="98" lean-forward="true" selection-start-line="107" selection-start-column="63" selection-end-line="107" selection-end-column="98" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1614,6 +1592,20 @@
             </folding>
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/api/v1_0/mysql_resource.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="155">
+          <caret line="150" column="22" lean-forward="true" selection-start-line="150" selection-start-column="22" selection-end-line="150" selection-end-column="22" />
+          <folding>
+            <element signature="e#1059#1595#0" expanded="false" />
+            <element signature="e#1663#1978#0" expanded="false" />
+            <element signature="e#2041#2923#0" expanded="false" />
+            <element signature="e#3389#3633#0" expanded="false" />
+            <element signature="e#3690#3932#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
