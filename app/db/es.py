@@ -472,6 +472,15 @@ class ESClient(object):
         md5 = params.get('__md5')
         alarmSour = params['__alarmSour']
 
+        def panduan_yth_fileana_isroot(md5):
+            """
+            判断某个md5条目是否是根（压缩文件或者嵌套文件的根）
+            :param md5:条目自身的md5 
+            :return: (是否是根节点true/flase ,如果不是根则返回rootmd5 )
+            """
+            pass
+
+
         def query_yth_base_then_insert_action_list(md5, connectTime, redPoint):
             # 先查询 yth_base，然后入action_list
             action_dict = self.query_yth_base_by_md5(md5, connectTime)

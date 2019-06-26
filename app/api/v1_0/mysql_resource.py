@@ -143,6 +143,7 @@ class EventListAdd(Resource):
 
     def post(self):
         parser = reqparse.RequestParser()
+        parser.add_argument('__md5', type=str, required=True)  # 告警的md5
         parser.add_argument('event_id', type=str, required=True)  # 事件编号
         parser.add_argument('event_name', type=str, required=True)  # 事件名
         parser.add_argument('event_type', type=int, required=True)  # 字典里有

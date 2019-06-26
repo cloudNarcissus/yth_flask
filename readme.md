@@ -354,6 +354,7 @@ url ： /v1.0/eventlist/
 方法：get
 
         
+        parser.add_argument('__md5', type=str, required=True)  # 告警的md5
         parser.add_argument('begin_day', type=str, required=True)  # 事件编号
         parser.add_argument('end_day', type=str, required=True)  # 事件名
         parser.add_argument('event_type', type=int)  # 字典里有 , 默认0或不传
