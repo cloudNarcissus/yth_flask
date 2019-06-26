@@ -413,3 +413,10 @@ url: get /keyword/
 	order_by  varchar(10), --  asc/desc  
 	keytype   int -- 0 : 无此条件  1：关键字  2正则表达式
 ```
+
+
+### 4.18 创建event_id
+
+url :   get /eventid/
+
+无参数

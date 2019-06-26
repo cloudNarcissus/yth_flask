@@ -136,7 +136,7 @@ class CzList(Resource):
 
 
 @api.resource('/eventlist/')
-class EventListAdd(Resource):
+class EventList(Resource):
     '''
     插入事件列表,同时将关联的行为插入
     '''
@@ -156,7 +156,7 @@ class EventListAdd(Resource):
         parser.add_argument('event_miji', type=str, required=True)  # 字典里有
         parser.add_argument('event_status', type=int, required=True)  # 字典里有 1.待处理 2.不移交  3移交未反馈  4移交已反馈
         parser.add_argument('content', type=str, required=True)  # 内容 显示 文件名 或者 违规外联描述
-        parser.add_argument('remark', type=str, required=True)  # 备注
+        parser.add_argument('remark', type=str)  # 备注
         parser.add_argument('add_user', type=str, required=True)  # 添加者
         parser.add_argument('report', type=str, required=True)  # 这是ui自行组织的json，用于打印报告
 
@@ -181,6 +181,12 @@ class EventListAdd(Resource):
         parser.add_argument('page_num', type=int, required=True)  # 跳页数（ 首页为0 ，第二页是1 ）
         params = parser.parse_args(strict=True)
         return mc.pro_event_list_query(params)
+
+
+@api.resource('/eventid/')
+class EventID(Resource):
+    def get(self):
+        return mc.pro_event_list_create_event_id()
 
 
 @api.resource('/keyword/')
