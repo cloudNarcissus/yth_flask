@@ -479,9 +479,9 @@ class ESClient(object):
             :return: (是否是根节点true/flase ,如果不是根则返回rootmd5 )
             """
             if self.es.exists(index='yth_fileana', doc_type='mytype', id=index_id):
-                es_doc = self.es.get(index='yth_fileana', doc_type='mytype', id=index_id,includes=['__md5','__rootmd5']).get('_source')
+                es_doc = self.es.get(index='yth_fileana', doc_type='mytype', id=index_id,_source_include=['__md5','__rootmd5s']).get('_source')
                 md5_ = es_doc['__md5']
-                rootmd5s_ = es_doc['__rootmd5s'] #一个文件有多个父
+                rootmd5s_ = es_doc.get('__rootmd5s',[]) #一个文件有多个父
 
                 if md5_ in rootmd5s_:
                     return [md5_]
@@ -490,39 +490,41 @@ class ESClient(object):
             else:
                 return []
 
-        def query_yth_base_then_insert_action_list(md5s, connectTime, redPoint):
+        def query_yth_base_then_insert_action_list(md5, md5s, connectTime, redPoint):
             # 先查询 yth_base，然后入action_list
+            # md5 : 插入action_list的时候，仍然用fileana的MD5，否则无法关联到alarm_list
             # md5s : 可能有多个md5（因为一个文件可能属于多个root md5）
-            for md5 in md5s:
-                action_dict = self.query_yth_base_by_md5(md5, connectTime)
+
+            for md5_ in md5s:
+                action_dict = self.query_yth_base_by_md5(md5_, connectTime)
                 action_count = action_dict.get('hits').get('total')
                 if action_count > 0:
                     action_list = action_dict.get('hits').get('hits')
                     for row in action_list:
                         params_dict = {
                             'yth_base_id': row['_id'],
-                            '__md5': row['__md5'],
-                            'platform': row['__platform'],
-                            'actiontype': row['__actionType'],
+                            '__md5': md5,
+                            'platform': row['_source']['__platform'],
+                            'actiontype': row['_source']['__actionType'],
                             'redPoint': redPoint,
-                            '__unit': row.get('__unit',''),
-                            '__connectTime': row['__connectTime'],
+                            '__unit': row['_source'].get('__unit',''),
+                            '__connectTime': row['_source']['__connectTime'],
 
-                            'website_info_name': row.get('website_info_name', ''),
-                            'account': row.get('app_opt', {}).get('account', {}),
-                            'url': row.get('url', ''),
-                            'ip': row.get('ip', ''),
-                            'smac': row.get('smac', ''),
-                            'sport': row.get('sport', ''),
-                            '__unitaddr':row.get('__unitaddr', ''),
-                            '__contact':row.get('__contact','')
+                            'website_info_name': row['_source'].get('website_info_name', ''),
+                            'account': row['_source'].get('app_opt', {}).get('account', {}),
+                            'url': row['_source'].get('url', ''),
+                            'ip': row['_source'].get('ip', ''),
+                            'smac': row['_source'].get('smac', ''),
+                            'sport': row['_source'].get('sport', ''),
+                            '__unitaddr':row['_source'].get('__unitaddr', ''),
+                            '__contact':row['_source'].get('__contact','')
                         }
-                        mc.pro_action_list_add(params_dict)
+                        return mc.pro_action_list_add(params_dict)
             return True, ''
 
         def add_alarm_list(alarmSour):
             if self.es.exists(index='yth_fileana', doc_type='mytype', id=index_id):
-                es_doc = self.es.get(index='yth_fileana', doc_type='mytype', id=index_id,excludes=['__Content-text','summary']).get('_source')
+                es_doc = self.es.get(index='yth_fileana', doc_type='mytype', id=index_id,_source_exclude=['__Content-text','summary']).get('_source')
                 params_dict = {'yth_fileana_id': index_id, '__md5': es_doc['__md5'],
                                '__connectTime': es_doc['__connectTime'], '__title': es_doc['FileName'],
                                '__alarmLevel': 5, '__alarmSour': alarmSour, 'summary': es_doc['file_summary'],
@@ -560,7 +562,7 @@ class ESClient(object):
                 if result[0]:
                     # 先查询 yth_base，然后入action_list
                     md5s = panduan_yth_fileana_isroot()
-                    if not query_yth_base_then_insert_action_list(md5s, None, False)[0]:
+                    if not query_yth_base_then_insert_action_list(md5,md5s, None, 0)[0]:
                         self.log.error('入库insert_action_list失败')
                         return False, '入库insert_action_list失败'
                 else:
@@ -573,7 +575,7 @@ class ESClient(object):
                 if result[0]:
                     # 先查询 yth_base，然后入action_list
                     md5s = panduan_yth_fileana_isroot()
-                    if not query_yth_base_then_insert_action_list(md5s, result[1], True)[0]:
+                    if not query_yth_base_then_insert_action_list(md5,md5s, result[1], 1)[0]:
                         self.log.error('入库insert_action_list失败')
                         return False, '入库insert_action_list失败'
                 else:
@@ -584,7 +586,7 @@ class ESClient(object):
                 if result[0]:
                     # 先查询 yth_base，然后入action_list
                     md5s = panduan_yth_fileana_isroot()
-                    if not query_yth_base_then_insert_action_list(md5s, result[1], False)[0]:
+                    if not query_yth_base_then_insert_action_list(md5,md5s, result[1], 0)[0]:
                         self.log.error('入库insert_action_list失败')
                         return False, '入库insert_action_list失败'
                 else:

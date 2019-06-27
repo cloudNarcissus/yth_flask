@@ -84,7 +84,7 @@ class MysqlConnect(object):
         :param output_args:
         :return:err,json
         """
-        #self.log.debug('test')
+        # self.log.debug('test')
         cur = None
         conn, conn_err = self._connect('utf8')
         if conn is None:
@@ -222,13 +222,13 @@ class MysqlConnect(object):
             sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
                 params.get('begin_day'),
                 params.get('end_day'),
-                params.get('alarmlevel_query') if params.get('alarmlevel_query') is not None else '' ,
-                params.get('fulltext_query')if params.get('fulltext_query') is not None else '',
-                params.get('actiontype')if params.get('actiontype') is not None else '',
-                params.get('__alarmSour',0),
-                params.get('cz_status',0),
-                params.get('_interested',0),
-                params.get('__alarmType',0),
+                params.get('alarmlevel_query') if params.get('alarmlevel_query') is not None else '',
+                params.get('fulltext_query') if params.get('fulltext_query') is not None else '',
+                params.get('actiontype') if params.get('actiontype') is not None else '',
+                params.get('__alarmSour', 0),
+                params.get('cz_status', 0),
+                params.get('_interested', 0),
+                params.get('__alarmType', 0),
                 params.get('orderby'),
                 params.get('page_capa'),
                 params.get('page_num'),
@@ -269,9 +269,9 @@ class MysqlConnect(object):
                 params.get('begin_day'),
                 params.get('end_day'),
                 params.get('alarmlevel_query') if params.get('alarmlevel_query') is not None else '',
-                params.get('fulltext_query')if params.get('fulltext_query') is not None else '',
-                params.get('platform',0),
-                params.get('__alarmSour',0)
+                params.get('fulltext_query') if params.get('fulltext_query') is not None else '',
+                params.get('platform', 0),
+                params.get('__alarmSour', 0)
             )
 
             cur.execute(sql)
@@ -341,12 +341,8 @@ class MysqlConnect(object):
         try:
 
             cur = conn.cursor()
-            sql = 'call pro_alarm_list_interested'
-            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
-                params.get('__md5'),
-                params.get('_interested'),
-            )
-            # 构造(%s,%s,...)
+            sql = 'call pro_alarm_list_interested("%s",%s)' % (params.get('__md5'), params.get('_interested'))
+
             cur.execute(sql)
             conn.commit()
             return True, 'update interested ok'
@@ -534,9 +530,9 @@ class MysqlConnect(object):
                 params.get('begin_day'),
                 params.get('end_day'),
                 params.get('event_status', 0),
-                params.get('event_miji')if params.get('event_miji')is not None else '',
-                params.get('event_type')if params.get('event_type')is not None else '',
-                params.get('fulltext_query')if params.get('fulltext_query')is not None else '',
+                params.get('event_miji') if params.get('event_miji') is not None else '',
+                params.get('event_type') if params.get('event_type') is not None else '',
+                params.get('fulltext_query') if params.get('fulltext_query') is not None else '',
                 params.get('page_capa'),
                 params.get('page_num'),
             )
@@ -582,9 +578,8 @@ class MysqlConnect(object):
             cur.close()
             conn.close()
 
-
     @addHead()
-    def pro_cfg_keyword_add(self,params):
+    def pro_cfg_keyword_add(self, params):
         """
         添加关键字
         :param params: 一堆参数
@@ -601,7 +596,7 @@ class MysqlConnect(object):
 
             cur = conn.cursor()
             sql = '''call pro_cfg_keyword_add'''
-            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+            sql += '''("%s",%d,%s,"%s","%s","%s")''' % (
                 params.get('keyword'),
                 params.get('keylevel'),
                 params.get('enabled'),
@@ -645,8 +640,8 @@ class MysqlConnect(object):
                 params.get('begin_day'),
                 params.get('end_day'),
                 params.get('keylevel', 0),
-                params.get('enabled') if params.get('enabled')is not None else None,
-                params.get('keyword') if params.get('keyword')is not None else '',
+                params.get('enabled') if params.get('enabled') is not None else None,
+                params.get('keyword') if params.get('keyword') is not None else '',
                 params.get('last_keylevel', 0),
                 params.get('last_auid', 0),
                 params.get('page_count', 0),
@@ -665,11 +660,6 @@ class MysqlConnect(object):
         finally:
             cur.close()
             conn.close()
-
-
-
-
-
 
     # ------------------- 告警中心的统计 ---------------------
 
