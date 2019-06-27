@@ -426,6 +426,12 @@ url :   get /eventid/
 ### 4.19 更新事件
 
 
+飒飒|撒|统一
+---|---|---
+是多少|有一条
+
+---
+
 url:  put /eventlist/
 
 ```buildoutcfg
@@ -452,4 +458,14 @@ url: delete /eventlist/
 ```buildoutcfg
     parser.add_argument('event_id', type=str, required=True)  # 事件编号
 
+```
+
+
+### 4.21 查询轨迹的详细
+
+url : get /action/one/
+
+```buildoutcfg
+
+parser.add_argument('index_id', type=str)
 ```

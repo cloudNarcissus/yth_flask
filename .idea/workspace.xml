@@ -4,10 +4,10 @@
     <bookmark url="file://$PROJECT_DIR$/_bak/yth_base.py" line="739" mnemonic="5" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="编辑事件  删除事件">
+    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="/action/one  ：  根据index_id查询行为">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/api/v1_0/es_resource.py" afterPath="$PROJECT_DIR$/app/api/v1_0/es_resource.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/es.py" afterPath="$PROJECT_DIR$/app/db/es.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -126,11 +126,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="es_resource.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="es_resource.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/api/v1_0/es_resource.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="26" column="26" lean-forward="false" selection-start-line="26" selection-start-column="15" selection-end-line="26" selection-end-column="26" />
+            <state relative-caret-position="289">
+              <caret line="29" column="45" lean-forward="true" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -181,15 +181,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="readme.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="readme.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="105">
-                <caret line="425" column="0" lean-forward="false" selection-start-line="425" selection-start-column="0" selection-end-line="428" selection-end-column="21" />
+              <first_editor relative-caret-position="249">
+                <caret line="462" column="0" lean-forward="true" selection-start-line="462" selection-start-column="0" selection-end-line="465" selection-end-column="22" />
                 <folding>
-                  <marker date="1561621204251" expanded="true" signature="193:376" ph="{&quot;begin_time&quot;: &quot;2019-05-16&quot;...}" />
-                  <marker date="1561621204251" expanded="true" signature="5192:5231" ph="{...}" />
+                  <marker date="1561623575065" expanded="true" signature="193:376" ph="{&quot;begin_time&quot;: &quot;2019-05-16&quot;...}" />
+                  <marker date="1561623575065" expanded="true" signature="5192:5231" ph="{...}" />
                 </folding>
               </first_editor>
               <second_editor />
@@ -200,7 +200,7 @@
       <file leaf-file-name="serving.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/werkzeug/serving.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4828">
+            <state relative-caret-position="197">
               <caret line="299" column="0" lean-forward="false" selection-start-line="299" selection-start-column="0" selection-end-line="299" selection-end-column="0" />
               <folding />
             </state>
@@ -304,9 +304,9 @@
         <option value="$PROJECT_DIR$/tests/test_openfile.py" />
         <option value="$PROJECT_DIR$/app/db/mysql.py" />
         <option value="$PROJECT_DIR$/app/api/v1_0/mysql_resource.py" />
-        <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/app/db/es.py" />
         <option value="$PROJECT_DIR$/app/api/v1_0/es_resource.py" />
+        <option value="$PROJECT_DIR$/readme.md" />
       </list>
     </option>
   </component>
@@ -494,7 +494,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Api" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="settings.editor.splitter.proportion" value="0.29493546" />
     <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file://D:/work/20190423_ES/yth_py/yth_server.py&#10;plugin&#9;ACTION&#9;WelcomeScreen.Plugins" />
   </component>
@@ -731,13 +731,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1557381008761</updated>
-    </task>
-    <task id="LOCAL-00006" summary="增加加入告警的流程">
-      <created>1559547312934</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1559547312934</updated>
     </task>
     <task id="LOCAL-00007" summary="查询相似文档">
       <created>1559548284664</created>
@@ -1075,7 +1068,14 @@
       <option name="project" value="LOCAL" />
       <updated>1561621482551</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="/action/one  ：  根据index_id查询行为">
+      <created>1561622152940</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1561622152940</updated>
+    </task>
+    <option name="localTasksCounter" value="56" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1085,14 +1085,14 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18154311" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23278688" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23278688" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.119672135" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17377049" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.017397882" sideWeight="0.8134172" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5098361" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13442624" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.12481089" sideWeight="0.1865828" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.036308624" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.03706505" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1112,7 +1112,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="/v1.0/alarmlist/&#10;platform没了。加了actiontype" />
     <MESSAGE value="20190613" />
     <MESSAGE value="/v1.0/alarmlist/cz" />
     <MESSAGE value="### 4.13 查询处置历史清单&#10;&#10;url: /v1.0/czlist/" />
@@ -1137,7 +1136,8 @@
     <MESSAGE value="### 4.18 创建event_id&#10;&#10;url :   get /eventid/" />
     <MESSAGE value="重新调整 加入告警的流程，并新增了一条测试数据（轨迹追踪的）" />
     <MESSAGE value="编辑事件  删除事件" />
-    <option name="LAST_COMMIT_MESSAGE" value="编辑事件  删除事件" />
+    <MESSAGE value="/action/one  ：  根据index_id查询行为" />
+    <option name="LAST_COMMIT_MESSAGE" value="/action/one  ：  根据index_id查询行为" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1458,14 +1458,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/werkzeug/serving.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4828">
-          <caret line="299" column="0" lean-forward="false" selection-start-line="299" selection-start-column="0" selection-end-line="299" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask_restful/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="223">
@@ -1513,17 +1505,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/readme.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="105">
-            <caret line="425" column="0" lean-forward="false" selection-start-line="425" selection-start-column="0" selection-end-line="428" selection-end-column="21" />
-            <folding>
-              <marker date="1561621204251" expanded="true" signature="193:376" ph="{&quot;begin_time&quot;: &quot;2019-05-16&quot;...}" />
-              <marker date="1561621204251" expanded="true" signature="5192:5231" ph="{...}" />
-            </folding>
-          </first_editor>
-          <second_editor />
+    <entry file="file://$PROJECT_DIR$/app/db/es.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2335">
+          <caret line="468" column="33" lean-forward="false" selection-start-line="468" selection-start-column="8" selection-end-line="468" selection-end-column="33" />
+          <folding>
+            <element signature="e#11288#12438#0" expanded="false" />
+            <element signature="e#12575#13526#0" expanded="false" />
+            <element signature="e#13660#14704#0" expanded="false" />
+            <element signature="e#14864#15647#0" expanded="false" />
+            <element signature="e#22760#23770#0" expanded="false" />
+            <element signature="e#23840#24691#0" expanded="false" />
+            <element signature="e#24758#25278#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1556,27 +1550,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/db/es.py">
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/werkzeug/serving.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2335">
-          <caret line="468" column="33" lean-forward="false" selection-start-line="468" selection-start-column="8" selection-end-line="468" selection-end-column="33" />
-          <folding>
-            <element signature="e#11288#12438#0" expanded="false" />
-            <element signature="e#12575#13526#0" expanded="false" />
-            <element signature="e#13660#14704#0" expanded="false" />
-            <element signature="e#14864#15647#0" expanded="false" />
-            <element signature="e#22760#23770#0" expanded="false" />
-            <element signature="e#23840#24691#0" expanded="false" />
-            <element signature="e#24758#25278#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="197">
+          <caret line="299" column="0" lean-forward="false" selection-start-line="299" selection-start-column="0" selection-end-line="299" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/api/v1_0/es_resource.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="26" column="26" lean-forward="false" selection-start-line="26" selection-start-column="15" selection-end-line="26" selection-end-column="26" />
+        <state relative-caret-position="289">
+          <caret line="29" column="45" lean-forward="true" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="45" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="249">
+            <caret line="462" column="0" lean-forward="true" selection-start-line="462" selection-start-column="0" selection-end-line="465" selection-end-column="22" />
+            <folding>
+              <marker date="1561623575065" expanded="true" signature="193:376" ph="{&quot;begin_time&quot;: &quot;2019-05-16&quot;...}" />
+              <marker date="1561623575065" expanded="true" signature="5192:5231" ph="{...}" />
+            </folding>
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

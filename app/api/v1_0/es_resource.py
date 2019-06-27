@@ -24,12 +24,12 @@ class SearchYthBase(Resource):
 
 
 
-@api.resource('/action/one')
+@api.resource('/action/one/')
 class SearchYthBaseOne(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('index_id', type=str)
 
-    def post(self):
+    def get(self):
         params = self.parser.parse_args(strict=True)
         return ec.query_yth_base_by_indexid(params)
 
