@@ -464,6 +464,13 @@ class ESClient(object):
         # self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
         return self.es.search('yth_base', 'mytype', body, size=20)
 
+    # -------------------------查询某个index_id的yth_base记录----------------------------------------
+    @addHead()
+    def query_yth_base_by_indexid(self, params):
+        index_id = params['index_id']
+        return self.es.get(index='yth_base', doc_type='mytype', id=index_id)
+
+
     # -------------------------加入告警到alarm——list-------------------------------------------
     @addHead()
     def add_alarm_list(self, params):

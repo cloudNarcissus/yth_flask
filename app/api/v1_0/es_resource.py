@@ -23,6 +23,18 @@ class SearchYthBase(Resource):
         return ec.search_yth_base(params)
 
 
+
+@api.resource('/action/one')
+class SearchYthBaseOne(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('index_id', type=str)
+
+    def post(self):
+        params = self.parser.parse_args(strict=True)
+        return ec.query_yth_base_by_indexid(params)
+
+
+
 @api.resource('/fileana/')
 class SearchYthFileana(Resource):
     parser = reqparse.RequestParser()
@@ -123,3 +135,6 @@ class FileanaView(Resource):
     def get(self):
         params = self.parser.parse_args(strict=True)
         return ec.query_content_text(params)
+
+
+
