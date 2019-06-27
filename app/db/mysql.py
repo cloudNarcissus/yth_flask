@@ -550,6 +550,70 @@ class MysqlConnect(object):
             conn.close()
 
     @addHead()
+    def pro_event_list_edit(self,params):
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = '''call pro_event_list_edit'''
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+                params.get('event_id'),
+                params.get('event_name'),
+                params.get('event_type'),
+                params.get('event_miji'),
+                params.get('event_status'),
+                params.get('remark'),
+                params.get('add_user')
+            )
+            cur.execute(sql)
+            conn.commit()
+            result = self.parse_result_to_json(cur)
+            return result[0].get('err'), result[0].get('msg'),
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    @addHead()
+    def pro_event_list_drop(self, params):
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = '''call pro_event_list_drop'''
+            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+                params.get('event_id')
+            )
+            cur.execute(sql)
+            conn.commit()
+            result = self.parse_result_to_json(cur)
+            return result[0].get('err'), result[0].get('msg'),
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    @addHead()
     def pro_event_list_create_event_id(self):
         """
         获取event_id

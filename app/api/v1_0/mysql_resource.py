@@ -182,6 +182,30 @@ class EventList(Resource):
         params = parser.parse_args(strict=True)
         return mc.pro_event_list_query(params)
 
+    def put(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('event_id', type=str, required=True)  # 事件编号
+        parser.add_argument('event_name', type=str, required=True)  # 事件名
+        parser.add_argument('event_type', type=int, required=True)  # 字典里有
+        #
+        # 1       违规外联
+        # 2       互联网传输泄密
+        # 3       网络攻击窃密
+        # 4       违规存储 / 处理涉密信息
+        #
+        parser.add_argument('event_miji', type=str, required=True)  # 字典里有
+        parser.add_argument('event_status', type=int, required=True)  # 字典里有 1.待处理 2.不移交  3移交未反馈  4移交已反馈
+        parser.add_argument('remark', type=str)  # 备注
+        parser.add_argument('add_user', type=str, required=True)  # 添加者
+        params = parser.parse_args(strict=True)
+        return mc.pro_event_list_edit(params)
+
+    def delete(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('event_id', type=str, required=True)  # 事件编号
+        params = parser.parse_args(strict=True)
+        return mc.pro_event_list_drop(params)
+
 
 @api.resource('/eventid/')
 class EventID(Resource):
