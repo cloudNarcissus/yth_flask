@@ -101,7 +101,7 @@ class AlarmListInterested(Resource):
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('__md5', type=str, required=True)
-        parser.add_argument('_interested', type=bool, required=True)
+        parser.add_argument('_interested', type=int, required=True)
         params = parser.parse_args(strict=True)
         return mc.pro_alarm_list_interested(params)
 
@@ -223,7 +223,7 @@ class Keyword(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument('keyword', type=str, required=True)  # 关键字、正则表达式
         parser.add_argument('keylevel', type=str, required=True)  # 等级
-        parser.add_argument('enabled', type=bool, required=True)  # true false
+        parser.add_argument('enabled', type=int, required=True)  # -1 0  1
         parser.add_argument('remark', type=str, required=True)  # 备注
         parser.add_argument('add_user', type=str, required=True)  # 添加者
         parser.add_argument('keytype', type=int, required=True,choices=[1,2])  # 1:关键词  2：正则表达式
@@ -237,7 +237,7 @@ class Keyword(Resource):
         parser.add_argument('begin_day',type=str, required=True)
         parser.add_argument('end_day',type=str, required=True)
         parser.add_argument('keylevel',type=int)
-        parser.add_argument('enabled',type=bool)
+        parser.add_argument('enabled',type=int)
         parser.add_argument('keyword',type=str)
         parser.add_argument('last_keylevel',type=int)
         parser.add_argument('last_auid',type=int)

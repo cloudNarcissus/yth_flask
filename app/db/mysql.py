@@ -660,7 +660,7 @@ class MysqlConnect(object):
 
             cur = conn.cursor()
             sql = '''call pro_cfg_keyword_add'''
-            sql += '''("%s",%d,%s,"%s","%s","%s")''' % (
+            sql += '''("%s",%s,%s,"%s","%s","%s")''' % (
                 params.get('keyword'),
                 params.get('keylevel'),
                 params.get('enabled'),
