@@ -385,7 +385,7 @@ url: post /alarmlist/interested/
 
 ### 4.16 添加关键字
 
-url: put /keyword/
+url: post /keyword/
 
 ```buildoutcfg
         parser.add_argument('keyword', type=str, required=True)  # 关键字、正则表达式
@@ -468,4 +468,34 @@ url : get /action/one/
 ```buildoutcfg
 
 parser.add_argument('index_id', type=str)
+```
+
+
+### 4.22 更新关键字
+
+url :  put /keyword/
+
+```
+        parser = reqparse.RequestParser()
+        parser.add_argument('auid', type=int, required=True)  # 关键字id
+        parser.add_argument('keyword', type=str, required=True)  # 关键字、正则表达式
+        parser.add_argument('keylevel', type=str, required=True)  # 等级
+        parser.add_argument('enabled', type=int, required=True)  # -1 0  1
+        parser.add_argument('remark', type=str, required=True)  # 备注
+        parser.add_argument('add_user', type=str, required=True)  # 添加者
+        parser.add_argument('keytype', type=int, required=True, choices=[1, 2])  # 1:关键词  2：正则表达式
+        
+        
+```
+
+
+### 4.23 删除关键字
+
+url: delete /keyword/
+
+```
+   
+        parser.add_argument('auid', type=int, required=True)  # 关键字id
+  
+        
 ```

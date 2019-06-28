@@ -219,7 +219,7 @@ class Keyword(Resource):
     插入事件列表,同时将关联的行为插入
     '''
 
-    def put(self):
+    def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('keyword', type=str, required=True)  # 关键字、正则表达式
         parser.add_argument('keylevel', type=str, required=True)  # 等级
@@ -247,3 +247,23 @@ class Keyword(Resource):
 
         params = parser.parse_args(strict=True)
         return mc.pro_cfg_keyword_query(params)
+
+    def put(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('auid', type=int, required=True)  # 关键字id
+        parser.add_argument('keyword', type=str, required=True)  # 关键字、正则表达式
+        parser.add_argument('keylevel', type=str, required=True)  # 等级
+        parser.add_argument('enabled', type=int, required=True)  # -1 0  1
+        parser.add_argument('remark', type=str, required=True)  # 备注
+        parser.add_argument('add_user', type=str, required=True)  # 添加者
+        parser.add_argument('keytype', type=int, required=True, choices=[1, 2])  # 1:关键词  2：正则表达式
+
+        params = parser.parse_args(strict=True)
+        return mc.pro_cfg_keyword_edit(params)
+
+    def delete(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('auid', type=int, required=True)  # 关键字id
+
+        params = parser.parse_args(strict=True)
+        return mc.pro_cfg_keyword_drop(params)
