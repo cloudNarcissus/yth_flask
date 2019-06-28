@@ -216,7 +216,7 @@ class EventID(Resource):
 @api.resource('/keyword/')
 class Keyword(Resource):
     '''
-    插入事件列表,同时将关联的行为插入
+    关键字操作
     '''
 
     def post(self):
@@ -224,7 +224,7 @@ class Keyword(Resource):
         parser.add_argument('keyword', type=str, required=True)  # 关键字、正则表达式
         parser.add_argument('keylevel', type=str, required=True)  # 等级
         parser.add_argument('enabled', type=int, required=True)  # -1 0  1
-        parser.add_argument('remark', type=str, required=True)  # 备注
+        parser.add_argument('remark', type=str)  # 备注
         parser.add_argument('add_user', type=str, required=True)  # 添加者
         parser.add_argument('keytype', type=int, required=True,choices=[1,2])  # 1:关键词  2：正则表达式
 
