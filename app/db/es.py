@@ -468,7 +468,7 @@ class ESClient(object):
     @addHead()
     def query_yth_base_by_indexid(self, params):
         index_id = params['index_id']
-        return True,self.es.get(index='yth_base', doc_type='mytype', id=index_id)
+        return True,self.es.get(index='yth_base', doc_type='mytype', id=index_id,_source_exclude=['sm_summary'])
 
 
     # -------------------------加入告警到alarm——list-------------------------------------------
@@ -531,10 +531,10 @@ class ESClient(object):
 
         def add_alarm_list(alarmSour):
             if self.es.exists(index='yth_fileana', doc_type='mytype', id=index_id):
-                es_doc = self.es.get(index='yth_fileana', doc_type='mytype', id=index_id,_source_exclude=['__Content-text','summary']).get('_source')
+                es_doc = self.es.get(index='yth_fileana', doc_type='mytype', id=index_id,_source_exclude=['__Content-text']).get('_source')
                 params_dict = {'yth_fileana_id': index_id, '__md5': es_doc['__md5'],
                                '__connectTime': es_doc['__connectTime'], '__title': es_doc['FileName'],
-                               '__alarmLevel': 5, '__alarmSour': alarmSour, 'summary': es_doc['file_summary'],
+                               '__alarmLevel': 5, '__alarmSour': alarmSour, 'summary': es_doc['summary'],
                                '__alarmKey': es_doc['__alarmKey'], '__document': es_doc['__document'],
                                '__industry': es_doc['__industry'], '__security': es_doc['__security'],
                                '__ips': es_doc.get('__ips', None), '__alarmType': es_doc.get('__alarmType', None)}
