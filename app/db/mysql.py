@@ -172,7 +172,7 @@ class MysqlConnect(object):
 
             cur = conn.cursor()
             sql = 'call pro_alarm_list_add'
-            sql += ('(' + (''' "%s",''' * len(params))[:-1] + ')') % (
+            sql += ('(' + (''' '%s',''' * len(params))[:-1] + ')') % (
                 params.get('yth_fileana_id'),
                 params.get('__md5'),
                 params.get('__connectTime'),

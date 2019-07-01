@@ -37,25 +37,26 @@ class SearchYthBaseOne(Resource):
 
 @api.resource('/fileana/')
 class SearchYthFileana(Resource):
-    parser = reqparse.RequestParser()
-    parser.add_argument('begin_time', type=str)
-    parser.add_argument('end_time', type=str)
-    parser.add_argument('time_format', type=str)
-    parser.add_argument('__md5', type=str)
-    parser.add_argument('__security', type=str)
-    parser.add_argument('__document', type=str)  # 公文
-    parser.add_argument('__industry', type=list)  # 行业(list)
-    parser.add_argument('match_str', type=str)
-    parser.add_argument('exact_query', type=bool)
-    parser.add_argument('_platform', type=int)
-    parser.add_argument('__alarmKey', type=list)  # 关键字list
-    parser.add_argument('order', type=str)
-    parser.add_argument('orderType', type=str)
-    parser.add_argument('size', type=int, required=True)
-    parser.add_argument('from', type=int, required=True)
+
 
     def post(self):
-        params = self.parser.parse_args(strict=True)
+        parser = reqparse.RequestParser()
+        parser.add_argument('begin_time', type=str)
+        parser.add_argument('end_time', type=str)
+        parser.add_argument('time_format', type=str)
+        parser.add_argument('__md5', type=str)
+        parser.add_argument('__security', type=str)
+        parser.add_argument('__document', type=str)  # 公文
+        parser.add_argument('__industry', type=list)  # 行业(list)
+        parser.add_argument('match_str', type=str)
+        parser.add_argument('exact_query', type=bool)
+        parser.add_argument('_platform', type=int)
+        parser.add_argument('__alarmKey')  # 关键字list
+        parser.add_argument('order', type=str)
+        parser.add_argument('orderType', type=str)
+        parser.add_argument('size', type=int, required=True)
+        parser.add_argument('from', type=int, required=True)
+        params = parser.parse_args(strict=True)
         return ec.search_yth_fileana(params)
 
 

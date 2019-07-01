@@ -1,3 +1,4 @@
+import json
 import time
 import logging
 
@@ -172,7 +173,7 @@ class ESClient(object):
 
         # 行业分类
         if params['__industry'] is not None:
-            for v in params['__industry']:
+            for v in json.loads(params['__industry']):
                 filter_query = filter_query & query.Match(_expand__to_dot=False, __industry=v)
 
         # #####################查询条件###############################
@@ -211,7 +212,7 @@ class ESClient(object):
         # 关键词(嵌套文档查询)
         alarmKey_list = []
         if params['__alarmKey'] is not None:
-            for keyword in params['__alarmKey']:
+            for keyword in json.loads(params['__alarmKey']):
                 alarmKey_list.append({"term": {"__alarmKey.__keyword": keyword}})
 
         # 查询语句
@@ -535,7 +536,7 @@ class ESClient(object):
                 params_dict = {'yth_fileana_id': index_id, '__md5': es_doc['__md5'],
                                '__connectTime': es_doc['__connectTime'], '__title': es_doc['FileName'],
                                '__alarmLevel': 5, '__alarmSour': alarmSour, 'summary': es_doc['summary'],
-                               '__alarmKey': es_doc['__alarmKey'], '__document': es_doc['__document'],
+                               '__alarmKey': json.dumps(es_doc['__alarmKey']), '__document': es_doc['__document'],
                                '__industry': es_doc['__industry'], '__security': es_doc['__security'],
                                '__ips': es_doc.get('__ips', None), '__alarmType': es_doc.get('__alarmType', None)}
                 # 入库alarm_list
