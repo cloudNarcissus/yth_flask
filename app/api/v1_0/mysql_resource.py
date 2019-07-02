@@ -275,7 +275,6 @@ class KeywordBatch(Resource):
     '''
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument('keywords', type=str, required=True)  # 若干关键字组成的json串[{},{}]
-
+        parser.add_argument('keywords', required=True,action='append')  # 若干关键字组成的json串[{},{}]
         params = parser.parse_args(strict=True)
         return mc.pro_cfg_keyword_batchadd(params)

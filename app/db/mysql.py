@@ -1,5 +1,6 @@
 import json
 import logging
+from ast import literal_eval
 
 import pymysql
 
@@ -672,7 +673,7 @@ class MysqlConnect(object):
             cur.execute(sql)
             conn.commit()
             result = self.parse_result_to_json(cur)
-            return result[0].get('err'), result[0].get('msg'),
+            return int(result[0].get('err')), result[0].get('msg'),
         except Exception as e:
             err = self._get_exception_msg(e)
             logger.error(sql)
@@ -697,24 +698,25 @@ class MysqlConnect(object):
             return False, err
 
         try:
+            rows = params.get('keywords', [])
 
             cur = conn.cursor()
             success_num = 0 #成功条数
-            for keywordRow in json.loads(params.get("keywords",[])):
-
+            for keywordRow in rows:
+                keyword = literal_eval(keywordRow)
                 sql = '''call pro_cfg_keyword_add'''
                 sql += '''("%s",%s,%s,"%s","%s","%s")''' % (
-                    keywordRow.get('keyword'),
-                    keywordRow.get('keylevel'),
-                    keywordRow.get('enabled'),
-                    keywordRow.get('remark'),
-                    keywordRow.get('add_user'),
-                    keywordRow.get('keytype')
+                    keyword.get('keyword'),
+                    keyword.get('keylevel'),
+                    keyword.get('enabled'),
+                    keyword.get('remark'),
+                    keyword.get('add_user'),
+                    keyword.get('keytype')
                 )
                 cur.execute(sql)
                 conn.commit()
                 result = self.parse_result_to_json(cur)
-                if result[0].get('err'):
+                if int(result[0].get('err')):
                     success_num +=1
 
             return True, "成功添加:%d条数据"%success_num
