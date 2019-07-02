@@ -499,3 +499,14 @@ url: delete /keyword/
   
         
 ```
+
+
+
+### 4.24 批量添加关键字
+
+url ： post /keyword/batch/
+
+
+```buildoutcfg
+ parser.add_argument('keywords', type=str, required=True)  # 若干关键字组成的json串[{},{}]
+```

@@ -1,3 +1,4 @@
+import json
 import logging
 
 import pymysql
@@ -105,7 +106,7 @@ class MysqlConnect(object):
             cur.close()
             conn.close()
 
-    def fun_alarm_list_exists(self, __md5):
+    def fun_alarm_list_exists(self, md5):
         """
         查询alarm_list是否存在某个md5的条目
         :return:bool
@@ -118,7 +119,7 @@ class MysqlConnect(object):
 
         try:
             cur = conn.cursor()
-            sql = '''select fun_alarm_list_exists('%s')''' % __md5
+            sql = '''select fun_alarm_list_exists('%s')''' % md5
             cur.execute(sql)
             result = cur.fetchall()
             return True, result[0][0]
@@ -129,7 +130,7 @@ class MysqlConnect(object):
             cur.close()
             conn.close()
 
-    def fun_action_list_getLastTime(self, __md5):
+    def fun_action_list_getLastTime(self, md5):
         """
         获取action_list上次最大时间
         :param __md5:
@@ -144,7 +145,7 @@ class MysqlConnect(object):
 
         try:
             cur = conn.cursor()
-            sql = '''select fun_action_list_getLastTime('%s')''' % __md5
+            sql = '''select fun_action_list_getLastTime('%s')''' % md5
             cur.execute(sql)
             result = cur.fetchall()
             return True, result[0][0]
@@ -680,6 +681,52 @@ class MysqlConnect(object):
         finally:
             cur.close()
         conn.close()
+
+    @addHead()
+    def pro_cfg_keyword_batchadd(self, params):
+        """
+        批量添加关键字
+        :param params: [{},{}]
+        :return: err:true/false  msg:文字信息
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            success_num = 0 #成功条数
+            for keywordRow in json.loads(params.get("keywords",[])):
+
+                sql = '''call pro_cfg_keyword_add'''
+                sql += '''("%s",%s,%s,"%s","%s","%s")''' % (
+                    keywordRow.get('keyword'),
+                    keywordRow.get('keylevel'),
+                    keywordRow.get('enabled'),
+                    keywordRow.get('remark'),
+                    keywordRow.get('add_user'),
+                    keywordRow.get('keytype')
+                )
+                cur.execute(sql)
+                conn.commit()
+                result = self.parse_result_to_json(cur)
+                if result[0].get('err'):
+                    success_num +=1
+
+            return True, "成功添加:%d条数据"%success_num
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
 
     @addHead()
     def pro_cfg_keyword_query(self, params):

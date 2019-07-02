@@ -267,3 +267,15 @@ class Keyword(Resource):
 
         params = parser.parse_args(strict=True)
         return mc.pro_cfg_keyword_drop(params)
+
+@api.resource('/keyword/batch/')
+class KeywordBatch(Resource):
+    '''
+    批量添加关键字
+    '''
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('keywords', type=str, required=True)  # 若干关键字组成的json串[{},{}]
+
+        params = parser.parse_args(strict=True)
+        return mc.pro_cfg_keyword_batchadd(params)
