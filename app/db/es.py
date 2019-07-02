@@ -1,6 +1,7 @@
 import json
 import time
 import logging
+from ast import literal_eval
 
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import query, aggs
@@ -179,8 +180,9 @@ class ESClient(object):
 
         # 行业分类
         if params['__industry'] is not None:
-            for v in json.loads(params['__industry']):
-                filter_query = filter_query & query.Match(_expand__to_dot=False, __industry=v)
+            for indu_dict_str in params['__industry']:
+                indu_dict = literal_eval(indu_dict_str)
+                filter_query = filter_query & query.Match(_expand__to_dot=False, __industry=indu_dict.get('key'))
 
         # 是否关注
         if params['_interested'] is True:
@@ -223,8 +225,9 @@ class ESClient(object):
         # 关键词(嵌套文档查询)
         alarmKey_list = []
         if params['__alarmKey'] is not None:
-            for keyword in json.loads(params['__alarmKey']):
-                alarmKey_list.append({"term": {"__alarmKey.__keyword": keyword}})
+            for keyword_dict_str in params['__alarmKey']:
+                keyword_dict = literal_eval(keyword_dict_str)
+                alarmKey_list.append({"term": {"__alarmKey.__keyword": keyword_dict.get('key')}})
 
         # 查询语句
         all_query = {

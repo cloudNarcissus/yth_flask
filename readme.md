@@ -59,7 +59,7 @@ Url：/v1.0/fileana/
 
 ('__document', type=str) #公文
 
-('__industry', type=str) #行业(list)
+('__industry', type=str) #行业"__industry":[ {"key":"行业"}]
 
 ('match_str', type=str)
 
@@ -67,7 +67,7 @@ Url：/v1.0/fileana/
 
 ('_platform', type=int)
 
-('__alarmKey', type=str)#关键字list
+('__alarmKey', type=str)#关键字"__alarmKey":[ {"key":"\"地区\""}]
 
 ('order', type=str)
 
