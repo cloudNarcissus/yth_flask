@@ -4,11 +4,8 @@
     <bookmark url="file://$PROJECT_DIR$/_bak/yth_base.py" line="739" mnemonic="5" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="### 4.24 批量添加关键字&#10;&#10;url ： post /keyword/batch/">
+    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="查询文档 和 行为 增加条件：关注&#10;&#10;parser.add_argument('_interested', type=bool)  # true 、false  或者不传">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/api/v1_0/es_resource.py" afterPath="$PROJECT_DIR$/app/api/v1_0/es_resource.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/es.py" afterPath="$PROJECT_DIR$/app/db/es.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -197,7 +194,7 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1462">
+            <state relative-caret-position="17">
               <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
               <folding />
             </state>
@@ -657,13 +654,6 @@
       <option name="presentableId" value="Default" />
       <updated>1557381008761</updated>
     </task>
-    <task id="LOCAL-00015" summary="修改higlight">
-      <created>1560133772404</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1560133772404</updated>
-    </task>
     <task id="LOCAL-00016" summary="修改快速预览的文件树">
       <created>1560158490166</created>
       <option name="number" value="00016" />
@@ -1000,7 +990,14 @@
       <option name="project" value="LOCAL" />
       <updated>1562034600284</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="查询文档 和 行为 增加条件：关注&#10;&#10;parser.add_argument('_interested', type=bool)  # true 、false  或者不传">
+      <created>1562036217887</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1562036217887</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1037,7 +1034,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="代码重构" />
     <MESSAGE value="es_client--&gt;ec" />
     <MESSAGE value="添加关注列表头" />
     <MESSAGE value="添加query_content_text" />
@@ -1062,7 +1058,8 @@
     <MESSAGE value="_source_exclude=['sm_summary']" />
     <MESSAGE value="解决一顿bug" />
     <MESSAGE value="### 4.24 批量添加关键字&#10;&#10;url ： post /keyword/batch/" />
-    <option name="LAST_COMMIT_MESSAGE" value="### 4.24 批量添加关键字&#10;&#10;url ： post /keyword/batch/" />
+    <MESSAGE value="查询文档 和 行为 增加条件：关注&#10;&#10;parser.add_argument('_interested', type=bool)  # true 、false  或者不传" />
+    <option name="LAST_COMMIT_MESSAGE" value="查询文档 和 行为 增加条件：关注&#10;&#10;parser.add_argument('_interested', type=bool)  # true 、false  或者不传" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1361,14 +1358,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask_restful/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7497">
@@ -1441,6 +1430,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/api/v1_0/es_resource.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="59" column="53" lean-forward="true" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/db/es.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="664">
@@ -1457,10 +1454,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/api/v1_0/es_resource.py">
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="59" column="53" lean-forward="true" selection-start-line="59" selection-start-column="8" selection-end-line="59" selection-end-column="53" />
+        <state relative-caret-position="17">
+          <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
           <folding />
         </state>
       </provider>
