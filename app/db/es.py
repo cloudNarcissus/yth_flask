@@ -40,6 +40,12 @@ class ESClient(object):
             filter_query = filter_query & query.Term(_expand__to_dot=False,
                                                      __actionType=params['__actionType'])
 
+        # 是否关注
+        if params['_interested'] is not None:
+            filter_query = filter_query & query.Term(_expand__to_dot=False,
+                                                     __actionType=params['_interested'])
+
+
         # 平台
         # if params['__platform'] is not None:
         #     filter_query = filter_query & query.Term(_expand__to_dot=False,
@@ -175,6 +181,11 @@ class ESClient(object):
         if params['__industry'] is not None:
             for v in json.loads(params['__industry']):
                 filter_query = filter_query & query.Match(_expand__to_dot=False, __industry=v)
+
+        # 是否关注
+        if params['_interested'] is not None:
+            filter_query = filter_query & query.Term(_expand__to_dot=False,
+                                                             __actionType=params['_interested'])
 
         # #####################查询条件###############################
         match_query = query.MatchAll()

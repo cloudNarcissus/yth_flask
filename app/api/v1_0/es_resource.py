@@ -17,6 +17,7 @@ class SearchYthBase(Resource):
     parser.add_argument('size', type=int, required=True)
     parser.add_argument('from', type=int, required=True)
     parser.add_argument('__actionType', type=str)
+    parser.add_argument('_interested', type=bool)
 
     def post(self):
         params = self.parser.parse_args(strict=True)
@@ -56,6 +57,7 @@ class SearchYthFileana(Resource):
         parser.add_argument('orderType', type=str)
         parser.add_argument('size', type=int, required=True)
         parser.add_argument('from', type=int, required=True)
+        parser.add_argument('_interested', type=bool)
         params = parser.parse_args(strict=True)
         return ec.search_yth_fileana(params)
 

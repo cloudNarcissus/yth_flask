@@ -38,6 +38,7 @@ Body:
     parser.add_argument('size', type=int, required=True)
     parser.add_argument('from', type=int, required=True)
     parser.add_argument('__actionType', type=str)
+    parser.add_argument('_interested', type=bool)
     
 
 方法：POST
@@ -45,6 +46,7 @@ Body:
 ### 4.3查询文档数据
 Url：/v1.0/fileana/
 
+```
 ('begin_time', type=str)
 
 ('end_time', type=str)
@@ -75,6 +77,8 @@ Url：/v1.0/fileana/
 
 ('from', type=int, required=True)
 
+parser.add_argument('_interested', type=bool)
+```
 
 方法：post
 
