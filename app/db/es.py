@@ -41,9 +41,9 @@ class ESClient(object):
                                                      __actionType=params['__actionType'])
 
         # 是否关注
-        if params['_interested'] is not None:
+        if params['_interested'] is True:
             filter_query = filter_query & query.Term(_expand__to_dot=False,
-                                                     __actionType=params['_interested'])
+                                                     __actionType=True)
 
 
         # 平台
@@ -183,9 +183,9 @@ class ESClient(object):
                 filter_query = filter_query & query.Match(_expand__to_dot=False, __industry=v)
 
         # 是否关注
-        if params['_interested'] is not None:
+        if params['_interested'] is True:
             filter_query = filter_query & query.Term(_expand__to_dot=False,
-                                                             __actionType=params['_interested'])
+                                                     _interested=True)
 
         # #####################查询条件###############################
         match_query = query.MatchAll()
