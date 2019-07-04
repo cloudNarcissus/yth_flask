@@ -109,7 +109,7 @@ class Interested(Resource):
 @api.resource('/rarchildren/')
 class RarChildren(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('__rootmd5s', type=str)
+    parser.add_argument('__md5', type=str)
 
     def post(self):
         params = self.parser.parse_args(strict=True)

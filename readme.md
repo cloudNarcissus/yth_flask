@@ -100,9 +100,9 @@ Url:/v1.0/rarchildren/
 
 方法：post
 
-('__rootmd5s', type=str) 
+('__md5', type=str) 
 
-注意：__rootmd5s不止一个md5，这是多个md5构成的列表（数组），每一个root对应一棵树
+注意：当条记录的md5
 
 ### 4.6在文档页面，加入告警
 

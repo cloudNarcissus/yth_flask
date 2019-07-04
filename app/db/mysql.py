@@ -703,7 +703,8 @@ class MysqlConnect(object):
             cur = conn.cursor()
             success_num = 0 #成功条数
             for keywordRow in rows:
-                keyword = literal_eval(keywordRow)
+                keyword = literal_eval(keywordRow).get('key')
+                #keyword = literal_eval(keywordRow)
                 sql = '''call pro_cfg_keyword_add'''
                 sql += '''("%s",%s,%s,"%s","%s","%s")''' % (
                     keyword.get('keyword'),

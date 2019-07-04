@@ -418,12 +418,36 @@ class ESClient(object):
     def query_yth_rarchildren(self, params):
         """
         若该文件有父节点，则说明该文件是rar或者嵌套文件的子文件，则查询其父的所有子文件（传入md5查询子记录)
-        :param __md5:子文件的md5   __rootmd5:根节点md5列表（1个或若干个）
+        :param __md5:当前文件的md5  
         :return:
         """
+
+        md5 = params['__md5']
+
         self.log.debug('进入 query_yth_rarchildren 函数，查询根文件下面的子文件')
 
-        rootmd5s = params['__rootmd5s']
+        # 通过md5 取出 rootmd5s ， 如果没有，说明是行为那边来的数据
+        body = {
+            "query": {
+                "bool": {
+                    "must": [
+                        {"term":
+                            {
+                                "__md5": {"value": md5}
+                            }
+                        }
+
+                    ]
+                }
+            }
+        }
+        root = self.es.search('yth_fileana', 'mytype', body, size=1)
+        rootmd5s = []
+        if root['hits']['total'] > 0:
+            rootmd5s = root['hits']['hits'][0]['_source']['__rootmd5s']
+        else:
+            rootmd5s.append(md5)
+
 
         forest = []  # 森林（多棵树）
 
@@ -442,12 +466,7 @@ class ESClient(object):
                     }
                 }
             }
-            root = self.es.search('yth_raroot', 'mytype', body, size=1)
-            # children = self.es.search('yth_fileana', 'mytype', body, size=10)
-            tree = {
-                "root": root,
-                "children": "暂无"  # children
-            }
+            tree = self.es.search('yth_raroot', 'mytype', body, size=10)
             forest.append(tree)
 
         return True, forest
