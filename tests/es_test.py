@@ -18,7 +18,7 @@ class ESClient(object):
                     "query": 1
                 }},
             "_source": {
-                "excludes": ["__Content-text", "summary", "file_summary"]
+                "includes": ["__alarmKey"]
             }
 
         }
@@ -29,4 +29,7 @@ class ESClient(object):
 if __name__ == '__main__':
 
     es_client = ESClient('192.168.10.136:9200')
-    print(type(es_client.search()['hits']['hits'][0]['_source']['__rootmd5s']))
+    re = es_client.search()
+    x = list(map(lambda x: {"__keyword":x["__keyword"].replace('"', '\\"'),"__frequency": x["__frequency"]}, re['hits']['hits'][6]['_source']['__alarmKey']))
+
+    print(re)
