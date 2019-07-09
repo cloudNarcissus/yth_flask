@@ -4,15 +4,16 @@
     <bookmark url="file://$PROJECT_DIR$/_bak/yth_base.py" line="739" mnemonic="5" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="0708dabao">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/db/mq.py" />
+    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="config.json增加begin_day&#10;增加mq模块">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/api/v1_0/hbase_resource.py" afterPath="$PROJECT_DIR$/app/api/v1_0/hbase_resource.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/config.py" afterPath="$PROJECT_DIR$/app/config/config.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/es.py" afterPath="$PROJECT_DIR$/app/db/es.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/utils/__init__.py" afterPath="$PROJECT_DIR$/app/utils/__init__.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/hbase.py" afterPath="$PROJECT_DIR$/app/db/hbase.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/mysql.py" afterPath="$PROJECT_DIR$/app/db/mysql.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/utils/common.py" afterPath="$PROJECT_DIR$/app/utils/common.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/utils/config_parser.py" afterPath="$PROJECT_DIR$/app/utils/config_parser.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.json" afterPath="$PROJECT_DIR$/config.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/requirements.txt" afterPath="$PROJECT_DIR$/requirements.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tests/es_test.py" afterPath="$PROJECT_DIR$/tests/es_test.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -101,112 +102,85 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="config.json" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config.json">
+      <file leaf-file-name="hbase_resource.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/api/v1_0/hbase_resource.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="20" />
+            <state relative-caret-position="33">
+              <caret line="15" column="9" lean-forward="true" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+              <folding>
+                <element signature="e#0#30#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="reqparse.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask_restful/reqparse.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="96">
+              <caret line="321" column="0" lean-forward="false" selection-start-line="321" selection-start-column="0" selection-end-line="321" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mysql.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/db/mysql.py">
+      <file leaf-file-name="hbase.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/db/hbase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="1052" column="0" lean-forward="false" selection-start-line="1052" selection-start-column="0" selection-end-line="1052" selection-end-column="19" />
+            <state relative-caret-position="152">
+              <caret line="37" column="37" lean-forward="false" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="mysql_resource.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/api/v1_0/mysql_resource.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="432">
+              <caret line="273" column="11" lean-forward="false" selection-start-line="273" selection-start-column="11" selection-end-line="273" selection-end-column="11" />
               <folding>
-                <element signature="e#0#11#0" expanded="true" />
-                <element signature="e#1337#1419#0" expanded="false" />
-                <element signature="e#2235#2917#0" expanded="false" />
-                <element signature="e#2969#3597#0" expanded="false" />
-                <element signature="e#3655#4311#0" expanded="false" />
-                <element signature="e#7285#8453#0" expanded="false" />
-                <element signature="e#8519#9495#0" expanded="false" />
-                <element signature="e#11805#12524#0" expanded="false" />
-                <element signature="e#12590#13300#0" expanded="false" />
-                <element signature="e#14700#15976#0" expanded="false" />
-                <element signature="e#18748#19825#0" expanded="false" />
-                <element signature="e#19898#21333#0" expanded="false" />
-                <element signature="e#21404#22704#0" expanded="false" />
-                <element signature="e#22773#23885#0" expanded="false" />
-                <element signature="e#23954#24818#0" expanded="false" />
-                <element signature="e#24939#25828#0" expanded="false" />
-                <element signature="e#25923#26730#0" expanded="false" />
-                <element signature="e#26797#27603#0" expanded="false" />
-                <element signature="e#27686#28498#0" expanded="false" />
-                <element signature="e#28579#29390#0" expanded="false" />
-                <element signature="e#29480#30399#0" expanded="false" />
+                <element signature="e#1663#1978#0" expanded="false" />
+                <element signature="e#3388#3632#0" expanded="false" />
+                <element signature="e#3689#3931#0" expanded="false" />
+                <element signature="e#4057#5084#0" expanded="false" />
+                <element signature="e#5113#5988#0" expanded="false" />
+                <element signature="e#6017#6798#0" expanded="false" />
+                <element signature="e#8566#9227#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mq.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/db/mq.py">
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask_restful/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="301">
-              <caret line="18" column="14" lean-forward="false" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
+            <state relative-caret-position="96">
+              <caret line="572" column="0" lean-forward="false" selection-start-line="572" selection-start-column="0" selection-end-line="572" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="es_test.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tests/es_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="77">
+              <caret line="6" column="23" lean-forward="true" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
               <folding>
-                <element signature="e#0#11#0" expanded="true" />
+                <element signature="e#0#39#0" expanded="true" />
+                <element signature="e#268#597#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="es_resource.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/api/v1_0/es_resource.py">
+      <file leaf-file-name="app.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="30" lean-forward="true" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
-              <folding>
-                <element signature="e#0#44#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/config/config.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="26" column="22" lean-forward="true" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config_parser.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/utils/config_parser.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="82" column="13" lean-forward="true" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
-              <folding>
-                <element signature="e#48#98#0" expanded="true" />
-                <element signature="e#671#773#0" expanded="false" />
-                <element signature="e#818#919#0" expanded="false" />
-                <element signature="e#964#1065#0" expanded="false" />
-                <element signature="e#1116#1221#0" expanded="false" />
-                <element signature="e#1265#1365#0" expanded="false" />
-                <element signature="e#1415#1519#0" expanded="false" />
-                <element signature="e#1567#1680#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="common.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/utils/common.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-                <element signature="e#179#908#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="96">
+              <caret line="2327" column="0" lean-forward="false" selection-start-line="2327" selection-start-column="0" selection-end-line="2327" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -214,8 +188,8 @@
       <file leaf-file-name="es.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/db/es.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="797" column="14" lean-forward="true" selection-start-line="797" selection-start-column="14" selection-end-line="797" selection-end-column="14" />
+            <state relative-caret-position="298">
+              <caret line="841" column="31" lean-forward="true" selection-start-line="738" selection-start-column="4" selection-end-line="841" selection-end-column="31" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
                 <element signature="e#1464#1598#0" expanded="false" />
@@ -230,17 +204,10 @@
                 <element signature="e#23985#24995#0" expanded="false" />
                 <element signature="e#25065#25916#0" expanded="false" />
                 <element signature="e#25983#26503#0" expanded="false" />
+                <element signature="e#26661#27276#0" expanded="false" />
+                <element signature="e#26661#26773#1" expanded="false" />
+                <element signature="e#27330#28427#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/config/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="24" lean-forward="true" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -329,7 +296,6 @@
         <option value="$PROJECT_DIR$/wa_web_apitsd" />
         <option value="$PROJECT_DIR$/app/api/v1_0/hbase_route.py" />
         <option value="$PROJECT_DIR$/app/api/v1_0/__init__.py" />
-        <option value="$PROJECT_DIR$/app/db/hbase.py" />
         <option value="$PROJECT_DIR$/tests/__init__.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/yth_data_api" />
@@ -338,18 +304,19 @@
         <option value="$PROJECT_DIR$/app/api/v1_0/es_resource.py" />
         <option value="$PROJECT_DIR$/app/api/v1_0/mysql_resource.py" />
         <option value="$PROJECT_DIR$/readme.md" />
-        <option value="$PROJECT_DIR$/app/utils/common.py" />
-        <option value="$PROJECT_DIR$/app/api/v1_0/hbase_resource.py" />
         <option value="$PROJECT_DIR$/run.py" />
-        <option value="$PROJECT_DIR$/app/db/mysql.py" />
-        <option value="$PROJECT_DIR$/config.json" />
         <option value="$PROJECT_DIR$/app/utils/__init__.py" />
-        <option value="$PROJECT_DIR$/tests/es_test.py" />
         <option value="$PROJECT_DIR$/app/config/__init__.py" />
-        <option value="$PROJECT_DIR$/app/db/es.py" />
-        <option value="$PROJECT_DIR$/app/config/config.py" />
         <option value="$PROJECT_DIR$/app/utils/config_parser.py" />
+        <option value="$PROJECT_DIR$/app/db/mysql.py" />
         <option value="$PROJECT_DIR$/app/db/mq.py" />
+        <option value="$PROJECT_DIR$/app/config/config.py" />
+        <option value="$PROJECT_DIR$/app/utils/common.py" />
+        <option value="$PROJECT_DIR$/config.json" />
+        <option value="$PROJECT_DIR$/app/db/hbase.py" />
+        <option value="$PROJECT_DIR$/app/api/v1_0/hbase_resource.py" />
+        <option value="$PROJECT_DIR$/app/db/es.py" />
+        <option value="$PROJECT_DIR$/tests/es_test.py" />
       </list>
     </option>
   </component>
@@ -437,6 +404,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yth_data_api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yth_py" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -495,6 +476,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yth_data_api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="yth_py" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="v1_0" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -535,7 +538,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.run">
+  <component name="RunManager" selected="Python.es_test">
     <configuration default="false" name="test_openfile" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -719,9 +722,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.run" />
-        <item index="1" class="java.lang.String" itemvalue="Python.config" />
-        <item index="2" class="java.lang.String" itemvalue="Python.es_test" />
+        <item index="0" class="java.lang.String" itemvalue="Python.es_test" />
+        <item index="1" class="java.lang.String" itemvalue="Python.run" />
+        <item index="2" class="java.lang.String" itemvalue="Python.config" />
         <item index="3" class="java.lang.String" itemvalue="Python.common" />
         <item index="4" class="java.lang.String" itemvalue="Python.test_openfile" />
       </list>
@@ -740,13 +743,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1557381008761</updated>
-    </task>
-    <task id="LOCAL-00022" summary="/v1.0/alarmlist/&#10;platform没了。加了actiontype">
-      <created>1560320837265</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1560320837265</updated>
     </task>
     <task id="LOCAL-00023" summary="/v1.0/alarmlist/&#10;platform没了。加了actiontype">
       <created>1560322060022</created>
@@ -1084,23 +1080,30 @@
       <option name="project" value="LOCAL" />
       <updated>1562554389842</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="config.json增加begin_day&#10;增加mq模块">
+      <created>1562653517596</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1562653517598</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1374" height="732" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19515885" sideWeight="0.716129" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19894099" sideWeight="0.76521736" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.119672135" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17377049" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28196722" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.43442622" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22087745" sideWeight="0.8004158" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5098361" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14901665" sideWeight="0.1995842" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.41311476" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19894099" sideWeight="0.2347826" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.091803275" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.036308624" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1121,7 +1124,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="get /v1.0/eventlist/" />
     <MESSAGE value="alarm——list" />
     <MESSAGE value="post /alarmlist/interested/" />
     <MESSAGE value="添加告警类型的统计" />
@@ -1146,30 +1148,21 @@
     <MESSAGE value="{&#10;&#9;&quot;time_format&quot;: &quot;yyyy-MM-dd&quot;,&#10;&#9;&quot;size&quot;: 10,&#10;&#9;&quot;exact_query&quot;: false,&#10;&#9;&quot;__alarmKey&quot;: [{&#10;&#9;&#9;&quot;key&quot;: &quot;\&quot;地区\&quot;&quot;&#10;&#9;}, {&#10;&#9;&#9;&quot;key&quot;: &quot;是&quot;&#10;&#9;}],&#10;&#9;&quot;orderType&quot;: &quot;desc&quot;,&#10;&#9;&quot;order&quot;: &quot;__alarmLevel&quot;,&#10;&#9;&quot;end_time&quot;: &quot;2019-07-02&quot;,&#10;&#9;&quot;_interested&quot;: false,&#10;&#9;&quot;from&quot;: 0,&#10;&#9;&quot;begin_time&quot;: &quot;2019-06-25&quot;&#10;}" />
     <MESSAGE value="Url:/v1.0/rarchildren/&#10;&#10;方法：post&#10;&#10;('__md5', type=str)" />
     <MESSAGE value="0708dabao" />
-    <option name="LAST_COMMIT_MESSAGE" value="0708dabao" />
+    <MESSAGE value="config.json增加begin_day&#10;增加mq模块" />
+    <option name="LAST_COMMIT_MESSAGE" value="config.json增加begin_day&#10;增加mq模块" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/db/es.py</url>
-          <line>44</line>
-          <option name="timeStamp" value="133" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/db/mysql.py</url>
-          <line>214</line>
-          <option name="timeStamp" value="137" />
+          <url>file://$PROJECT_DIR$/app/api/v1_0/hbase_resource.py</url>
+          <line>21</line>
+          <option name="timeStamp" value="163" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app/api/v1_0/hbase_resource.py</url>
-          <line>22</line>
-          <option name="timeStamp" value="142" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/utils/config_parser.py</url>
-          <line>16</line>
-          <option name="timeStamp" value="153" />
+          <line>17</line>
+          <option name="timeStamp" value="164" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1182,18 +1175,11 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="155" />
+      <option name="time" value="165" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/utils/stopwords.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="0" column="863" lean-forward="false" selection-start-line="0" selection-start-column="863" selection-end-line="0" selection-end-column="863" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/_bak/yth_mysql.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -1289,24 +1275,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="20" column="38" lean-forward="false" selection-start-line="20" selection-start-column="38" selection-end-line="20" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/werkzeug/debug/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5270">
-          <caret line="333" column="0" lean-forward="false" selection-start-line="333" selection-start-column="0" selection-end-line="333" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1324,13 +1296,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask_restful/reqparse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="52" column="23" lean-forward="false" selection-start-line="50" selection-start-column="11" selection-end-line="52" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/six.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="9860">
@@ -1342,21 +1307,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3808">
           <caret line="224" column="0" lean-forward="false" selection-start-line="224" selection-start-column="0" selection-end-line="224" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38947">
-          <caret line="2321" column="0" lean-forward="false" selection-start-line="2321" selection-start-column="0" selection-end-line="2321" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1462">
-          <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1398,39 +1348,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/db/hbase.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/api/v1_0/mysql_resource.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="273" column="11" lean-forward="false" selection-start-line="273" selection-start-column="11" selection-end-line="273" selection-end-column="11" />
-          <folding>
-            <element signature="e#1663#1978#0" expanded="false" />
-            <element signature="e#3388#3632#0" expanded="false" />
-            <element signature="e#3689#3931#0" expanded="false" />
-            <element signature="e#4057#5084#0" expanded="false" />
-            <element signature="e#5113#5988#0" expanded="false" />
-            <element signature="e#6017#6798#0" expanded="false" />
-            <element signature="e#7866#8537#0" expanded="false" />
-            <element signature="e#8566#9227#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask_restful/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="575" column="0" lean-forward="false" selection-start-line="575" selection-start-column="0" selection-end-line="575" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/run.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
@@ -1465,27 +1382,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/api/v1_0/hbase_resource.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="389">
-          <caret line="30" column="35" lean-forward="false" selection-start-line="30" selection-start-column="35" selection-end-line="30" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/es_test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="45" column="9" lean-forward="true" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#39#0" expanded="false" />
-            <element signature="e#240#569#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -1494,63 +1390,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/utils/common.py">
+    <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="48" column="0" lean-forward="false" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-            <element signature="e#179#908#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/db/es.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="797" column="14" lean-forward="true" selection-start-line="797" selection-start-column="14" selection-end-line="797" selection-end-column="14" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#1464#1598#0" expanded="false" />
-            <element signature="e#4771#5003#0" expanded="false" />
-            <element signature="e#5138#11684#0" expanded="false" />
-            <element signature="e#11817#12967#0" expanded="false" />
-            <element signature="e#13104#14055#0" expanded="false" />
-            <element signature="e#14189#15641#0" expanded="false" />
-            <element signature="e#15801#16616#0" expanded="false" />
-            <element signature="e#17084#23837#0" expanded="false" />
-            <element signature="e#21104#21574#0" expanded="false" />
-            <element signature="e#23985#24995#0" expanded="false" />
-            <element signature="e#25065#25916#0" expanded="false" />
-            <element signature="e#25983#26503#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="0">
+          <caret line="0" column="4" lean-forward="true" selection-start-line="0" selection-start-column="4" selection-end-line="0" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="26" column="22" lean-forward="true" selection-start-line="26" selection-start-column="22" selection-end-line="26" selection-end-column="22" />
+        <state relative-caret-position="215">
+          <caret line="22" column="12" lean-forward="false" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
           <folding>
-            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#0#9#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="20" lean-forward="false" selection-start-line="7" selection-start-column="9" selection-end-line="7" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/utils/config_parser.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="82" column="13" lean-forward="true" selection-start-line="82" selection-start-column="13" selection-end-line="82" selection-end-column="13" />
+        <state relative-caret-position="102">
+          <caret line="63" column="15" lean-forward="false" selection-start-line="63" selection-start-column="8" selection-end-line="63" selection-end-column="15" />
           <folding>
-            <element signature="e#48#98#0" expanded="true" />
+            <element signature="e#48#98#0" expanded="false" />
+            <element signature="e#349#482#0" expanded="false" />
             <element signature="e#671#773#0" expanded="false" />
             <element signature="e#818#919#0" expanded="false" />
             <element signature="e#964#1065#0" expanded="false" />
@@ -1572,42 +1436,179 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/db/mysql.py">
+    <entry file="file://E:/Python35-32/Lib/codecs.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="1052" column="0" lean-forward="false" selection-start-line="1052" selection-start-column="0" selection-end-line="1052" selection-end-column="19" />
+        <state relative-caret-position="48">
+          <caret line="308" column="0" lean-forward="false" selection-start-line="308" selection-start-column="0" selection-end-line="308" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/utils/common.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="274">
+          <caret line="86" column="57" lean-forward="true" selection-start-line="86" selection-start-column="57" selection-end-line="86" selection-end-column="57" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#1337#1419#0" expanded="false" />
-            <element signature="e#2235#2917#0" expanded="false" />
-            <element signature="e#2969#3597#0" expanded="false" />
-            <element signature="e#3655#4311#0" expanded="false" />
-            <element signature="e#7285#8453#0" expanded="false" />
-            <element signature="e#8519#9495#0" expanded="false" />
-            <element signature="e#11805#12524#0" expanded="false" />
-            <element signature="e#12590#13300#0" expanded="false" />
-            <element signature="e#14700#15976#0" expanded="false" />
-            <element signature="e#18748#19825#0" expanded="false" />
-            <element signature="e#19898#21333#0" expanded="false" />
-            <element signature="e#21404#22704#0" expanded="false" />
-            <element signature="e#22773#23885#0" expanded="false" />
-            <element signature="e#23954#24818#0" expanded="false" />
-            <element signature="e#24939#25828#0" expanded="false" />
-            <element signature="e#25923#26730#0" expanded="false" />
-            <element signature="e#26797#27603#0" expanded="false" />
-            <element signature="e#27686#28498#0" expanded="false" />
-            <element signature="e#28579#29390#0" expanded="false" />
-            <element signature="e#29480#30399#0" expanded="false" />
+            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#190#919#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/db/mq.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="18" column="14" lean-forward="false" selection-start-line="18" selection-start-column="14" selection-end-line="18" selection-end-column="14" />
+        <state relative-caret-position="204">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/werkzeug/debug/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="79">
+          <caret line="342" column="0" lean-forward="false" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask_restful/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="572" column="0" lean-forward="false" selection-start-line="572" selection-start-column="0" selection-end-line="572" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/api/v1_0/hbase_resource.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="15" column="9" lean-forward="true" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/db/hbase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="37" column="37" lean-forward="false" selection-start-line="37" selection-start-column="37" selection-end-line="37" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="14" column="28" lean-forward="true" selection-start-line="14" selection-start-column="28" selection-end-line="14" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask_restful/reqparse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="321" column="0" lean-forward="false" selection-start-line="321" selection-start-column="0" selection-end-line="321" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="87" column="0" lean-forward="false" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/db/mysql.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1394">
+          <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#1362#1444#0" expanded="false" />
+            <element signature="e#2260#2942#0" expanded="false" />
+            <element signature="e#2994#3622#0" expanded="false" />
+            <element signature="e#3680#4336#0" expanded="false" />
+            <element signature="e#7310#8478#0" expanded="false" />
+            <element signature="e#8544#9520#0" expanded="false" />
+            <element signature="e#11830#12549#0" expanded="false" />
+            <element signature="e#12615#13325#0" expanded="false" />
+            <element signature="e#14725#16001#0" expanded="false" />
+            <element signature="e#18773#19850#0" expanded="false" />
+            <element signature="e#19923#21358#0" expanded="false" />
+            <element signature="e#21429#22729#0" expanded="false" />
+            <element signature="e#22798#23910#0" expanded="false" />
+            <element signature="e#23979#24843#0" expanded="false" />
+            <element signature="e#24964#25853#0" expanded="false" />
+            <element signature="e#25948#26755#0" expanded="false" />
+            <element signature="e#26822#27628#0" expanded="false" />
+            <element signature="e#27711#28523#0" expanded="false" />
+            <element signature="e#28604#29415#0" expanded="false" />
+            <element signature="e#29505#30424#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/flask/app.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="2327" column="0" lean-forward="false" selection-start-line="2327" selection-start-column="0" selection-end-line="2327" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/db/es.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="841" column="31" lean-forward="true" selection-start-line="738" selection-start-column="4" selection-end-line="841" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#1464#1598#0" expanded="false" />
+            <element signature="e#4771#5003#0" expanded="false" />
+            <element signature="e#5138#11684#0" expanded="false" />
+            <element signature="e#11817#12967#0" expanded="false" />
+            <element signature="e#13104#14055#0" expanded="false" />
+            <element signature="e#14189#15641#0" expanded="false" />
+            <element signature="e#15801#16616#0" expanded="false" />
+            <element signature="e#17084#23837#0" expanded="false" />
+            <element signature="e#21104#21574#0" expanded="false" />
+            <element signature="e#23985#24995#0" expanded="false" />
+            <element signature="e#25065#25916#0" expanded="false" />
+            <element signature="e#25983#26503#0" expanded="false" />
+            <element signature="e#26661#27276#0" expanded="false" />
+            <element signature="e#26661#26773#1" expanded="false" />
+            <element signature="e#27330#28427#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/api/v1_0/mysql_resource.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="273" column="11" lean-forward="false" selection-start-line="273" selection-start-column="11" selection-end-line="273" selection-end-column="11" />
+          <folding>
+            <element signature="e#1663#1978#0" expanded="false" />
+            <element signature="e#3388#3632#0" expanded="false" />
+            <element signature="e#3689#3931#0" expanded="false" />
+            <element signature="e#4057#5084#0" expanded="false" />
+            <element signature="e#5113#5988#0" expanded="false" />
+            <element signature="e#6017#6798#0" expanded="false" />
+            <element signature="e#8566#9227#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/es_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="77">
+          <caret line="6" column="23" lean-forward="true" selection-start-line="6" selection-start-column="23" selection-end-line="6" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#268#597#0" expanded="false" />
           </folding>
         </state>
       </provider>

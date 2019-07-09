@@ -3,7 +3,7 @@ import inspect
 from functools import wraps
 
 import datetime
-
+import time
 
 def addHead():
     """
@@ -71,6 +71,23 @@ def monday():
 def firstdayofmonth():
     now = datetime.datetime.now()
     return now.strftime('%Y-%m-01')
+
+
+def diffday(begin_day,end_day):
+    """
+    计算后者减去前者相差的天数
+    :param begin_day: 形如2019-07-09的字符串
+    :param end_day: 同上
+    :return: int
+    """
+    date1 = time.strptime(begin_day, "%Y-%m-%d")
+    date2 = time.strptime(end_day, "%Y-%m-%d")
+    #根据上面需要计算日期还是日期时间，来确定需要几个数组段。下标0表示年，小标1表示月，依次类推
+    date1 = datetime.datetime(date1[0],date1[1],date1[2])
+    date2 = datetime.datetime(date2[0],date2[1],date2[2])
+    # 返回两个变量相差的值，就是相差天数
+    return (date2 - date1).days
+
 
 if __name__ == '__main__':
 

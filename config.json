@@ -5,11 +5,11 @@
     },
     "BEGIN_DAY": "2019-07-09",
     "MQ": {
-        "credentials": "guest:guest",
+        "credentials": "admin:admin",
         "hosts": "192.168.10.136:5672"
     },
     "HBASE": {
-        "hosts": "192.168.10.136:9090"
+        "hosts": "192.168.40.163:9090"
     },
     "MYSQL": {
         "encode": "utf8mb4",

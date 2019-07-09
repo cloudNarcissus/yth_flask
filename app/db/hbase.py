@@ -36,7 +36,7 @@ class HbaseConnect(object):
 
         except Exception as e:
             self.log.error(u'获取文件<Md5:%s>失败,%s', md5, e)
-            return False,e
+            return False,str(e)
 
         return True , {"filename" : filename , "content" : content}
 

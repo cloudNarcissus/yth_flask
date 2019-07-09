@@ -17,6 +17,11 @@ class Config(object):
     mysql_pwd = _cfg_parser.mysql_pwd
     mysql_encode = _cfg_parser.mysql_encode
     hb_hosts = _cfg_parser.hbase_host
+    mq_host = _cfg_parser.mq_host
+    mq_port=_cfg_parser.mq_port
+    mq_pwd=_cfg_parser.mq_pwd
+    mq_user=_cfg_parser.mq_user
+
 
     begin_day = _cfg_parser.begin_day
 

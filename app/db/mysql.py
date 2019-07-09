@@ -6,6 +6,7 @@ import pymysql
 
 from app.config import Config
 from app.utils.common import addHead
+from app.db.mq import mq
 
 logger = logging.getLogger(__name__)
 
