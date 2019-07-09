@@ -142,7 +142,7 @@ class ESClient(object):
         self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
         return True, self.es.search('yth_base', 'mytype', body,
                                     size=params['size'],
-                                    from_=params['from']
+                                    from_=params['from'], _source_exclude=['sm_summary']
                                     )
 
     # --------------------查询文档数据-----------------------------------
@@ -494,7 +494,7 @@ class ESClient(object):
             ]
         }
         # self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
-        return self.es.search('yth_base', 'mytype', body, size=20)
+        return self.es.search('yth_base', 'mytype', body, size=20, _source_exclude=['sm_summary'])
 
     # -------------------------查询某个index_id的yth_base记录----------------------------------------
     @addHead()
@@ -731,6 +731,71 @@ class ESClient(object):
         }
         return True, self.es.search('yth_fileana', 'mytype', body=body,
                                     _source_include=['__Content-text'])
+
+
+
+    # -------------------------首页统计---------------------------------------------------------
+
+    def tj_yth_base_ruku(self,begin_time,end_time):
+        '''
+        统计首页的 入库量，告警量违规量处置率（这三个数据来自于mysql）
+        :params: 起止日期，格式为yyyy-mm-dd
+        :return: 
+        '''
+        body = {
+            "query": {
+                "range": {
+                    "__connectTime": {
+                        "gte": begin_time,
+                        "lte": end_time,
+                        "format": "yyyy-MM-dd"
+                    }
+                }
+            }
+        }
+        return self.es.search('yth_base', 'mytype', body=body,size=0)
+
+    @addHead()
+    def tj_frontpage(self,params):
+        '''
+        首页统计
+        :param params:起止时间（仅针对下半部分） 
+        :return: 
+        '''
+
+        from app.utils.common import today
+        from app.utils.common import yestoday
+        from app.utils.common import monday
+        from app.utils.common import firstdayofmonth
+
+        def get_total_from_result(result):
+            if isinstance(result,dict):
+                return result.get('hits', {}).get('hits', {}).get('total', 0)
+            else:
+                return 0
+
+        # 今天
+        begin_time = today()
+        end_time = today()
+        ruku_today = get_total_from_result(self.tj_yth_base_ruku(begin_time, end_time))
+
+        # 昨天
+        begin_time = yestoday()
+        end_time = yestoday()
+        ruku_yestoday = get_total_from_result(self.tj_yth_base_ruku(begin_time, end_time))
+
+        # 本周
+        begin_time = monday()
+        end_time = today()
+        ruku_week = get_total_from_result(self.tj_yth_base_ruku(begin_time, end_time))
+
+        # 本月
+        begin_time = firstdayofmonth()
+        end_time = today()
+        ruku_month = get_total_from_result(self.tj_yth_base_ruku(begin_time, end_time))
+
+
+        # 每日平均
 
 
 ec = ESClient()

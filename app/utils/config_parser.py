@@ -9,8 +9,15 @@ import json
 
 class ConfigParser(object):
     def __init__(self, filename):
+        self.filename = filename
         with open(filename,"r") as f:
             self.__json = json.load(f)
+
+    def init_config_beginday(self,today):
+        self.__json['BEGIN_DAY'] = today
+        with open(self.filename, "w") as fp:
+            fp.write(json.dumps(self.__json, indent=4))
+
 
     def __parse_mq_hosts(self):
         hosts = self.__json['MQ']['hosts']
@@ -51,6 +58,7 @@ class ConfigParser(object):
         creds = self.__json['ElasticSearch']['credentials']
         user, pwd = creds.split(':')
         return user, pwd
+
 
     @property
     def mq_host(self):
@@ -149,8 +157,13 @@ class ConfigParser(object):
     def update_interval(self):
         return self.__json['UPDATE_INTERVAL']
 
+    @property
+    def begin_day(self):
+        return self.__json['BEGIN_DAY']
+
+
 if __name__ == '__main__':
-    config = Config(abspath(join(dirname(__file__), pardir, 'config.json')))
+    config = ConfigParser(abspath(join(dirname(__file__), pardir, 'config.json')))
     print (config.mq_host)
     print (config.mq_port)
 

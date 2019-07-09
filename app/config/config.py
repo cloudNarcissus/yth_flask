@@ -18,6 +18,17 @@ class Config(object):
     mysql_encode = _cfg_parser.mysql_encode
     hb_hosts = _cfg_parser.hbase_host
 
+    begin_day = _cfg_parser.begin_day
+
+
+    def init_config_beginday(self):
+        from app.utils.common import today
+        _cfg_parser.init_config_beginday(today())
+        return today()
+
 
 if __name__ == '__main__':
-    print(_path)
+    cfg = Config()
+    today = cfg.init_config_beginday()
+
+    print("已设置统计数据起始日期为>%s"%today)

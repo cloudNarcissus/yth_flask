@@ -1,5 +1,8 @@
+import calendar
 import inspect
 from functools import wraps
+
+import datetime
 
 
 def addHead():
@@ -38,3 +41,37 @@ def addHead():
         return addhead
 
     return invoke_addHead
+
+
+
+def today():
+    now = datetime.datetime.now()
+    return now.strftime('%Y-%m-%d')
+
+
+def yestoday():
+    now = datetime.datetime.now()
+    delta = datetime.timedelta(days=-1)
+    yestoday = now + delta
+    return yestoday.strftime('%Y-%m-%d')
+
+def monday():
+    now = datetime.datetime.now()
+    oneday = datetime.timedelta(days = 1)
+
+    m1 = calendar.MONDAY
+
+    while now.weekday() != m1:
+        now -= oneday
+
+    monday = now.strftime('%Y-%m-%d')
+
+    return monday
+
+def firstdayofmonth():
+    now = datetime.datetime.now()
+    return now.strftime('%Y-%m-01')
+
+if __name__ == '__main__':
+
+    print(firstdayofmonth())
