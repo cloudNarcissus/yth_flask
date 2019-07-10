@@ -795,7 +795,7 @@ class ESClient(object):
         else:
             return 0
 
-    def tj_frontpage(self):
+    def tj_frontpage_summary(self):
         '''
         首页统计
         :param params:起止时间（仅针对下半部分） 
@@ -803,44 +803,68 @@ class ESClient(object):
         '''
 
         from app.utils.common import today
-        from app.utils.common import yestoday
+        from app.utils.common import yesterday
         from app.utils.common import monday
         from app.utils.common import firstdayofmonth
 
+        summary = {
+            "入库量":{
+                "今日": 0,
+                "昨日": 0,
+                "本周": 0,
+                "本月": 0,
+                "日均": 0,
+                "峰值": 0
+            }
+        }
 
         # 今天
         today = today()
         begin_time = today
         end_time = today
         ruku_today =self.tj_yth_base_ruku(begin_time, end_time)
+        summary["入库量"]['今日'] = ruku_today
 
         # 昨天
-        begin_time = yestoday()
-        end_time = yestoday()
-        ruku_yestoday = self.tj_yth_base_ruku(begin_time, end_time)
+        begin_time = yesterday()
+        end_time = yesterday()
+        ruku_yesterday = self.tj_yth_base_ruku(begin_time, end_time)
+        summary["入库量"]['昨日'] = ruku_yesterday
 
         # 本周
         begin_time = monday()
         end_time = today
         ruku_week = self.tj_yth_base_ruku(begin_time, end_time)
+        summary["入库量"]['本周'] = ruku_week
+
 
         # 本月
         begin_time = firstdayofmonth()
         end_time = today
         ruku_month = self.tj_yth_base_ruku(begin_time, end_time)
+        summary["入库量"]['本月'] = ruku_month
 
         # 每日平均,先从配置文件获取起始日期begin_day
         from app.utils.common import diffday
         begin_day = Config.begin_day
-        diff_day = diffday(begin_day, today)
-        ruku_avg_day = self.tj_yth_base_ruku(begin_day, today) / (diff_day+1)
+        diff_days = diffday(begin_day, today)+1
+        ruku_day_avg = self.tj_yth_base_ruku(begin_day, today) / diff_days
+        summary["入库量"]['日均'] = ruku_day_avg
 
         # 历史峰值
-        ruku_max_history =self.tj_yth_base_ruku_history_max()
+        ruku_day_max =self.tj_yth_base_ruku_history_max()
+        summary["入库量"]['峰值'] = ruku_day_max
+
+        return summary
 
 
-        print(ruku_max_history)
+    def tj_frontpage_all(self):
+        err,summary = mc.tj_frontpage_alarm_list()
 
+        if err:
+            summary["入库量"]=self.tj_frontpage_summary().get("入库量")
+
+        return err,summary
 
 
 

@@ -49,11 +49,11 @@ def today():
     return now.strftime('%Y-%m-%d')
 
 
-def yestoday():
+def yesterday():
     now = datetime.datetime.now()
     delta = datetime.timedelta(days=-1)
-    yestoday = now + delta
-    return yestoday.strftime('%Y-%m-%d')
+    yesterday = now + delta
+    return yesterday.strftime('%Y-%m-%d')
 
 def monday():
     now = datetime.datetime.now()

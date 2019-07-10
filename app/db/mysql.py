@@ -553,7 +553,7 @@ class MysqlConnect(object):
             conn.close()
 
     @addHead()
-    def pro_event_list_edit(self,params):
+    def pro_event_list_edit(self, params):
         cur = None
         conn, conn_err = self._connect('utf8')
 
@@ -663,7 +663,7 @@ class MysqlConnect(object):
 
             cur = conn.cursor()
             sql = '''call pro_cfg_keyword_add'''
-            sql += '''("%s",%s,%s,"%s","%s","%s")''' % (
+            sql += '''('%s',%s,%s,"%s","%s","%s")''' % (
                 params.get('keyword'),
                 params.get('keylevel'),
                 params.get('enabled'),
@@ -674,7 +674,13 @@ class MysqlConnect(object):
             cur.execute(sql)
             conn.commit()
             result = self.parse_result_to_json(cur)
-            return int(result[0].get('err')), result[0].get('msg'),
+
+            err = result[0].get('err')
+            if err:  # 如果成功要发送mq消息
+                mq.send_msg({"action": __name__})
+            return err, result[0].get('msg')
+
+
         except Exception as e:
             err = self._get_exception_msg(e)
             logger.error(sql)
@@ -682,7 +688,7 @@ class MysqlConnect(object):
             return False, err
         finally:
             cur.close()
-        conn.close()
+            conn.close()
 
     @addHead()
     def pro_cfg_keyword_batchadd(self, params):
@@ -702,12 +708,12 @@ class MysqlConnect(object):
             rows = params.get('keywords', [])
 
             cur = conn.cursor()
-            success_num = 0 #成功条数
+            success_num = 0  # 成功条数
             for keywordRow in rows:
                 keyword = literal_eval(keywordRow).get('key')
-                #keyword = literal_eval(keywordRow)
+                # keyword = literal_eval(keywordRow)
                 sql = '''call pro_cfg_keyword_add'''
-                sql += '''("%s",%s,%s,"%s","%s","%s")''' % (
+                sql += '''('%s',%s,%s,"%s","%s","%s")''' % (
                     keyword.get('keyword'),
                     keyword.get('keylevel'),
                     keyword.get('enabled'),
@@ -719,9 +725,12 @@ class MysqlConnect(object):
                 conn.commit()
                 result = self.parse_result_to_json(cur)
                 if int(result[0].get('err')):
-                    success_num +=1
+                    success_num += 1
 
-            return True, "成功添加:%d条数据"%success_num
+            if success_num > 0:  # 如果成功要发送mq消息
+                mq.send_msg({"action": __name__})
+
+            return True, "成功添加:%d条数据" % success_num
         except Exception as e:
             err = self._get_exception_msg(e)
             logger.error(sql)
@@ -730,7 +739,6 @@ class MysqlConnect(object):
         finally:
             cur.close()
             conn.close()
-
 
     @addHead()
     def pro_cfg_keyword_query(self, params):
@@ -794,7 +802,7 @@ class MysqlConnect(object):
 
             cur = conn.cursor()
             sql = '''call pro_cfg_keyword_edit'''
-            sql += '''(%s,"%s",%s,%s,"%s","%s","%s")''' % (
+            sql += '''(%s,'%s',%s,%s,"%s","%s","%s")''' % (
                 params.get('auid'),
                 params.get('keyword'),
                 params.get('keylevel'),
@@ -806,7 +814,12 @@ class MysqlConnect(object):
             cur.execute(sql)
             conn.commit()
             result = self.parse_result_to_json(cur)
-            return result[0].get('err'), result[0].get('msg'),
+
+            err = result[0].get('err')
+            if err:  # 如果成功要发送mq消息
+                mq.send_msg({"action": __name__})
+
+            return err, result[0].get('msg')
         except Exception as e:
             err = self._get_exception_msg(e)
             logger.error(sql)
@@ -840,7 +853,12 @@ class MysqlConnect(object):
             cur.execute(sql)
             conn.commit()
             result = self.parse_result_to_json(cur)
-            return result[0].get('err'), result[0].get('msg'),
+
+            err = result[0].get('err')
+            if err:  # 如果成功要发送mq消息
+                mq.send_msg({"action": __name__})
+
+            return err, result[0].get('msg')
         except Exception as e:
             err = self._get_exception_msg(e)
             logger.error(sql)
@@ -849,7 +867,6 @@ class MysqlConnect(object):
         finally:
             cur.close()
             conn.close()
-
 
     # ------------------- 告警中心的统计 ---------------------
 
@@ -1050,13 +1067,199 @@ class MysqlConnect(object):
 
         return True, result
 
+    # ------------------- 首页的统计 ---------------------
+
+    def tj_frontpage_alarm_list(self, today, yesterday, monday, firstdayofmonth, diff_days):
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+            cur = conn.cursor()
+
+            summary = {
+                "平台数":4,
+                "告警量": {
+                    "今日": 0,
+                    "昨日": 0,
+                    "本周": 0,
+                    "本月": 0,
+                    "日均": 0,
+                    "峰值": 0
+                },
+                "处置量": {
+                    "今日": 0,
+                    "昨日": 0,
+                    "本周": 0,
+                    "本月": 0,
+                    "日均": 0,
+                    "峰值": 0
+                },
+                "违规量": {
+                    "今日": 0,
+                    "昨日": 0,
+                    "本周": 0,
+                    "本月": 0,
+                    "日均": 0,
+                    "峰值": 0
+                }
+            }
+
+            # ------------------- 全部
+
+            # 1. today
+            sql = '''call tj_frontpage_alarm_list('%s','%s','')''' % (today, today)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_today = int(result[0]['count_'])
+            summary["告警量"]['今日'] = alarm_today
+
+            # 2. yesterday
+            sql = '''call tj_frontpage_alarm_list('%s','%s','')''' % (yesterday, yesterday)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_yesterday = int(result[0]['count_'])
+            summary["告警量"]['昨日'] = alarm_yesterday
+
+            # 3. this week
+            sql = '''call tj_frontpage_alarm_list('%s','%s','')''' % (monday, today)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_week = int(result[0]['count_'])
+            summary["告警量"]['本周'] = alarm_week
+
+            # 4. this month
+            sql = '''call tj_frontpage_alarm_list('%s','%s','')''' % (firstdayofmonth, today)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_month = int(result[0]['count_'])
+            summary["告警量"]['本月'] = alarm_month
+
+            # 5. total -- 用来计算dayavg
+            sql = '''call tj_frontpage_alarm_list('','','')'''
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_total = int(result[0]['count_'])
+            alarm_day_avg = alarm_total / diff_days
+            summary["告警量"]['日均'] = alarm_day_avg
+
+            # 6. 日峰值
+            sql = '''call tj_frontpage_alarm_list_day('')'''
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_day_max = int(result[0]['count_'])
+            summary["告警量"]['峰值'] = alarm_day_max
+
+            # ------------------- 处置量
+
+            # 2.1 处置量today
+            sql = '''call tj_frontpage_alarm_list('%s','%s','cz')''' % (today, today)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_today = int(result[0]['count_'])
+            summary["处置量"]['今日'] = alarm_today
+
+            # 2.2 yesterday
+            sql = '''call tj_frontpage_alarm_list('%s','%s','cz')''' % (yesterday, yesterday)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_yesterday = int(result[0]['count_'])
+            summary["处置量"]['昨日'] = alarm_yesterday
+
+            # 2.3 this week
+            sql = '''call tj_frontpage_alarm_list('%s','%s','cz')''' % (monday, today)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_week = int(result[0]['count_'])
+            summary["处置量"]['本周'] = alarm_week
+
+            # 2.4 this month
+            sql = '''call tj_frontpage_alarm_list('%s','%s','cz')''' % (firstdayofmonth, today)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_month = int(result[0]['count_'])
+            summary["处置量"]['本月'] = alarm_month
+
+            # 2.5 total -- 用来计算dayavg
+            sql = '''call tj_frontpage_alarm_list('','','cz')'''
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_total = int(result[0]['count_'])
+            alarm_day_avg = alarm_total / diff_days
+            summary["处置量"]['日均'] = alarm_day_avg
+
+            # 2.6. 日峰值
+            sql = '''call tj_frontpage_alarm_list_day('cz')'''
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_day_max = int(result[0]['count_'])
+            summary["处置量"]['峰值'] = alarm_day_max
+
+            # ------------------- 违规量
+
+            # 3.1 处置量today
+            sql = '''call tj_frontpage_alarm_list('%s','%s','wg')''' % (today, today)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_today = int(result[0]['count_'])
+            summary["违规量"]['今日'] = alarm_today
+
+            # 3.2 yesterday
+            sql = '''call tj_frontpage_alarm_list('%s','%s','wg')''' % (yesterday, yesterday)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_yesterday = int(result[0]['count_'])
+            summary["违规量"]['昨日'] = alarm_yesterday
+
+            # 3.3 this week
+            sql = '''call tj_frontpage_alarm_list('%s','%s','wg')''' % (monday, today)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_week = int(result[0]['count_'])
+            summary["违规量"]['本周'] = alarm_week
+
+            # 3.4 this month
+            sql = '''call tj_frontpage_alarm_list('%s','%s','wg')''' % (firstdayofmonth, today)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_month = int(result[0]['count_'])
+            summary["违规量"]['本月'] = alarm_month
+
+            # 3.5 total -- 用来计算dayavg
+            sql = '''call tj_frontpage_alarm_list('','','wg')'''
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_total = int(result[0]['count_'])
+            alarm_day_avg = alarm_total / diff_days
+            summary["违规量"]['日均'] = alarm_day_avg
+
+            # 3.6. 日峰值
+            sql = '''call tj_frontpage_alarm_list_day('wg')'''
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_day_max = int(result[0]['count_'])
+            summary["违规量"]['峰值'] = alarm_day_max
+
+            return True, summary
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
 
 mc = MysqlConnect()
 
 #
 if __name__ == '__main__':
     mc = MysqlConnect()
-    print(mc.pro_dict_query())
+    print(mc.tj_frontpage_alarm_list('2019-07-10', '2019-07-09', '2019-07-08', '2019-07-01',10)[1])
 
 
     # params = {}

@@ -90,7 +90,7 @@ class ESClient(object):
         '''
 
         from app.utils.common import today
-        from app.utils.common import yestoday
+        from app.utils.common import yesterday
         from app.utils.common import monday
         from app.utils.common import firstdayofmonth
 
@@ -102,9 +102,9 @@ class ESClient(object):
         ruku_today =self.tj_yth_base_ruku(begin_time, end_time)
 
         # 昨天
-        begin_time = yestoday()
-        end_time = yestoday()
-        ruku_yestoday = self.tj_yth_base_ruku(begin_time, end_time)
+        begin_time = yesterday()
+        end_time = yesterday()
+        ruku_yesterday = self.tj_yth_base_ruku(begin_time, end_time)
 
         # 本周
         begin_time = monday()
