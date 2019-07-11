@@ -4,12 +4,8 @@
     <bookmark url="file://$PROJECT_DIR$/_bak/yth_base.py" line="739" mnemonic="5" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="首页统计 summery">
+    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="首页统计 all">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/api/v1_0/es_resource.py" afterPath="$PROJECT_DIR$/app/api/v1_0/es_resource.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/es.py" afterPath="$PROJECT_DIR$/app/db/es.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/mysql.py" afterPath="$PROJECT_DIR$/app/db/mysql.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -206,11 +202,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="es_resource.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="es_resource.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/api/v1_0/es_resource.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="241">
-              <caret line="148" column="77" lean-forward="true" selection-start-line="147" selection-start-column="8" selection-end-line="148" selection-end-column="77" />
+            <state relative-caret-position="190">
+              <caret line="142" column="28" lean-forward="false" selection-start-line="142" selection-start-column="19" selection-end-line="142" selection-end-column="28" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
               </folding>
@@ -218,7 +214,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="readme.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="readme.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
@@ -798,13 +794,6 @@
       <option name="presentableId" value="Default" />
       <updated>1557381008761</updated>
     </task>
-    <task id="LOCAL-00025" summary="/v1.0/alarmlist/cz">
-      <created>1560396000505</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1560396000505</updated>
-    </task>
     <task id="LOCAL-00026" summary="### 4.13 查询处置历史清单&#10;&#10;url: /v1.0/czlist/">
       <created>1560411143440</created>
       <option name="number" value="00026" />
@@ -1141,7 +1130,14 @@
       <option name="project" value="LOCAL" />
       <updated>1562750164226</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="首页统计 all">
+      <created>1562832397744</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1562832397746</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1178,7 +1174,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="添加告警类型的统计" />
     <MESSAGE value="### 4.16 添加关键字&#10;&#10;url: put /keyword/" />
     <MESSAGE value="action_list 增加字段" />
     <MESSAGE value="&#10;&#10;### 4.17 查询关键字&#10;&#10;url: get /keyword/" />
@@ -1203,7 +1198,8 @@
     <MESSAGE value="config.json增加begin_day&#10;增加mq模块" />
     <MESSAGE value="首页统计 总量入库" />
     <MESSAGE value="首页统计 summery" />
-    <option name="LAST_COMMIT_MESSAGE" value="首页统计 summery" />
+    <MESSAGE value="首页统计 all" />
+    <option name="LAST_COMMIT_MESSAGE" value="首页统计 all" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1645,16 +1641,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/api/v1_0/es_resource.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="148" column="77" lean-forward="true" selection-start-line="147" selection-start-column="8" selection-end-line="148" selection-end-column="77" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -1666,6 +1652,16 @@
             </folding>
           </first_editor>
           <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/api/v1_0/es_resource.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="142" column="28" lean-forward="false" selection-start-line="142" selection-start-column="19" selection-end-line="142" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
