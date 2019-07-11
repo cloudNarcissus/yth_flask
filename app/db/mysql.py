@@ -1069,7 +1069,18 @@ class MysqlConnect(object):
 
     # ------------------- 首页的统计 ---------------------
 
-    def tj_frontpage_alarm_list(self, today, yesterday, monday, firstdayofmonth, diff_days):
+    def tj_frontpage_alarm_list(self, today, yesterday, monday, firstdayofmonth, diff_days, begin_day,end_day):
+        """
+        
+        :param today: 
+        :param yesterday: 
+        :param monday: 
+        :param firstdayofmonth: 
+        :param diff_days: 系统安装日期到今天的相差天数
+        :param begin_day: 用户传入的起始日期
+        :param end_day: 用户传入的结束日期
+        :return: 
+        """
         cur = None
         conn, conn_err = self._connect('utf8')
 
@@ -1105,6 +1116,27 @@ class MysqlConnect(object):
                     "本月": 0,
                     "日均": 0,
                     "峰值": 0
+                }
+            }
+
+            alarm_ana={
+                "告警量": {
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0
+                },
+                "违规量": {
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0
+                },
+                "处置量": {
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0
                 }
             }
 
@@ -1152,6 +1184,8 @@ class MysqlConnect(object):
             result = self.parse_result_to_json(cur)
             alarm_day_max = int(result[0]['count_'])
             summary["告警量"]['峰值'] = alarm_day_max
+
+
 
             # ------------------- 处置量
 
@@ -1243,7 +1277,28 @@ class MysqlConnect(object):
             alarm_day_max = int(result[0]['count_'])
             summary["违规量"]['峰值'] = alarm_day_max
 
-            return True, summary
+
+            # -----  按时间段，按平台分组
+
+            sql = '''call tj_frontpage_alarm_platform('%s','%s')'''%(begin_day,end_day)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            alarm_ana['告警量']["1"] = int(result[0]['count_p1_all'])
+            alarm_ana['告警量']["2"] = int(result[0]['count_p2_all'])
+            alarm_ana['告警量']["3"] = int(result[0]['count_p3_all'])
+            alarm_ana['告警量']["4"] = int(result[0]['count_p4_all'])
+
+            alarm_ana['违规量']["1"] = int(result[0]['count_p1_wg'])
+            alarm_ana['违规量']["2"] = int(result[0]['count_p2_wg'])
+            alarm_ana['违规量']["3"] = int(result[0]['count_p3_wg'])
+            alarm_ana['违规量']["4"] = int(result[0]['count_p4_wg'])
+
+            alarm_ana['处置量']["1"] = int(result[0]['count_p1_cz'])
+            alarm_ana['处置量']["2"] = int(result[0]['count_p2_cz'])
+            alarm_ana['处置量']["3"] = int(result[0]['count_p3_cz'])
+            alarm_ana['处置量']["4"] = int(result[0]['count_p4_cz'])
+
+            return True, summary ,alarm_ana
         except Exception as e:
             err = self._get_exception_msg(e)
             logger.error(sql)
@@ -1252,6 +1307,8 @@ class MysqlConnect(object):
         finally:
             cur.close()
             conn.close()
+
+
 
 
 mc = MysqlConnect()

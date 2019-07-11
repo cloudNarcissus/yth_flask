@@ -140,4 +140,12 @@ class FileanaView(Resource):
         return ec.query_content_text(params)
 
 
+@api.resource('/tj/frontpage/')
+class TjFrontpage(Resource):
 
+    def get(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('begin_day', type=str, required=True)  # 2019-07-01
+        parser.add_argument('end_day', type=str, required=True)  # 2019-07-11
+        params = parser.parse_args()
+        return ec.tj_frontpage_all(params)

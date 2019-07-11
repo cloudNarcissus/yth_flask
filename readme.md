@@ -514,3 +514,18 @@ url ： post /keyword/batch/
 ```buildoutcfg
  parser.add_argument('keywords', type=str, required=True)  # 若干关键字组成的json串[{},{}]
 ```
+
+
+
+
+
+
+### 4.25 首页统计过
+
+url ： get /tj/frontpage/
+
+
+```buildoutcfg
+ parser.add_argument('begin_day', type=str, required=True)  # 2019-07-01
+        parser.add_argument('end_day', type=str, required=True)  # 2019-07-11
+```

@@ -568,7 +568,9 @@ class ESClient(object):
                 params_dict = {'yth_fileana_id': index_id, '__md5': es_doc['__md5'],
                                '__connectTime': es_doc['__connectTime'], '__title': es_doc['FileName'],
                                '__alarmLevel': 5, '__alarmSour': alarmSour, 'summary': es_doc['summary'],
-                               '__alarmKey': json.dumps(list(map(lambda x: {"__keyword":x["__keyword"].replace('"', '\\"'),"__frequency": x["__frequency"]}, es_doc['__alarmKey']))),
+                               '__alarmKey': json.dumps(list(map(
+                                   lambda x: {"__keyword": x["__keyword"].replace('"', '\\"'),
+                                              "__frequency": x["__frequency"]}, es_doc['__alarmKey']))),
                                '__document': es_doc['__document'],
                                '__industry': es_doc['__industry'], '__security': es_doc['__security'],
                                '__ips': es_doc.get('__ips', None), '__alarmType': es_doc.get('__alarmType', None)}
@@ -732,11 +734,9 @@ class ESClient(object):
         return True, self.es.search('yth_fileana', 'mytype', body=body,
                                     _source_include=['__Content-text'])
 
-
-
     # -------------------------首页统计---------------------------------------------------------
 
-    def tj_yth_base_ruku(self,begin_time,end_time):
+    def tj_yth_base_ruku(self, begin_day, end_day):
         '''
         统计首页的 入库量，告警量违规量处置率（这三个数据来自于mysql）
         :params: 起止日期，格式为yyyy-mm-dd
@@ -746,14 +746,14 @@ class ESClient(object):
             "query": {
                 "range": {
                     "__connectTime": {
-                        "gte": begin_time,
-                        "lte": end_time,
+                        "gte": begin_day,
+                        "lte": end_day,
                         "format": "yyyy-MM-dd"
                     }
                 }
             }
         }
-        result = self.es.search('yth_base', 'mytype', body=body,size=0)
+        result = self.es.search('yth_base', 'mytype', body=body, size=0)
         if isinstance(result, dict):
             return result.get('hits', {}).get('total', 0)
         else:
@@ -789,26 +789,115 @@ class ESClient(object):
                 }
             }
         }
-        result= self.es.search('yth_base', 'mytype', body=body, size=0)
+        result = self.es.search('yth_base', 'mytype', body=body, size=0)
         if isinstance(result, dict):
-            return result.get('aggregations', {}).get('max_day',{}).get('value',0)
+            return result.get('aggregations', {}).get('max_day', {}).get('value', 0)
         else:
             return 0
 
-    def tj_frontpage_summary(self):
+    def tj_yth_base_ruku_platform(self, begin_day, end_day):
+        body = {
+            "aggs": {
+                "group_by_platform": {
+                    "terms": {
+                        "field": "__platform"
+                    }
+                }
+            },
+            "query": {
+                "range": {
+                    "__connectTime": {
+                        "gte": begin_day,
+                        "lte": end_day,
+                        "format": "yyyy-MM-dd"
+                    }
+                }
+            }
+        }
+        result = self.es.search('yth_base', 'mytype', body=body, size=0)
+
+        ruku_platform = {
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0
+        }
+        buckets = result.get('aggregations', {}).get('group_by_platform', {}).get('buckets', [])
+        for bucket in buckets:
+            ruku_platform[bucket["key"]] = bucket["doc_count"]
+        return ruku_platform
+
+    def tj_yth_base_risk(self, begin_day, end_day):
+        body = {
+            "aggs": {
+                "group_by_risk": {
+                    "terms": {
+                        "field": "risk"
+                    }
+                }
+            },
+            "query": {
+                "range": {
+                    "__connectTime": {
+                        "gte": begin_day,
+                        "lte": end_day,
+                        "format": "yyyy-MM-dd"
+                    }
+                }
+            }
+        }
+        result = self.es.search('yth_base', 'mytype', body=body, size=0)
+
+        risk = {
+            "0": 0,
+            "1": 0,
+            "2": 0,
+            "3": 0,
+            "4": 0
+        }
+        buckets = result.get('aggregations', {}).get('group_by_risk', {}).get('buckets', [])
+        for bucket in buckets:
+            risk[bucket["key"]] = bucket["doc_count"]
+        return risk
+
+    def tj_yth_fileana_security(self, begin_day, end_day):
+        body = {
+            "aggs": {
+                "group_by_security": {
+                    "terms": {
+                        "field": "__security"
+                    }
+                }
+            },
+            "query": {
+
+                            "range": {
+                                "__connectTime": {
+                                    "gte": begin_day,
+                                    "lte": end_day,
+                                    "format": "yyyy-MM-dd"
+                                }
+                            }
+                        }
+
+            }
+        result = self.es.search('yth_fileana', 'mytype', body=body, size=0)
+
+        risk = {}
+        buckets = result.get('aggregations', {}).get('group_by_security', {}).get('buckets', [])
+        for bucket in buckets:
+            risk[bucket["key"]] = bucket["doc_count"]
+        return risk
+
+    def tj_frontpage_summary(self, today, yesterday, monday, firstdayofmonth, cfg_begin_day, diff_days):
         '''
         首页统计
         :param params:起止时间（仅针对下半部分） 
         :return: 
         '''
 
-        from app.utils.common import today
-        from app.utils.common import yesterday
-        from app.utils.common import monday
-        from app.utils.common import firstdayofmonth
-
         summary = {
-            "入库量":{
+            "入库量": {
                 "今日": 0,
                 "昨日": 0,
                 "本周": 0,
@@ -819,53 +908,169 @@ class ESClient(object):
         }
 
         # 今天
-        today = today()
+
         begin_time = today
         end_time = today
-        ruku_today =self.tj_yth_base_ruku(begin_time, end_time)
+        ruku_today = self.tj_yth_base_ruku(begin_time, end_time)
         summary["入库量"]['今日'] = ruku_today
 
         # 昨天
-        begin_time = yesterday()
-        end_time = yesterday()
+        begin_time = yesterday
+        end_time = yesterday
         ruku_yesterday = self.tj_yth_base_ruku(begin_time, end_time)
         summary["入库量"]['昨日'] = ruku_yesterday
 
         # 本周
-        begin_time = monday()
+        begin_time = monday
         end_time = today
         ruku_week = self.tj_yth_base_ruku(begin_time, end_time)
         summary["入库量"]['本周'] = ruku_week
 
-
         # 本月
-        begin_time = firstdayofmonth()
+        begin_time = firstdayofmonth
         end_time = today
         ruku_month = self.tj_yth_base_ruku(begin_time, end_time)
         summary["入库量"]['本月'] = ruku_month
 
         # 每日平均,先从配置文件获取起始日期begin_day
-        from app.utils.common import diffday
-        begin_day = Config.begin_day
-        diff_days = diffday(begin_day, today)+1
-        ruku_day_avg = self.tj_yth_base_ruku(begin_day, today) / diff_days
+        ruku_day_avg = self.tj_yth_base_ruku(cfg_begin_day, today) / diff_days
         summary["入库量"]['日均'] = ruku_day_avg
 
         # 历史峰值
-        ruku_day_max =self.tj_yth_base_ruku_history_max()
+        ruku_day_max = self.tj_yth_base_ruku_history_max()
         summary["入库量"]['峰值'] = ruku_day_max
 
         return summary
 
+    @addHead()
+    def tj_frontpage_all(self, params):
+        """
+        
+        :param params:包含用户自定义的起止时间 
+        :return: 
+        """
 
-    def tj_frontpage_all(self):
-        err,summary = mc.tj_frontpage_alarm_list()
+        from app.utils.common import today
+        from app.utils.common import yesterday
+        from app.utils.common import monday
+        from app.utils.common import firstdayofmonth
+        today = today()
+        yesterday = yesterday()
+        monday = monday()
+        firstdayofmonth = firstdayofmonth()
+        from app.utils.common import diffday
+        cfg_begin_day = Config.begin_day
+        diff_days = diffday(cfg_begin_day, today) + 1
+
+        begin_day = params['begin_day']
+        end_day = params['end_day']
+
+        all = {
+            "平台概况": {
+                "平台数": 4,
+                "告警量": {
+                    "今日": 0,
+                    "昨日": 0,
+                    "本周": 0,
+                    "本月": 0,
+                    "日均": 0,
+                    "峰值": 0
+                },
+                "入库量": {
+                    "今日": 0,
+                    "昨日": 0,
+                    "本周": 0,
+                    "本月": 0,
+                    "日均": 0,
+                    "峰值": 0
+                },
+                "处置率": {
+                    "今日": 0,
+                    "昨日": 0,
+                    "本周": 0,
+                    "本月": 0,
+                    "日均": 0,
+                    "峰值": 0
+                },
+                "违规量": {
+                    "今日": 0,
+                    "昨日": 0,
+                    "本周": 0,
+                    "本月": 0,
+                    "日均": 0,
+                    "峰值": 0
+                }
+            },
+            "入库分析": {
+                "入库总量": {
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0
+                }
+            },
+            "告警分析": {
+                "告警量": {
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0
+                },
+                "违规量": {
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0
+                },
+                "处置量": {
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0
+                }
+            },
+            "密级vs": {
+                "上报": {
+                    "2": 0,
+                    "3": 0,
+                    "4": 0
+                },
+                "平台": {
+                    "2": 0,
+                    "3": 0,
+                    "4": 0
+                }
+            }
+        }
+
+        # 平台概况
+        err, summary_my, alarm_ana = mc.tj_frontpage_alarm_list(today, yesterday, monday, firstdayofmonth, diff_days,
+                                                                begin_day, end_day)
+        summary_es = self.tj_frontpage_summary(today, yesterday, monday, firstdayofmonth, cfg_begin_day, diff_days)
 
         if err:
-            summary["入库量"]=self.tj_frontpage_summary().get("入库量")
+            summary_my["入库量"] = summary_es.get("入库量")
+            summary = summary_my
+        else:
+            summary = summary_es
 
-        return err,summary
+        all["平台概况"] = summary
 
+        # 入库总量
+        ruku_platform = self.tj_yth_base_ruku_platform(begin_day, end_day)
+        all["入库分析"]["入库总量"] = ruku_platform
+
+        # 告警分析
+        all["告警分析"] = alarm_ana
+
+        # 密级
+        risk = self.tj_yth_base_risk(begin_day, end_day)
+        all["密级vs"]["上报"] = risk
+
+        security = self.tj_yth_fileana_security(begin_day,end_day)
+        all["密级vs"]["平台"] = security
+
+        return err, all
 
 
 ec = ESClient()
