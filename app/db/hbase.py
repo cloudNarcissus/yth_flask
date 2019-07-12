@@ -40,6 +40,8 @@ class HbaseConnect(object):
 
         return True , {"filename" : filename , "content" : content}
 
-
-hbc = HbaseConnect()
+try:
+    hbc = HbaseConnect()
+except Exception as e:
+    hbc = None
 
