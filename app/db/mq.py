@@ -16,7 +16,10 @@ class MqConnect(object):
         self.mq_channel.basic_publish(exchange='main', routing_key='keyword_rule_update',
                                       body=json.dumps(mq_msg, ensure_ascii=False))
 
-mq = MqConnect()
+try:
+    mq = MqConnect()
+except Exception as e:
+    mq = None
 
 
 # 1.连接到MQ

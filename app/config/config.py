@@ -1,6 +1,14 @@
 import os
 
+current_dir = os.path.dirname(__file__)
+app_dir = os.path.join(current_dir,"..")
+root_dir = os.path.join(app_dir,"..")
+import sys
+sys.path.append(current_dir)
+sys.path.append(app_dir)
+sys.path.append(root_dir)
 from app.utils.config_parser import ConfigParser
+#from ..utils.config_parser import ConfigParser
 
 _path = os.path.split(os.path.abspath(__file__))[0]
 _cfg_file = os.path.join(_path, os.path.pardir, os.path.pardir, 'config.json')
