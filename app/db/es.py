@@ -190,29 +190,40 @@ class ESClient(object):
 
         # #####################查询条件###############################
         match_query = query.MatchAll()
-        highlight = {}
+        # highlight = {}
         if params['match_str'] is not None:
-            qs = params['match_str']
-            if params['exact_query']:
-                qs = '\"' + qs + '\"'
-            match_query = match_query & query.QueryString(
-                default_field="__Content-text",
-                query=qs
-            )
-            # 高亮内容
-            highlight = {
-                "pre_tags": [
-                    "<font color=\\\"red\\\">"
-                ],
-                "post_tags": [
-                    "</font>"
-                ],
-                "fields": {
-                    "__Content-text": {
-                        "highlight_query": match_query.to_dict()
-                    }
-                }
-            }
+            qs = str(params['match_str']).strip()
+            if qs.startswith('.'):  # 以.开头则默认为查询后缀名
+                qs = qs.strip('.')  # 去掉.开始查询
+                filter_query = filter_query & query.Term(_expand__to_dot=False,__tikaExtention=qs)
+            else:
+                if params['exact_query']:
+                    qs = '\"' + qs + '\"'
+                match_query = match_query & (
+                    query.QueryString(
+                        default_field="__Content-text",
+                        query=qs
+                    ) | query.QueryString(  # 搜索框内的条件还可以查询Filename，也即标题
+                        default_field="FileName",
+                        query=qs
+                    )
+                )
+
+
+                # 高亮内容  暂时不要了
+                # highlight = {
+                #     "pre_tags": [
+                #         "<font color=\\\"red\\\">"
+                #     ],
+                #     "post_tags": [
+                #         "</font>"
+                #     ],
+                #     "fields": {
+                #         "__Content-text": {
+                #             "highlight_query": match_query.to_dict()
+                #         }
+                #     }
+                # }
 
         # 平台
         if params['_platform'] is not None:
@@ -320,8 +331,8 @@ class ESClient(object):
                 }
             },
             "query": all_query,
-            'sort': sort,
-            "highlight": highlight
+            'sort': sort
+            # "highlight": highlight
         }
 
         self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
@@ -871,16 +882,16 @@ class ESClient(object):
             },
             "query": {
 
-                            "range": {
-                                "__connectTime": {
-                                    "gte": begin_day,
-                                    "lte": end_day,
-                                    "format": "yyyy-MM-dd"
-                                }
-                            }
-                        }
-
+                "range": {
+                    "__connectTime": {
+                        "gte": begin_day,
+                        "lte": end_day,
+                        "format": "yyyy-MM-dd"
+                    }
+                }
             }
+
+        }
         result = self.es.search('yth_fileana', 'mytype', body=body, size=0)
 
         risk = {}
@@ -1067,7 +1078,7 @@ class ESClient(object):
         risk = self.tj_yth_base_risk(begin_day, end_day)
         all["密级vs"]["上报"] = risk
 
-        security = self.tj_yth_fileana_security(begin_day,end_day)
+        security = self.tj_yth_fileana_security(begin_day, end_day)
         all["密级vs"]["平台"] = security
 
         return err, all
