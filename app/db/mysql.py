@@ -663,7 +663,7 @@ class MysqlConnect(object):
 
             cur = conn.cursor()
             sql = '''call pro_cfg_keyword_add'''
-            sql += '''('%s',%s,%s,"%s","%s","%s")''' % (
+            sql += r'''('%s',%s,%s,"%s","%s","%s")''' % (
                 params.get('keyword'),
                 params.get('keylevel'),
                 params.get('enabled'),
@@ -827,7 +827,7 @@ class MysqlConnect(object):
             return False, err
         finally:
             cur.close()
-        conn.close()
+            conn.close()
 
     @addHead()
     def pro_cfg_keyword_drop(self, params):
