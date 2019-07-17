@@ -53,6 +53,9 @@ class HbaseConnect(object):
         except Exception as e:
             self.log.debug(u'获取文件<Md5:%s>失败,因conn异常:%s', md5, e)
             return False,str(e)
+        finally:
+            if conn is not None:
+                conn.close()
 
         return True , {"filename" : filename , "content" : content}
 
