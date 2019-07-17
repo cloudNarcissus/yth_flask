@@ -10,8 +10,20 @@ logger = logging.getLogger(__name__)
 
 class HbaseConnect(object):
     def __init__(self):
-        self.hb_pool = happybase.ConnectionPool(size=5,host=Config.hb_hosts,table_prefix='wdp')
         self.log = logger
+
+        try:
+            self.hb_pool = happybase.ConnectionPool(size=5,host=Config.hb_hosts,port=Config.hb_port,table_prefix='wdp',autoconnect=True,)
+        except Exception as e:
+            self.hb_pool = None
+            self.log.error('hb_pool init failed,%s' % str(e))
+
+    def get_conn(self):
+        if self.hb_pool is not None:
+            conn = hbc.hb_pool.connection()
+        else:
+            conn = happybase.Connection(host=Config.hb_hosts, port=Config.hb_port, autoconnect=True)
+        return conn
 
     def dowmload_wdp_files(self, params):
         """
@@ -23,7 +35,7 @@ class HbaseConnect(object):
         content = b''
 
         try:
-            with hbc.hb_pool.connection() as conn:
+            with self.get_conn() as conn:
                 files = conn.table(b'files')
                 row = files.row(md5)
 
@@ -35,13 +47,11 @@ class HbaseConnect(object):
                     content += row[column_name]
 
         except Exception as e:
-            self.log.error(u'获取文件<Md5:%s>失败,%s', md5, e)
+            self.log.debug(u'获取文件<Md5:%s>失败,因conn异常:%s', md5, e)
             return False,str(e)
 
         return True , {"filename" : filename , "content" : content}
 
-try:
-    hbc = HbaseConnect()
-except Exception as e:
-    hbc = None
+
+hbc = HbaseConnect()
 
