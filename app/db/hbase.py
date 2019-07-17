@@ -22,7 +22,11 @@ class HbaseConnect(object):
         if self.hb_pool is not None:
             conn = hbc.hb_pool.connection()
         else:
-            conn = happybase.Connection(host=Config.hb_hosts, port=Config.hb_port, autoconnect=True)
+            try:
+                conn = happybase.Connection(host=Config.hb_hosts, port=Config.hb_port, autoconnect=True)
+            except Exception as e:
+                conn = None
+                self.log.error('happybase.Connection failed,%s' % str(e))
         return conn
 
     def dowmload_wdp_files(self, params):
