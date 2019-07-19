@@ -576,9 +576,10 @@ class ESClient(object):
             if self.es.exists(index='yth_fileana', doc_type='mytype', id=index_id):
                 es_doc = self.es.get(index='yth_fileana', doc_type='mytype', id=index_id,
                                      _source_exclude=['__Content-text']).get('_source')
+                alarmLevel = 5 if alarmSour == 2 else es_doc['__alarmLevel']
                 params_dict = {'yth_fileana_id': index_id, '__md5': es_doc['__md5'],
                                '__connectTime': es_doc['__connectTime'], '__title': es_doc['FileName'],
-                               '__alarmLevel': 5, '__alarmSour': alarmSour, 'summary': es_doc['summary'],
+                               '__alarmLevel': alarmLevel, '__alarmSour': alarmSour, 'summary': es_doc['summary'],
                                '__alarmKey': json.dumps(list(map(
                                    lambda x: {"__keyword": x["__keyword"].replace('"', '\\"'),
                                               "__frequency": x["__frequency"]}, es_doc['__alarmKey']))),
