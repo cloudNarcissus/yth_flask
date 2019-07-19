@@ -212,18 +212,13 @@ URL: /v1.0/alarmlist/left
 {
 
 
-begin_day  date, -- 2019-06-04
-
-end_day  date,
-
-alarmlevel_query  varchar(10), -- 等于5：=5  大于3：>=3  等于全部：'' 没有大于全部小于全部
-
-fulltext_query text, -- 关键字查询
-
-platform  int,  -- 0全部  1234    这个字段就是页面上的告警分类
-
-__alarmSour int,  -- 告警来源0:全部 1：告警模型  2：手动加入
-
+        parser.add_argument('begin_day', type=str, required=True)
+        parser.add_argument('end_day', type=str, required=True)
+        parser.add_argument('alarmlevel_query', type=str)
+        parser.add_argument('fulltext_query', type=str)
+        parser.add_argument('actiontype', type=str)
+        parser.add_argument('__alarmType', type=int)
+        parser.add_argument('__alarmSour', type=int)
 }
 
 

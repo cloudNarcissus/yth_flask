@@ -45,7 +45,8 @@ class AlarmListLeft(Resource):
         parser.add_argument('end_day', type=str, required=True)
         parser.add_argument('alarmlevel_query', type=str)
         parser.add_argument('fulltext_query', type=str)
-        parser.add_argument('platform', type=int)
+        parser.add_argument('actiontype', type=str)
+        parser.add_argument('__alarmType', type=int)
         parser.add_argument('__alarmSour', type=int)
 
         params = parser.parse_args(strict=True)

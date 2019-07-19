@@ -273,7 +273,8 @@ class MysqlConnect(object):
                 params.get('end_day'),
                 params.get('alarmlevel_query') if params.get('alarmlevel_query') is not None else '',
                 params.get('fulltext_query') if params.get('fulltext_query') is not None else '',
-                params.get('platform', 0),
+                params.get('actiontype') if params.get('actiontype') is not None else '',
+                params.get('__alarmType',0),
                 params.get('__alarmSour', 0)
             )
 
