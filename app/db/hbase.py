@@ -43,6 +43,7 @@ class HbaseConnect(object):
                 files = conn.table(b'files')
                 row = files.row(md5)
 
+
                 seg_count = int(row[b'info:seg_count'])
                 filename = row[b'info:filename']
 

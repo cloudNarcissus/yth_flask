@@ -596,8 +596,8 @@ class ESClient(object):
         def update_yth_fileana_alarmed(index_id):
             body = {
                 'doc': {
-                    '_alarmed': True,
-                    '__alarmLevel': 5  # 手动加入的告警都是5级
+                    '_alarmed': True
+                    #'__alarmLevel': 5  # 手动加入的告警都是5级(2019.07.22李亚玲说不修改原等级)
                 }
             }
             self.log.debug('更新告警数据，语句为{0}'.format(body))
@@ -836,7 +836,7 @@ class ESClient(object):
         }
         buckets = result.get('aggregations', {}).get('group_by_platform', {}).get('buckets', [])
         for bucket in buckets:
-            ruku_platform[bucket["key"]] = bucket["doc_count"]
+            ruku_platform[str(bucket["key"])] = bucket["doc_count"]
         return ruku_platform
 
     def tj_yth_base_risk(self, begin_day, end_day):
@@ -869,7 +869,7 @@ class ESClient(object):
         }
         buckets = result.get('aggregations', {}).get('group_by_risk', {}).get('buckets', [])
         for bucket in buckets:
-            risk[bucket["key"]] = bucket["doc_count"]
+            risk[str(bucket["key"])] = bucket["doc_count"]
         return risk
 
     def tj_yth_fileana_security(self, begin_day, end_day):
@@ -954,6 +954,43 @@ class ESClient(object):
 
         return summary
 
+    def tj_yth_fileana_filelength(self,begin_day, end_day):
+        '''
+        首页统计：文档总量 总大小
+        :return: 
+        '''
+        body = {
+            "aggs": {
+                "filesize": {
+                    "sum": {
+                        "field": "Filelength"
+                    }
+                }
+            },
+            "query": {
+
+                "range": {
+                    "__connectTime": {
+                        "gte": begin_day,
+                        "lte": end_day,
+                        "format": "yyyy-MM-dd"
+                    }
+                }
+            }
+
+        }
+        result = self.es.search('yth_fileana', 'mytype', body=body, size=0)
+
+        doc = {
+            "数量":0,
+            "大小":0
+        }
+
+        doc["数量"] = result['hits']['total']
+        doc["大小"] = result['aggregations']['filesize']['value']
+        return doc
+
+
     @addHead()
     def tj_frontpage_all(self, params):
         """
@@ -1019,6 +1056,12 @@ class ESClient(object):
                     "2": 0,
                     "3": 0,
                     "4": 0
+                },
+                "入库文件":{
+                    "文档":{
+                        "数量":0,
+                        "大小":0
+                    }
                 }
             },
             "告警分析": {
@@ -1071,6 +1114,9 @@ class ESClient(object):
         # 入库总量
         ruku_platform = self.tj_yth_base_ruku_platform(begin_day, end_day)
         all["入库分析"]["入库总量"] = ruku_platform
+
+        # 入库文件
+        all["入库分析"]["入库文件"]["文档"] = self.tj_yth_fileana_filelength(begin_day, end_day)
 
         # 告警分析
         all["告警分析"] = alarm_ana
