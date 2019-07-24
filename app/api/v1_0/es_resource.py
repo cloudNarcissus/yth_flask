@@ -141,7 +141,7 @@ class FileanaView(Resource):
 
 
 @api.resource('/fileana/one/')
-class FileanaView(Resource):
+class FileanaOne(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('__md5', type=str, required=True)
 

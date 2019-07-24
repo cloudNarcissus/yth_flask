@@ -7,8 +7,6 @@
     <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="首页统计增加入库量">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/api/v1_0/es_resource.py" afterPath="$PROJECT_DIR$/app/api/v1_0/es_resource.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/es.py" afterPath="$PROJECT_DIR$/app/db/es.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -218,11 +216,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="es_resource.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="es_resource.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/api/v1_0/es_resource.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="145" column="57" lean-forward="true" selection-start-line="145" selection-start-column="4" selection-end-line="145" selection-end-column="57" />
+            <state relative-caret-position="255">
+              <caret line="143" column="16" lean-forward="false" selection-start-line="143" selection-start-column="16" selection-end-line="143" selection-end-column="16" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
                 <element signature="e#152#845#0" expanded="false" />
@@ -236,12 +234,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="readme.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="readme.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="322">
-                <caret line="534" column="53" lean-forward="false" selection-start-line="534" selection-start-column="53" selection-end-line="534" selection-end-column="53" />
+              <first_editor relative-caret-position="118">
+                <caret line="528" column="0" lean-forward="true" selection-start-line="528" selection-start-column="0" selection-end-line="528" selection-end-column="0" />
                 <folding>
                   <marker date="1563946597590" expanded="true" signature="193:376" ph="{&quot;begin_time&quot;: &quot;2019-05-16&quot;...}" />
                   <marker date="1563946597590" expanded="true" signature="5460:5499" ph="{...}" />
@@ -357,8 +355,8 @@
         <option value="$PROJECT_DIR$/app/api/v1_0/mysql_resource.py" />
         <option value="$PROJECT_DIR$/app/db/hbase.py" />
         <option value="$PROJECT_DIR$/app/db/es.py" />
-        <option value="$PROJECT_DIR$/app/api/v1_0/es_resource.py" />
         <option value="$PROJECT_DIR$/readme.md" />
+        <option value="$PROJECT_DIR$/app/api/v1_0/es_resource.py" />
       </list>
     </option>
   </component>
@@ -746,13 +744,6 @@
       <option name="presentableId" value="Default" />
       <updated>1557381008761</updated>
     </task>
-    <task id="LOCAL-00037" summary="filedownload">
-      <created>1560859458321</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1560859458322</updated>
-    </task>
     <task id="LOCAL-00038" summary="filedownload">
       <created>1560907990704</created>
       <option name="number" value="00038" />
@@ -1089,12 +1080,18 @@
       <option name="project" value="LOCAL" />
       <updated>1563845788398</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="首页统计增加入库量">
+      <created>1563946612692</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1563946612693</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1374" height="732" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13918306" sideWeight="0.76521736" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1104,7 +1101,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17377049" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28744328" sideWeight="0.8004158" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5098361" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33114755" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33114755" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19894099" sideWeight="0.2347826" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.036308624" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1574,10 +1571,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="118">
+            <caret line="528" column="0" lean-forward="true" selection-start-line="528" selection-start-column="0" selection-end-line="528" selection-end-column="0" />
+            <folding>
+              <marker date="1563946597590" expanded="true" signature="193:376" ph="{&quot;begin_time&quot;: &quot;2019-05-16&quot;...}" />
+              <marker date="1563946597590" expanded="true" signature="5460:5499" ph="{...}" />
+            </folding>
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/api/v1_0/es_resource.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="145" column="57" lean-forward="true" selection-start-line="145" selection-start-column="4" selection-end-line="145" selection-end-column="57" />
+        <state relative-caret-position="255">
+          <caret line="143" column="16" lean-forward="false" selection-start-line="143" selection-start-column="16" selection-end-line="143" selection-end-column="16" />
           <folding>
             <element signature="e#0#44#0" expanded="true" />
             <element signature="e#152#845#0" expanded="false" />
@@ -1587,20 +1598,6 @@
             <element signature="e#2703#2970#0" expanded="false" />
             <element signature="e#3035#3643#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/readme.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="322">
-            <caret line="534" column="53" lean-forward="false" selection-start-line="534" selection-start-column="53" selection-end-line="534" selection-end-column="53" />
-            <folding>
-              <marker date="1563946597590" expanded="true" signature="193:376" ph="{&quot;begin_time&quot;: &quot;2019-05-16&quot;...}" />
-              <marker date="1563946597590" expanded="true" signature="5460:5499" ph="{...}" />
-            </folding>
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>
