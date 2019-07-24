@@ -524,3 +524,14 @@ url ： get /tj/frontpage/
  parser.add_argument('begin_day', type=str, required=True)  # 2019-07-01
         parser.add_argument('end_day', type=str, required=True)  # 2019-07-11
 ```
+
+
+
+### 4.26 首页
+
+url:  get /fileana/one/
+```buildoutcfg
+
+parser.add_argument('__md5', type=str, required=True)
+```
+

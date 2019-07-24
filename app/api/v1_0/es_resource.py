@@ -140,6 +140,16 @@ class FileanaView(Resource):
         return ec.query_content_text(params)
 
 
+@api.resource('/fileana/one/')
+class FileanaView(Resource):
+    parser = reqparse.RequestParser()
+    parser.add_argument('__md5', type=str, required=True)
+
+    def get(self):
+        params = self.parser.parse_args(strict=True)
+        return ec.query_yth_fileana_by_md5(params)
+
+
 @api.resource('/tj/frontpage/')
 class TjFrontpage(Resource):
 

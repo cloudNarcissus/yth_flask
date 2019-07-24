@@ -513,6 +513,10 @@ class ESClient(object):
         index_id = params['index_id']
         return True, self.es.get(index='yth_base', doc_type='mytype', id=index_id, _source_exclude=['sm_summary'])
 
+
+
+
+
     # -------------------------加入告警到alarm——list-------------------------------------------
     @addHead()
     def add_alarm_list(self, params):
@@ -745,6 +749,32 @@ class ESClient(object):
         }
         return True, self.es.search('yth_fileana', 'mytype', body=body,
                                     _source_include=['__Content-text'])
+
+
+    @addHead()
+    def query_yth_fileana_by_md5(self, params):
+        '''
+        查询单个文件的文本内容
+        :param params:__md5 
+        :return: 
+        '''
+        md5 = params.get('__md5')
+        self.log.debug('进入 query_yth_fileana_by_md5 函数 ,%s' % md5)
+
+        body = {
+            "query": {
+                'term': {
+                    '__md5': {
+                        'value': md5
+                    }
+                }
+            }
+        }
+        return True, self.es.search('yth_fileana', 'mytype', body=body,
+                                    _source_exclude=['__Content-text'])
+
+
+
 
     # -------------------------首页统计---------------------------------------------------------
 
