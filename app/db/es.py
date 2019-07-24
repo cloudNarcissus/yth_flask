@@ -190,7 +190,7 @@ class ESClient(object):
 
         # #####################查询条件###############################
         match_query = query.MatchAll()
-        # highlight = {}
+        highlight = {}
         if params['match_str'] is not None:
             qs = str(params['match_str']).strip()
             if qs.startswith('.'):  # 以.开头则默认为查询后缀名
@@ -210,20 +210,21 @@ class ESClient(object):
                 )
 
 
-                # 高亮内容  暂时不要了
-                # highlight = {
-                #     "pre_tags": [
-                #         "<font color=\\\"red\\\">"
-                #     ],
-                #     "post_tags": [
-                #         "</font>"
-                #     ],
-                #     "fields": {
-                #         "__Content-text": {
-                #             "highlight_query": match_query.to_dict()
-                #         }
-                #     }
-                # }
+                #高亮内容
+                highlight = {
+                    "pre_tags": [
+                        "<red>"
+                    ],
+                    "post_tags": [
+                        "</red>"
+                    ],
+                    "fields": {
+                        "__Content-text": {
+                            "number_of_fragments": 1
+                        },
+                        "FileName": {}
+                    }
+                }
 
         # 平台
         if params['_platform'] is not None:
@@ -331,8 +332,8 @@ class ESClient(object):
                 }
             },
             "query": all_query,
-            'sort': sort
-            # "highlight": highlight
+            'sort': sort,
+            "highlight": highlight
         }
 
         self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
