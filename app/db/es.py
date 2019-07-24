@@ -213,10 +213,10 @@ class ESClient(object):
                 #高亮内容
                 highlight = {
                     "pre_tags": [
-                        "<red>"
+                        "<highlight>"
                     ],
                     "post_tags": [
-                        "</red>"
+                        "</highlight>"
                     ],
                     "fields": {
                         "__Content-text": {
