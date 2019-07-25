@@ -1,25 +1,25 @@
 {
-    "MYSQL": {
-        "credentials": "root:123asd!@#",
-        "db": "yth_alarm",
-        "hosts": "192.168.10.136:3306",
-        "encode": "utf8mb4"
-    },
-    "ElasticSearch": {
-        "credentials": "test:test",
-        "hosts": "192.168.10.136:9200"
-    },
-    "HBASE": {
-        "hosts": "192.168.40.163:9090"
-    },
-    "MQ": {
-        "credentials": "admin:admin",
-        "hosts": "192.168.10.136:5672"
-    },
-    "UPDATE_INTERVAL": 2000000,
-    "BEGIN_DAY": "2019-07-11",
     "HIVE": {
         "credentials": "hive:",
         "hosts": "192.168.10.137:10000"
+    },
+    "BEGIN_DAY": "2019-07-24",
+    "MQ": {
+        "credentials": "admin:admin",
+        "hosts": "192.168.40.161:5672"
+    },
+    "HBASE": {
+        "hosts": "192.168.40.161:9090"
+    },
+    "MYSQL": {
+        "encode": "utf8mb4",
+        "db": "yth_alarm",
+        "credentials": "root:123asd!@#ASD",
+        "hosts": "192.168.40.163:3306"
+    },
+    "UPDATE_INTERVAL": 2000000,
+    "ElasticSearch": {
+        "credentials": "test:test",
+        "hosts": "192.168.40.161:9200"
     }
 }

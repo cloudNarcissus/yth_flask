@@ -1172,7 +1172,7 @@ class MysqlConnect(object):
             summary["告警量"]['本月'] = alarm_month
 
             # 5. total -- 用来计算dayavg
-            sql = '''call tj_frontpage_alarm_list('','','')'''
+            sql = '''call tj_frontpage_alarm_list('1970-01-01','1970-01-01','')'''
             cur.execute(sql)
             result = self.parse_result_to_json(cur)
             alarm_total = int(result[0]['count_'])
@@ -1219,7 +1219,7 @@ class MysqlConnect(object):
             summary["处置量"]['本月'] = alarm_month
 
             # 2.5 total -- 用来计算dayavg
-            sql = '''call tj_frontpage_alarm_list('','','cz')'''
+            sql = '''call tj_frontpage_alarm_list('1970-01-01','1970-01-01','cz')'''
             cur.execute(sql)
             result = self.parse_result_to_json(cur)
             alarm_total = int(result[0]['count_'])
@@ -1264,7 +1264,7 @@ class MysqlConnect(object):
             summary["违规量"]['本月'] = alarm_month
 
             # 3.5 total -- 用来计算dayavg
-            sql = '''call tj_frontpage_alarm_list('','','wg')'''
+            sql = '''call tj_frontpage_alarm_list('1970-01-01','1970-01-01','wg')'''
             cur.execute(sql)
             result = self.parse_result_to_json(cur)
             alarm_total = int(result[0]['count_'])

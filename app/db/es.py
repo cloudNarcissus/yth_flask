@@ -58,10 +58,10 @@ class ESClient(object):
             qs = params['match_str']
             if params['exact_query']:
                 qs = '\"' + qs + '\"'
-            highlight_query = match_query & query.QueryString(
-                default_field="__full_query",
-                query=qs
-            )
+            # highlight_query = match_query & query.QueryString(
+            #     default_field="__full_query",
+            #     query=qs
+            # )
             match_query = match_query & (
                 query.QueryString(
                     default_field="__full_query",
@@ -73,19 +73,20 @@ class ESClient(object):
             )
 
             # #####################高亮内容###############################
-            highlight = {
-                "pre_tags": [
-                    "<font color=\\\"red\\\">"
-                ],
-                "post_tags": [
-                    "</font>"
-                ],
-                "fields": {
-                    "__summary": {
-                        "highlight_query": highlight_query.to_dict()
-                    }
-                }
-            }
+
+            # highlight = {
+            #     "pre_tags": [
+            #         "<highlight>"
+            #     ],
+            #     "post_tags": [
+            #         "</highlight>"
+            #     ],
+            #     "fields": {
+            #         "__summary": {
+            #             "highlight_query": highlight_query.to_dict()
+            #         }
+            #     }
+            # }
 
         # #####################聚合内容###############################
         actionType_agg = aggs.Filter(query.Bool(must_not=query.Match(_expand__to_dot=False, __actionType='')))
