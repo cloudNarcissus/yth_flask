@@ -89,6 +89,25 @@ def diffday(begin_day,end_day):
     return (date2 - date1).days
 
 
+
+def isIP(str):
+    import re
+    p = re.compile('^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$')
+    if p.match(str):
+        return True
+    else:
+        return False
+
+
+def isMac(str):
+    import re
+    if re.match(r"(([a-f0-9]{2}:)|([a-f0-9]{2}-)){5}[a-f0-9]{2}", str,re.IGNORECASE):
+        return True
+    return False
+
 if __name__ == '__main__':
 
-    print(firstdayofmonth())
+    print(isIP("192.168.0.1"))
+    print(isIP("192.168.0.1111"))
+    print(isMac("aa-ff-cc-dd"))
+    print(isMac("44:37:E6:CD:94:C1"))

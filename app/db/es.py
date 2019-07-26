@@ -7,7 +7,7 @@ from elasticsearch import Elasticsearch
 from elasticsearch_dsl import query, aggs
 
 from app.config import Config
-from app.utils.common import addHead
+from app.utils.common import addHead,isIP,isMac
 from app.db.mysql import mc
 
 logger = logging.getLogger(__name__)
@@ -52,25 +52,54 @@ class ESClient(object):
         #                                              __actionType=params['__platform'])
 
         # #####################查询条件###############################
-        match_query = query.MatchAll()
+        #match_query = query.MatchAll().to_dict()
+
+        must = {}
         highlight = {}
+        multi_match = {}
         if params['match_str'] is not None:
             qs = params['match_str']
-            if params['exact_query']:
-                qs = '\"' + qs + '\"'
+            if isMac(qs):
+                must = {
+                    "multi_match":{
+                        "query": qs,
+                        "fields": ["smac", "dmac", "mac"]
+                    }
+                }
+            elif isIP(qs):
+                must = {
+                    "multi_match": {
+                        "query": qs,
+                        "fields": ["sip", "dip", "ip"]
+                    }
+                }
+            else:
+                if params['exact_query']:
+                    qs = '\"' + qs + '\"'
             # highlight_query = match_query & query.QueryString(
             #     default_field="__full_query",
             #     query=qs
             # )
-            match_query = match_query & (
-                query.QueryString(
-                    default_field="__full_query",
-                    query=qs
-                ) | query.QueryString(
-                    default_field="__summary",
-                    query=qs
-                )
-            )
+                must = (
+                    query.QueryString(
+                        default_field="__full_query",
+                        query=qs
+                    ) | query.QueryString(
+                        default_field="__summary",
+                        query=qs
+                    )
+                ).to_dict()
+
+        # 查询语句
+        all_query = {
+            "bool": {
+                #"minimum_should_match": 1,
+                "filter": filter_query.to_dict()
+            }
+        }
+
+        if must != {}:
+            all_query["bool"]["must"] = must
 
             # #####################高亮内容###############################
 
@@ -95,13 +124,7 @@ class ESClient(object):
         platform_agg = aggs.Filter(query.Bool(must_not=query.Match(_expand__to_dot=False, __actionType='')))
         platform_agg.bucket('__platform', 'terms', field='__platform', size=10)
 
-        # 查询语句
-        all_query = {
-            "bool": {
-                "must": match_query.to_dict(),
-                "filter": filter_query.to_dict()
-            }
-        }
+
 
         # 排序  按接入时间或采集时间排序
         sort = []
@@ -264,7 +287,7 @@ class ESClient(object):
         document_agg = aggs.Filter(query.Bool(must_not=query.Match(_expand__to_dot=False, __document='')))
         document_agg.bucket('document', 'terms', field='__document', size=20)
 
-        industry_agg = aggs.Filter(query.Bool(must_not=query.Match(_expand__to_dot=False, __industry='')))
+        industry_agg = aggs.Filter(query.Bool(must_not=query.Match(_expand__to_dot=False, __industry=''))&query.Bool(must_not=query.Match(_expand__to_dot=False, __industry='其它类')))
         industry_agg.bucket('industry', 'terms', field='__industry', size=50)
 
         security_agg = aggs.Filter(query.Bool(must_not=query.Match(_expand__to_dot=False, __security='')))
@@ -1022,6 +1045,176 @@ class ESClient(object):
         doc["大小"] = result['aggregations']['filesize']['value']
         return doc
 
+    def tj_yth_fileana_leida(self,begin_day,end_day):
+        '''
+        首页统计：查询文档告警前后的密级、行业、板式、关键字的量
+        :param begin_day: 
+        :param end_day: 
+        :return: 
+        '''
+        body = {
+    "query": {
+		"bool": {
+			"filter": {
+				"range": {
+					"__connectTime": {
+						"gte": begin_day,
+						"lte": end_day,
+						"format": "yyyy-MM-dd"
+					}
+				}
+			}
+		}
+	},
+	"aggs": {
+		"security": {
+			"filter": {
+				"bool": {
+					"must_not": [
+						{
+							"match": {
+								"__security": ""
+							}
+						}
+					]
+				}
+			}
+		},
+		"security_alarm": {
+			"filter": {
+				"bool": {
+					"must_not": [
+						{
+							"match": {
+								"__security": ""
+							}
+						}
+					],
+					"must":{
+					  "term":{
+					    "_alarmed":True
+					  }
+					}
+				}
+			}
+		},
+		"__alarmKey": {
+			"nested": {
+				"path": "__alarmKey"
+			}
+		},
+
+		"document": {
+			"filter": {
+				"bool": {
+					"must_not": [
+						{
+							"match": {
+								"__document": ""
+							}
+						}
+					]
+				}
+			}
+		},
+		"document_alarm": {
+			"filter": {
+				"bool": {
+					"must_not": [
+						{
+							"match": {
+								"__document": ""
+							}
+						}
+					],
+					"must":{
+					  "term":{
+					    "_alarmed":True
+					  }
+					}
+				}
+			}
+		},
+
+		"industry": {
+			"filter": {
+				"bool": {
+					"must_not": [
+						{
+							"match": {
+								"__industry": ""
+							}
+						},
+						{
+						  "match":{
+						    "__industry":"其它类"
+						  }
+						}
+					]
+				}
+			}
+		},
+		"industry_alarm": {
+			"filter": {
+				"bool": {
+					"must_not": [
+						{
+							"match": {
+								"__industry": ""
+							}
+						},
+						{
+						  "match":{
+						    "__industry":"其它类"
+						  }
+						}
+					],
+					"must":{
+					  "term":{
+					    "_alarmed":True
+					  }
+					}
+				}
+			}
+		}
+	}
+}
+        result1 = self.es.search('yth_fileana', 'mytype', body=body, size=0)
+        aggregations = result1['aggregations']
+
+        body = {
+  "size":0,
+	"query": {
+		"bool": {
+			"filter": {
+				"range": {
+					"__connectTime": {
+						"gte": begin_day,
+						"lte": end_day,
+						"format": "yyyy-MM-dd"
+					}
+				}
+			},
+			"must":{
+			  "term":{
+			    "_alarmed":True
+			  }
+			}
+		}
+	},
+	"aggs": {
+
+		"__alarmKey_alarm": {
+			"nested": {
+				"path": "__alarmKey"
+			}
+		}
+	}
+}
+        result2 = self.es.search('yth_fileana', 'mytype', body=body, size=0)
+        aggregations['__alarmKey_alarm'] = result2['aggregations']['__alarmKey_alarm']
+
+        return aggregations
 
     @addHead()
     def tj_frontpage_all(self, params):
@@ -1117,16 +1310,6 @@ class ESClient(object):
                 }
             },
             "密级vs": {
-                "上报": {
-                    "2": 0,
-                    "3": 0,
-                    "4": 0
-                },
-                "平台": {
-                    "2": 0,
-                    "3": 0,
-                    "4": 0
-                }
             }
         }
 
@@ -1154,11 +1337,15 @@ class ESClient(object):
         all["告警分析"] = alarm_ana
 
         # 密级
-        risk = self.tj_yth_base_risk(begin_day, end_day)
-        all["密级vs"]["上报"] = risk
+        # risk = self.tj_yth_base_risk(begin_day, end_day)
+        # all["密级vs"]["上报"] = risk
+        #
+        # security = self.tj_yth_fileana_security(begin_day, end_day)
+        # all["密级vs"]["平台"] = security
 
-        security = self.tj_yth_fileana_security(begin_day, end_day)
-        all["密级vs"]["平台"] = security
+        # 雷达图
+
+        all["雷达"] = self.tj_yth_fileana_leida(begin_day,end_day)
 
         return err, all
 
