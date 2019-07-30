@@ -105,9 +105,16 @@ def isMac(str):
         return True
     return False
 
+
+def del_teshu_char(str):
+    newstr = ''
+    for i in str:
+        if ord(i) not in (ord('!'),ord('^'),ord('('),ord(')'),ord('~'),ord('-'),ord('+')):
+            newstr += i
+    return newstr
+
+
 if __name__ == '__main__':
 
-    print(isIP("192.168.0.1"))
-    print(isIP("192.168.0.1111"))
-    print(isMac("aa-ff-cc-dd"))
-    print(isMac("44:37:E6:CD:94:C1"))
+    print(del_teshu_char("^192.1~~68.(0).1"))
+

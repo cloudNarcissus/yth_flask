@@ -7,7 +7,7 @@ from elasticsearch import Elasticsearch
 from elasticsearch_dsl import query, aggs
 
 from app.config import Config
-from app.utils.common import addHead,isIP,isMac
+from app.utils.common import addHead,isIP,isMac,del_teshu_char
 from app.db.mysql import mc
 
 logger = logging.getLogger(__name__)
@@ -58,7 +58,7 @@ class ESClient(object):
         highlight = {}
         multi_match = {}
         if params['match_str'] is not None:
-            qs = params['match_str']
+            qs = del_teshu_char(params['match_str'])
             if isMac(qs):
                 must = {
                     "multi_match":{
@@ -216,7 +216,7 @@ class ESClient(object):
         match_query = query.MatchAll()
         highlight = {}
         if params['match_str'] is not None:
-            qs = str(params['match_str']).strip()
+            qs = del_teshu_char(str(params['match_str']).strip())
             if qs.startswith('.'):  # 以.开头则默认为查询后缀名
                 qs = qs.strip('.')  # 去掉.开始查询
                 filter_query = filter_query & query.Term(_expand__to_dot=False,__tikaExtention=qs)
@@ -1034,15 +1034,19 @@ class ESClient(object):
             }
 
         }
-        result = self.es.search('yth_fileana', 'mytype', body=body, size=0)
 
         doc = {
-            "数量":0,
-            "大小":0
+            "数量": 0,
+            "大小": 0
         }
 
-        doc["数量"] = result['hits']['total']
-        doc["大小"] = result['aggregations']['filesize']['value']
+        try:
+            result = self.es.search('yth_fileana', 'mytype', body=body, size=0)
+            doc["数量"] = result['hits']['total']
+            doc["大小"] = result['aggregations']['filesize']['value']
+        except Exception as e:
+            self.log.error(str(e))
+
         return doc
 
     def tj_yth_fileana_leida(self,begin_day,end_day):

@@ -1186,6 +1186,12 @@ class MysqlConnect(object):
             alarm_day_max = int(result[0]['count_'])
             summary["告警量"]['峰值'] = alarm_day_max
 
+            # 7. 自定义事件
+            sql = '''call tj_frontpage_alarm_list('%s','%s','')'''%(begin_day,end_day)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            all_cz = int(result[0]['count_'])
+            summary["告警量"]['自定'] = all_cz
 
 
             # ------------------- 处置量
@@ -1233,6 +1239,14 @@ class MysqlConnect(object):
             alarm_day_max = int(result[0]['count_'])
             summary["处置量"]['峰值'] = alarm_day_max
 
+            # 2.7. z自定义
+            sql = '''call tj_frontpage_alarm_list('%s','%s','cz')''' % (begin_day, end_day)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            cz_self = int(result[0]['count_'])
+            summary["处置量"]['自定'] = cz_self
+
+
             # ------------------- 违规量
 
             # 3.1 处置量today
@@ -1277,6 +1291,13 @@ class MysqlConnect(object):
             result = self.parse_result_to_json(cur)
             alarm_day_max = int(result[0]['count_'])
             summary["违规量"]['峰值'] = alarm_day_max
+
+            # 3.7. z自定义
+            sql = '''call tj_frontpage_alarm_list('%s','%s','wg')''' % (begin_day, end_day)
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            wg_self = int(result[0]['count_'])
+            summary["违规量"]['自定'] = wg_self
 
 
             # -----  按时间段，按平台分组

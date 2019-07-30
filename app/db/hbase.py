@@ -35,19 +35,17 @@ class HbaseConnect(object):
         md5 = params.get('__md5')
         content = b''
 
-        conn = None
+
         try:
-            with self.get_conn() as conn:
-                files = conn.table(b'files')
-                row = files.row(md5)
+            conn = self.get_conn(host=Config.hb_hosts, port=Config.hb_port, autoconnect=True)
+            files = conn.table(b'wdp_files')
+            row = files.row(md5)
+            seg_count = int(row[b'info:seg_count'])
+            filename = row[b'info:filename']
 
-
-                seg_count = int(row[b'info:seg_count'])
-                filename = row[b'info:filename']
-
-                for i in range(0, seg_count):
-                    column_name = bytes("content:content" + str(i),encoding="utf8")
-                    content += row[column_name]
+            for i in range(0, seg_count):
+                column_name = bytes("content:content" + str(i),encoding="utf8")
+                content += row[column_name]
 
         except Exception as e:
             self.log.error(u'获取文件<Md5:%s>失败,因conn异常:%s', md5, e)
