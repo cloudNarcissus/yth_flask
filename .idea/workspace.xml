@@ -4,12 +4,8 @@
     <bookmark url="file://$PROJECT_DIR$/_bak/yth_base.py" line="739" mnemonic="5" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="调整hbase连接池为单hbase连接">
+    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="修改事件查询bug&#10;修改统计不一致bug&#10;增加首页统计的范围查询&#10;修改特殊字符查询报错的bug">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/es.py" afterPath="$PROJECT_DIR$/app/db/es.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/hbase.py" afterPath="$PROJECT_DIR$/app/db/hbase.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/mysql.py" afterPath="$PROJECT_DIR$/app/db/mysql.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/utils/common.py" afterPath="$PROJECT_DIR$/app/utils/common.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -100,8 +96,8 @@
       <file leaf-file-name="es.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/db/es.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="218" column="65" lean-forward="false" selection-start-line="218" selection-start-column="65" selection-end-line="218" selection-end-column="65" />
+            <state relative-caret-position="244">
+              <caret line="796" column="9" lean-forward="true" selection-start-line="796" selection-start-column="9" selection-end-line="796" selection-end-column="9" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
                 <element signature="e#3424#3482#0" expanded="false" />
@@ -753,13 +749,6 @@
       <option name="presentableId" value="Default" />
       <updated>1557381008761</updated>
     </task>
-    <task id="LOCAL-00044" summary="post /alarmlist/interested/">
-      <created>1561359937779</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1561359937779</updated>
-    </task>
     <task id="LOCAL-00045" summary="添加告警类型的统计">
       <created>1561361243816</created>
       <option name="number" value="00045" />
@@ -1096,7 +1085,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564362822700</updated>
     </task>
-    <option name="localTasksCounter" value="93" />
+    <task id="LOCAL-00093" summary="修改事件查询bug&#10;修改统计不一致bug&#10;增加首页统计的范围查询&#10;修改特殊字符查询报错的bug">
+      <created>1564472047773</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1564472047775</updated>
+    </task>
+    <option name="localTasksCounter" value="94" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1109,7 +1105,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32786885" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.119672135" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17377049" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19818456" sideWeight="0.8004158" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30559757" sideWeight="0.8004158" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5098361" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295082" sideWeight="0.5900151" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19894099" sideWeight="0.2347826" order="2" side_tool="true" content_ui="tabs" />
@@ -1133,7 +1129,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="查询文档 和 行为 增加条件：关注&#10;&#10;parser.add_argument('_interested', type=bool)  # true 、false" />
     <MESSAGE value="_interested  true、false 逻辑修改" />
     <MESSAGE value="json  literal_eval  action='append'" />
     <MESSAGE value="{&#10;&#9;&quot;time_format&quot;: &quot;yyyy-MM-dd&quot;,&#10;&#9;&quot;size&quot;: 10,&#10;&#9;&quot;exact_query&quot;: false,&#10;&#9;&quot;__alarmKey&quot;: [{&#10;&#9;&#9;&quot;key&quot;: &quot;\&quot;地区\&quot;&quot;&#10;&#9;}, {&#10;&#9;&#9;&quot;key&quot;: &quot;是&quot;&#10;&#9;}],&#10;&#9;&quot;orderType&quot;: &quot;desc&quot;,&#10;&#9;&quot;order&quot;: &quot;__alarmLevel&quot;,&#10;&#9;&quot;end_time&quot;: &quot;2019-07-02&quot;,&#10;&#9;&quot;_interested&quot;: false,&#10;&#9;&quot;from&quot;: 0,&#10;&#9;&quot;begin_time&quot;: &quot;2019-06-25&quot;&#10;}" />
@@ -1158,7 +1153,8 @@
     <MESSAGE value="调整首页的统计" />
     <MESSAGE value="修复行为栏查询mac地址报错的问题" />
     <MESSAGE value="调整hbase连接池为单hbase连接" />
-    <option name="LAST_COMMIT_MESSAGE" value="调整hbase连接池为单hbase连接" />
+    <MESSAGE value="修改事件查询bug&#10;修改统计不一致bug&#10;增加首页统计的范围查询&#10;修改特殊字符查询报错的bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改事件查询bug&#10;修改统计不一致bug&#10;增加首页统计的范围查询&#10;修改特殊字符查询报错的bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1598,8 +1594,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/db/es.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="218" column="65" lean-forward="false" selection-start-line="218" selection-start-column="65" selection-end-line="218" selection-end-column="65" />
+        <state relative-caret-position="244">
+          <caret line="796" column="9" lean-forward="true" selection-start-line="796" selection-start-column="9" selection-end-line="796" selection-end-column="9" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
             <element signature="e#3424#3482#0" expanded="false" />
