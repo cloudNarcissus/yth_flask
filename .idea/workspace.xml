@@ -4,11 +4,9 @@
     <bookmark url="file://$PROJECT_DIR$/_bak/yth_base.py" line="739" mnemonic="5" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="事件管理和规则的特殊符号查询">
+    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="action/one增加参数&#10;parser.add_argument('__md5', type=str) #在告警清单，子条目点详细时，需要传这个参数，用来查询doc_summary">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/api/v1_0/es_resource.py" afterPath="$PROJECT_DIR$/app/api/v1_0/es_resource.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/es.py" afterPath="$PROJECT_DIR$/app/db/es.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -96,30 +94,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="es.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="es.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/db/es.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="556" column="24" lean-forward="true" selection-start-line="556" selection-start-column="24" selection-end-line="556" selection-end-column="24" />
+            <state relative-caret-position="38">
+              <caret line="538" column="0" lean-forward="false" selection-start-line="538" selection-start-column="0" selection-end-line="538" selection-end-column="0" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
                 <element signature="e#3424#3482#0" expanded="false" />
                 <element signature="e#13125#14275#0" expanded="false" />
                 <element signature="e#14412#15363#0" expanded="false" />
-                <element signature="e#20016#21708#0" expanded="false" />
-                <element signature="e#24483#25023#0" expanded="false" />
-                <element signature="e#26099#27109#0" expanded="false" />
-                <element signature="e#27179#28030#0" expanded="false" />
-                <element signature="e#29376#29990#0" expanded="false" />
-                <element signature="e#29376#29488#1" expanded="false" />
-                <element signature="e#30044#31144#0" expanded="false" />
-                <element signature="e#31215#32112#0" expanded="false" />
-                <element signature="e#32174#33050#0" expanded="false" />
-                <element signature="e#33119#33901#0" expanded="false" />
-                <element signature="e#34016#35336#0" expanded="false" />
-                <element signature="e#36372#38768#0" expanded="false" />
-                <element signature="e#36372#36494#1" expanded="false" />
-                <element signature="e#38231#38575#0" expanded="false" />
+                <element signature="e#19997#21689#0" expanded="false" />
+                <element signature="e#24464#25004#0" expanded="false" />
+                <element signature="e#26080#27090#0" expanded="false" />
+                <element signature="e#27160#28011#0" expanded="false" />
+                <element signature="e#29357#29971#0" expanded="false" />
+                <element signature="e#29357#29469#1" expanded="false" />
+                <element signature="e#30025#31125#0" expanded="false" />
+                <element signature="e#31196#32093#0" expanded="false" />
+                <element signature="e#32155#33031#0" expanded="false" />
+                <element signature="e#33100#33882#0" expanded="false" />
+                <element signature="e#33997#35317#0" expanded="false" />
+                <element signature="e#36353#38749#0" expanded="false" />
+                <element signature="e#36353#36475#1" expanded="false" />
+                <element signature="e#38212#38556#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -181,8 +179,8 @@
       <file leaf-file-name="common.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/utils/common.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="25" column="31" lean-forward="true" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
+            <state relative-caret-position="323">
+              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding>
                 <element signature="e#1056#1195#0" expanded="false" />
                 <element signature="e#1215#1424#0" expanded="false" />
@@ -206,7 +204,7 @@
       <file leaf-file-name="config_parser.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/utils/config_parser.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1394">
+            <state relative-caret-position="241">
               <caret line="84" column="36" lean-forward="true" selection-start-line="84" selection-start-column="36" selection-end-line="84" selection-end-column="36" />
               <folding />
             </state>
@@ -226,8 +224,8 @@
       <file leaf-file-name="es_resource.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/api/v1_0/es_resource.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="33" column="8" lean-forward="false" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="46" />
+            <state relative-caret-position="277">
+              <caret line="36" column="29" lean-forward="false" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="29" />
               <folding>
                 <element signature="e#0#44#0" expanded="true" />
                 <element signature="e#2754#3021#0" expanded="false" />
@@ -237,12 +235,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="readme.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="readme.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="188">
-                <caret line="469" column="77" lean-forward="true" selection-start-line="469" selection-start-column="0" selection-end-line="469" selection-end-column="77" />
+              <first_editor relative-caret-position="80">
+                <caret line="532" column="23" lean-forward="false" selection-start-line="532" selection-start-column="11" selection-end-line="532" selection-end-column="23" />
                 <folding>
                   <marker date="1564544604671" expanded="true" signature="193:376" ph="{&quot;begin_time&quot;: &quot;2019-05-16&quot;...}" />
                   <marker date="1564544604671" expanded="true" signature="5460:5499" ph="{...}" />
@@ -264,7 +262,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>summary</find>
       <find>self.es.get</find>
       <find>pro_event_list_drop</find>
       <find>alarm_list_q</find>
@@ -294,6 +291,7 @@
       <find>alarm_list</find>
       <find>if params['match_str'] is not None</find>
       <find>action/one</find>
+      <find>fileana/one/</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -358,8 +356,8 @@
         <option value="$PROJECT_DIR$/app/utils/common.py" />
         <option value="$PROJECT_DIR$/app/db/mysql.py" />
         <option value="$PROJECT_DIR$/app/api/v1_0/es_resource.py" />
-        <option value="$PROJECT_DIR$/app/db/es.py" />
         <option value="$PROJECT_DIR$/readme.md" />
+        <option value="$PROJECT_DIR$/app/db/es.py" />
       </list>
     </option>
   </component>
@@ -787,13 +785,6 @@
       <option name="presentableId" value="Default" />
       <updated>1557381008761</updated>
     </task>
-    <task id="LOCAL-00047" summary="### 4.16 添加关键字&#10;&#10;url: put /keyword/">
-      <created>1561432626609</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1561432626609</updated>
-    </task>
     <task id="LOCAL-00048" summary="action_list 增加字段">
       <created>1561453180162</created>
       <option name="number" value="00048" />
@@ -1130,7 +1121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1564539975771</updated>
     </task>
-    <option name="localTasksCounter" value="96" />
+    <task id="LOCAL-00096" summary="action/one增加参数&#10;parser.add_argument('__md5', type=str) #在告警清单，子条目点详细时，需要传这个参数，用来查询doc_summary">
+      <created>1564544625475</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1564544625475</updated>
+    </task>
+    <option name="localTasksCounter" value="97" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1139,13 +1137,13 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1505295" sideWeight="0.76521736" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35409835" sideWeight="0.413767" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25081968" sideWeight="0.413767" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32786885" sideWeight="0.4969743" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.119672135" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17377049" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21633889" sideWeight="0.8004158" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5098361" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.35409835" sideWeight="0.58623296" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25081968" sideWeight="0.58623296" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19894099" sideWeight="0.2347826" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.036308624" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1167,7 +1165,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="json  literal_eval  action='append'" />
     <MESSAGE value="{&#10;&#9;&quot;time_format&quot;: &quot;yyyy-MM-dd&quot;,&#10;&#9;&quot;size&quot;: 10,&#10;&#9;&quot;exact_query&quot;: false,&#10;&#9;&quot;__alarmKey&quot;: [{&#10;&#9;&#9;&quot;key&quot;: &quot;\&quot;地区\&quot;&quot;&#10;&#9;}, {&#10;&#9;&#9;&quot;key&quot;: &quot;是&quot;&#10;&#9;}],&#10;&#9;&quot;orderType&quot;: &quot;desc&quot;,&#10;&#9;&quot;order&quot;: &quot;__alarmLevel&quot;,&#10;&#9;&quot;end_time&quot;: &quot;2019-07-02&quot;,&#10;&#9;&quot;_interested&quot;: false,&#10;&#9;&quot;from&quot;: 0,&#10;&#9;&quot;begin_time&quot;: &quot;2019-06-25&quot;&#10;}" />
     <MESSAGE value="Url:/v1.0/rarchildren/&#10;&#10;方法：post&#10;&#10;('__md5', type=str)" />
     <MESSAGE value="0708dabao" />
@@ -1192,7 +1189,8 @@
     <MESSAGE value="调整hbase连接池为单hbase连接" />
     <MESSAGE value="修改事件查询bug&#10;修改统计不一致bug&#10;增加首页统计的范围查询&#10;修改特殊字符查询报错的bug" />
     <MESSAGE value="事件管理和规则的特殊符号查询" />
-    <option name="LAST_COMMIT_MESSAGE" value="事件管理和规则的特殊符号查询" />
+    <MESSAGE value="action/one增加参数&#10;parser.add_argument('__md5', type=str) #在告警清单，子条目点详细时，需要传这个参数，用来查询doc_summary" />
+    <option name="LAST_COMMIT_MESSAGE" value="action/one增加参数&#10;parser.add_argument('__md5', type=str) #在告警清单，子条目点详细时，需要传这个参数，用来查询doc_summary" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1207,11 +1205,6 @@
           <line>1053</line>
           <option name="timeStamp" value="243" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/db/es.py</url>
-          <line>538</line>
-          <option name="timeStamp" value="244" />
-        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -1223,7 +1216,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="245" />
+      <option name="time" value="246" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1517,14 +1510,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/utils/config_parser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1394">
-          <caret line="84" column="36" lean-forward="true" selection-start-line="84" selection-start-column="36" selection-end-line="84" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/config/config.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
@@ -1537,6 +1522,68 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="215">
           <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="80">
+            <caret line="532" column="23" lean-forward="false" selection-start-line="532" selection-start-column="11" selection-end-line="532" selection-end-column="23" />
+            <folding>
+              <marker date="1564544604671" expanded="true" signature="193:376" ph="{&quot;begin_time&quot;: &quot;2019-05-16&quot;...}" />
+              <marker date="1564544604671" expanded="true" signature="5460:5499" ph="{...}" />
+            </folding>
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/utils/config_parser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="84" column="36" lean-forward="true" selection-start-line="84" selection-start-column="36" selection-end-line="84" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/api/v1_0/es_resource.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="36" column="29" lean-forward="false" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#44#0" expanded="true" />
+            <element signature="e#2754#3021#0" expanded="false" />
+            <element signature="e#3086#3694#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/utils/common.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding>
+            <element signature="e#1056#1195#0" expanded="false" />
+            <element signature="e#1215#1424#0" expanded="false" />
+            <element signature="e#1453#1518#0" expanded="false" />
+            <element signature="e#1557#1985#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/api/v1_0/mysql_resource.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="74" column="7" lean-forward="false" selection-start-line="74" selection-start-column="7" selection-end-line="74" selection-end-column="7" />
+          <folding>
+            <element signature="e#287#995#0" expanded="false" />
+            <element signature="e#3451#3695#0" expanded="false" />
+            <element signature="e#4120#5147#0" expanded="false" />
+            <element signature="e#5176#6051#0" expanded="false" />
+            <element signature="e#6080#6861#0" expanded="false" />
+            <element signature="e#7276#9521#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1574,84 +1621,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/api/v1_0/mysql_resource.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="74" column="7" lean-forward="false" selection-start-line="74" selection-start-column="7" selection-end-line="74" selection-end-column="7" />
-          <folding>
-            <element signature="e#287#995#0" expanded="false" />
-            <element signature="e#3451#3695#0" expanded="false" />
-            <element signature="e#4120#5147#0" expanded="false" />
-            <element signature="e#5176#6051#0" expanded="false" />
-            <element signature="e#6080#6861#0" expanded="false" />
-            <element signature="e#7276#9521#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/utils/common.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="25" column="31" lean-forward="true" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
-          <folding>
-            <element signature="e#1056#1195#0" expanded="false" />
-            <element signature="e#1215#1424#0" expanded="false" />
-            <element signature="e#1453#1518#0" expanded="false" />
-            <element signature="e#1557#1985#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/db/es.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="556" column="24" lean-forward="true" selection-start-line="556" selection-start-column="24" selection-end-line="556" selection-end-column="24" />
+        <state relative-caret-position="38">
+          <caret line="538" column="0" lean-forward="false" selection-start-line="538" selection-start-column="0" selection-end-line="538" selection-end-column="0" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
             <element signature="e#3424#3482#0" expanded="false" />
             <element signature="e#13125#14275#0" expanded="false" />
             <element signature="e#14412#15363#0" expanded="false" />
-            <element signature="e#20016#21708#0" expanded="false" />
-            <element signature="e#24483#25023#0" expanded="false" />
-            <element signature="e#26099#27109#0" expanded="false" />
-            <element signature="e#27179#28030#0" expanded="false" />
-            <element signature="e#29376#29990#0" expanded="false" />
-            <element signature="e#29376#29488#1" expanded="false" />
-            <element signature="e#30044#31144#0" expanded="false" />
-            <element signature="e#31215#32112#0" expanded="false" />
-            <element signature="e#32174#33050#0" expanded="false" />
-            <element signature="e#33119#33901#0" expanded="false" />
-            <element signature="e#34016#35336#0" expanded="false" />
-            <element signature="e#36372#38768#0" expanded="false" />
-            <element signature="e#36372#36494#1" expanded="false" />
-            <element signature="e#38231#38575#0" expanded="false" />
+            <element signature="e#19997#21689#0" expanded="false" />
+            <element signature="e#24464#25004#0" expanded="false" />
+            <element signature="e#26080#27090#0" expanded="false" />
+            <element signature="e#27160#28011#0" expanded="false" />
+            <element signature="e#29357#29971#0" expanded="false" />
+            <element signature="e#29357#29469#1" expanded="false" />
+            <element signature="e#30025#31125#0" expanded="false" />
+            <element signature="e#31196#32093#0" expanded="false" />
+            <element signature="e#32155#33031#0" expanded="false" />
+            <element signature="e#33100#33882#0" expanded="false" />
+            <element signature="e#33997#35317#0" expanded="false" />
+            <element signature="e#36353#38749#0" expanded="false" />
+            <element signature="e#36353#36475#1" expanded="false" />
+            <element signature="e#38212#38556#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/api/v1_0/es_resource.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="33" column="8" lean-forward="false" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="46" />
-          <folding>
-            <element signature="e#0#44#0" expanded="true" />
-            <element signature="e#2754#3021#0" expanded="false" />
-            <element signature="e#3086#3694#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/readme.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="188">
-            <caret line="469" column="77" lean-forward="true" selection-start-line="469" selection-start-column="0" selection-end-line="469" selection-end-column="77" />
-            <folding>
-              <marker date="1564544604671" expanded="true" signature="193:376" ph="{&quot;begin_time&quot;: &quot;2019-05-16&quot;...}" />
-              <marker date="1564544604671" expanded="true" signature="5460:5499" ph="{...}" />
-            </folding>
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>

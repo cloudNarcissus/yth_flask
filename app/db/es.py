@@ -551,7 +551,7 @@ class ESClient(object):
             }
             doc = self.es.search('yth_fileana', 'mytype', body, size=1, _source_include=['summary'])
             if doc["hits"]["total"]>0:
-                base["hits"]["hits"][0]["_source"]["doc_summary"] = doc["hits"]["hits"][0]["_source"]["summary"]
+                base["_source"]["doc_summary"] = doc["hits"]["hits"][0]["_source"]["summary"]
 
 
         return True,base
