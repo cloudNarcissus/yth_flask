@@ -536,9 +536,25 @@ class ESClient(object):
     @addHead()
     def query_yth_base_by_indexid(self, params):
         index_id = params['index_id']
-        return True, self.es.get(index='yth_base', doc_type='mytype', id=index_id, _source_exclude=['sm_summary'])
+        md5 = params.get('__md5',None)
+
+        base = self.es.get(index='yth_base', doc_type='mytype', id=index_id, _source_exclude=['sm_summary'])
+
+        if md5 is not None:
+            filter_query = query.Term(_expand__to_dot=False, __md5=md5)
+            body = {
+                "query": {
+                    "bool": {
+                        "filter": filter_query.to_dict()
+                        }
+                    }
+            }
+            doc = self.es.search('yth_fileana', 'mytype', body, size=1, _source_include=['summary'])
+            if doc["hits"]["total"]>0:
+                base["hits"]["hits"][0]["_source"]["doc_summary"] = doc["hits"]["hits"][0]["_source"]["summary"]
 
 
+        return True,base
 
 
 

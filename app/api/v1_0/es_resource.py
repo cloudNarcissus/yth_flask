@@ -27,11 +27,13 @@ class SearchYthBase(Resource):
 
 @api.resource('/action/one/')
 class SearchYthBaseOne(Resource):
-    parser = reqparse.RequestParser()
-    parser.add_argument('index_id', type=str)
 
     def get(self):
-        params = self.parser.parse_args(strict=True)
+        parser = reqparse.RequestParser()
+        parser.add_argument('index_id', type=str)
+        parser.add_argument('__md5', type=str)
+
+        params = parser.parse_args(strict=True)
         return ec.query_yth_base_by_indexid(params)
 
 

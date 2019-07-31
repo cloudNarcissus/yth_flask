@@ -467,6 +467,7 @@ url : get /action/one/
 ```buildoutcfg
 
 parser.add_argument('index_id', type=str)
+parser.add_argument('__md5', type=str) #在告警清单，子条目点详细时，需要传这个参数，用来查询doc_summary
 ```
 
 
