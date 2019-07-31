@@ -5,7 +5,7 @@ from ast import literal_eval
 import pymysql
 
 from app.config import Config
-from app.utils.common import addHead
+from app.utils.common import addHead,del_teshu_char
 from app.db.mq import mq
 
 logger = logging.getLogger(__name__)
@@ -536,7 +536,7 @@ class MysqlConnect(object):
                 params.get('event_status', 0),
                 params.get('event_miji') if params.get('event_miji') is not None else '',
                 params.get('event_type') if params.get('event_type') is not None else '',
-                params.get('fulltext_query') if params.get('fulltext_query') is not None else '',
+                del_teshu_char(params.get('fulltext_query')) if params.get('fulltext_query') is not None else '',
                 params.get('page_capa'),
                 params.get('page_num'),
             )
@@ -765,7 +765,7 @@ class MysqlConnect(object):
                 params.get('end_day'),
                 params.get('keylevel', 0),
                 params.get('enabled') if params.get('enabled') is not None else None,
-                params.get('keyword') if params.get('keyword') is not None else '',
+                del_teshu_char(params.get('keyword')) if params.get('keyword') is not None else '',
                 params.get('last_keylevel', 0),
                 params.get('last_auid', 0),
                 params.get('page_count', 0),
