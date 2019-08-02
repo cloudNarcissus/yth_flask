@@ -37,7 +37,7 @@ class HbaseConnect(object):
 
 
         try:
-            conn = self.get_conn(host=Config.hb_hosts, port=Config.hb_port, autoconnect=True)
+            conn = self.get_conn()
             files = conn.table(b'wdp_files')
             row = files.row(md5)
             seg_count = int(row[b'info:seg_count'])
