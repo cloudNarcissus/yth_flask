@@ -109,7 +109,7 @@ def isMac(str):
 def del_teshu_char(str):
     newstr = ''
     for i in str:
-        if ord(i) not in (ord('!'),ord('^'),ord('('),ord(')'),ord('~'),ord('-'),ord('+'),ord('"'),ord('\'')):
+        if ord(i) not in (ord('!'),ord('^'),ord('('),ord(')'),ord('~'),ord('-'),ord('+'),ord('"'),ord('\''),ord('['),ord(']')):
             newstr += i
     return newstr
 

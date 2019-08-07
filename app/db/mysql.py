@@ -1320,7 +1320,15 @@ class MysqlConnect(object):
             alarm_ana['处置量']["3"] = int(result[0]['count_p3_cz'])
             alarm_ana['处置量']["4"] = int(result[0]['count_p4_cz'])
 
-            return True, summary ,alarm_ana
+
+            #--- 雷达图
+            sql = '''call tj_frontpage_alarm_sour('%s','%s')''' % (begin_day, end_day)
+            cur.execute(sql)
+            leida_my = self.parse_result_to_json(cur)
+
+
+
+            return True, summary ,alarm_ana,leida_my
         except Exception as e:
             err = self._get_exception_msg(e)
             logger.error(sql)
@@ -1338,7 +1346,7 @@ mc = MysqlConnect()
 #
 if __name__ == '__main__':
     mc = MysqlConnect()
-    print(mc.tj_frontpage_alarm_list('2019-07-10', '2019-07-09', '2019-07-08', '2019-07-01',10)[1])
+    mc.tj_frontpage_alarm_list('2019-07-10', '2019-07-09', '2019-07-08', '2019-07-01',10)
 
 
     # params = {}

@@ -1087,7 +1087,7 @@ class ESClient(object):
 		}
 	},
 	"aggs": {
-		"security": {
+		"__security": {
 			"filter": {
 				"bool": {
 					"must_not": [
@@ -1100,31 +1100,41 @@ class ESClient(object):
 				}
 			}
 		},
-		"security_alarm": {
-			"filter": {
-				"bool": {
-					"must_not": [
-						{
-							"match": {
-								"__security": ""
-							}
-						}
-					],
-					"must":{
-					  "term":{
-					    "_alarmed":True
-					  }
-					}
-				}
-			}
-		},
+		# "security_alarm": {
+		# 	"filter": {
+		# 		"bool": {
+		# 			"must_not": [
+		# 				{
+		# 					"match": {
+		# 						"__security": ""
+		# 					}
+		# 				}
+		# 			],
+		# 			"must":{
+		# 			  "term":{
+		# 			    "_alarmed":True
+		# 			  }
+		# 			}
+		# 		}
+		# 	}
+		# },
 		"__alarmKey": {
-			"nested": {
-				"path": "__alarmKey"
-			}
+		  "filter":{
+		    "bool":{
+		      "must":{
+		        "nested": {
+				      "path": "__alarmKey",
+				      "query":{
+				        "exists":{
+                      "field":"__alarmKey"
+                    }
+				      }
+            }
+		      }
+		    }
+		  }
 		},
-
-		"document": {
+		"__document": {
 			"filter": {
 				"bool": {
 					"must_not": [
@@ -1137,26 +1147,26 @@ class ESClient(object):
 				}
 			}
 		},
-		"document_alarm": {
-			"filter": {
-				"bool": {
-					"must_not": [
-						{
-							"match": {
-								"__document": ""
-							}
-						}
-					],
-					"must":{
-					  "term":{
-					    "_alarmed":True
-					  }
-					}
-				}
-			}
-		},
+		# "document_alarm": {
+		# 	"filter": {
+		# 		"bool": {
+		# 			"must_not": [
+		# 				{
+		# 					"match": {
+		# 						"__document": ""
+		# 					}
+		# 				}
+		# 			],
+		# 			"must":{
+		# 			  "term":{
+		# 			    "_alarmed":True
+		# 			  }
+		# 			}
+		# 		}
+		# 	}
+		# },
 
-		"industry": {
+		"__industry": {
 			"filter": {
 				"bool": {
 					"must_not": [
@@ -1174,65 +1184,34 @@ class ESClient(object):
 				}
 			}
 		},
-		"industry_alarm": {
-			"filter": {
-				"bool": {
-					"must_not": [
-						{
-							"match": {
-								"__industry": ""
-							}
-						},
-						{
-						  "match":{
-						    "__industry":"其它类"
-						  }
-						}
-					],
-					"must":{
-					  "term":{
-					    "_alarmed":True
-					  }
-					}
-				}
-			}
-		}
+		# "industry_alarm": {
+		# 	"filter": {
+		# 		"bool": {
+		# 			"must_not": [
+		# 				{
+		# 					"match": {
+		# 						"__industry": ""
+		# 					}
+		# 				},
+		# 				{
+		# 				  "match":{
+		# 				    "__industry":"其它类"
+		# 				  }
+		# 				}
+		# 			],
+		# 			"must":{
+		# 			  "term":{
+		# 			    "_alarmed":True
+		# 			  }
+		# 			}
+		# 		}
+		# 	}
+		# }
 	}
 }
         result1 = self.es.search('yth_fileana', 'mytype', body=body, size=0)
         aggregations = result1['aggregations']
 
-        body = {
-  "size":0,
-	"query": {
-		"bool": {
-			"filter": {
-				"range": {
-					"__connectTime": {
-						"gte": begin_day,
-						"lte": end_day,
-						"format": "yyyy-MM-dd"
-					}
-				}
-			},
-			"must":{
-			  "term":{
-			    "_alarmed":True
-			  }
-			}
-		}
-	},
-	"aggs": {
-
-		"__alarmKey_alarm": {
-			"nested": {
-				"path": "__alarmKey"
-			}
-		}
-	}
-}
-        result2 = self.es.search('yth_fileana', 'mytype', body=body, size=0)
-        aggregations['__alarmKey_alarm'] = result2['aggregations']['__alarmKey_alarm']
 
         return aggregations
 
@@ -1334,7 +1313,7 @@ class ESClient(object):
         }
 
         # 平台概况
-        err, summary_my, alarm_ana = mc.tj_frontpage_alarm_list(today, yesterday, monday, firstdayofmonth, diff_days,
+        err, summary_my, alarm_ana, leida_my = mc.tj_frontpage_alarm_list(today, yesterday, monday, firstdayofmonth, diff_days,
                                                                 begin_day, end_day)
         summary_es = self.tj_frontpage_summary(today, yesterday, monday, firstdayofmonth, cfg_begin_day, diff_days)
 
@@ -1364,8 +1343,15 @@ class ESClient(object):
         # all["密级vs"]["平台"] = security
 
         # 雷达图
+        leida_es = self.tj_yth_fileana_leida(begin_day,end_day)
+        for row in leida_my:
+                leida_es[row["row_name"]][row["__alarmSour"]]=row["count_"]
 
-        all["雷达"] = self.tj_yth_fileana_leida(begin_day,end_day)
+
+
+        all["雷达"] = leida_es
+
+
 
         return err, all
 

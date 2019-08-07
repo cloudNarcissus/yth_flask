@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 
-from . import api
+from app.api.v1_0 import api
 from app.db.mysql import mc
 
 
