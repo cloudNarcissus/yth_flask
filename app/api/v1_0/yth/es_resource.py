@@ -60,6 +60,7 @@ class SearchYthFileana(Resource):
         parser.add_argument('size', type=int, required=True)
         parser.add_argument('from', type=int, required=True)
         parser.add_argument('_interested', type=bool)
+        parser.add_argument('_alarmed', type=bool)
         params = parser.parse_args(strict=True)
         return ec.search_yth_fileana(params)
 

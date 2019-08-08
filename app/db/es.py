@@ -212,6 +212,12 @@ class ESClient(object):
             filter_query = filter_query & query.Term(_expand__to_dot=False,
                                                      _interested=True)
 
+        # 是否告警
+        if params['_alarmed'] is False:
+            filter_query = filter_query & query.Term(_expand__to_dot=False,
+                                                     _alarmed=False)
+
+
         # #####################查询条件###############################
         match_query = query.MatchAll()
         highlight = {}
