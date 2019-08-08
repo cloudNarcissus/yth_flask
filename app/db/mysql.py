@@ -275,7 +275,8 @@ class MysqlConnect(object):
                 params.get('fulltext_query') if params.get('fulltext_query') is not None else '',
                 params.get('actiontype') if params.get('actiontype') is not None else '',
                 params.get('__alarmType',0),
-                params.get('__alarmSour', 0)
+                params.get('__alarmSour', 0),
+                params.get('_interested', 0)
             )
 
             cur.execute(sql)

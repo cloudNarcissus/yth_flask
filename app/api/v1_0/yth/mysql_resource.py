@@ -48,6 +48,7 @@ class AlarmListLeft(Resource):
         parser.add_argument('actiontype', type=str)
         parser.add_argument('__alarmType', type=int)
         parser.add_argument('__alarmSour', type=int)
+        parser.add_argument('_interested', type=int)
 
         params = parser.parse_args(strict=True)
         return mc.pro_alarm_list_left(params)

@@ -77,7 +77,11 @@ Url：/v1.0/fileana/
 
 ('from', type=int, required=True)
 
+
+
 parser.add_argument('_interested', type=bool)
+
+parser.add_argument('_alarmed', type=bool)
 ```
 
 方法：post
@@ -219,6 +223,7 @@ URL: /v1.0/alarmlist/left
         parser.add_argument('actiontype', type=str)
         parser.add_argument('__alarmType', type=int)
         parser.add_argument('__alarmSour', type=int)
+        parser.add_argument('_interested', type=int) -- 0: 全部  1：关注  2：未关注
 }
 
 
