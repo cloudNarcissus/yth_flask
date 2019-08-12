@@ -355,7 +355,7 @@ class ESClient(object):
                         "group_by_keyword": {
                             "terms": {
                                 "field": "__alarmKey.__keyword",
-                                "size": 10
+                                "size": 20
                             }
                         }
                     }
