@@ -17,6 +17,12 @@
         "credentials": "root:123asd!@#ASD",
         "hosts": "192.168.40.163:3306"
     },
+    "MYLS": {
+        "encode": "utf8mb4",
+        "db": "yth_ls",
+        "credentials": "root:123asd!@#ASD",
+        "hosts": "192.168.40.163:3306"
+    },
     "UPDATE_INTERVAL": 2000000,
     "ElasticSearch": {
         "credentials": "test:test",

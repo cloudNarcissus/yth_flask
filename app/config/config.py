@@ -31,6 +31,13 @@ class Config(object):
     mq_pwd=_cfg_parser.mq_pwd
     mq_user=_cfg_parser.mq_user
 
+    myls_host = _cfg_parser.myls_host
+    myls_port = _cfg_parser.myls_port
+    myls_db = _cfg_parser.myls_db
+    myls_user = _cfg_parser.myls_user
+    myls_pwd = _cfg_parser.myls_pwd
+    myls_encode = _cfg_parser.myls_encode
+
 
     begin_day = _cfg_parser.begin_day
 

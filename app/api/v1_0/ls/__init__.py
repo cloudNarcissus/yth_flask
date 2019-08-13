@@ -1,1 +1,1 @@
-from . import mysql_ls
+from . import myls_resource

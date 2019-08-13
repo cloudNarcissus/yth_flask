@@ -59,6 +59,16 @@ class ConfigParser(object):
         user, pwd = creds.split(':')
         return user, pwd
 
+    def __parse_myls_hosts(self):
+        hosts = self.__json['MYLS']['hosts']
+        host, port = hosts.split(':')
+        return host, port
+
+    def __parse_myls_credentials(self):
+        creds = self.__json['MYLS']['credentials']
+        user, pwd = creds.split(':')
+        return user, pwd
+
 
     @property
     def mq_host(self):
@@ -160,6 +170,36 @@ class ConfigParser(object):
     @property
     def begin_day(self):
         return self.__json['BEGIN_DAY']
+
+    @property
+    def myls_host(self):
+        host, _ = self.__parse_myls_hosts()
+        return host
+
+    @property
+    def myls_port(self):
+        _, port = self.__parse_myls_hosts()
+        return port
+
+    @property
+    def myls_user(self):
+        user, _ = self.__parse_myls_credentials()
+        return user
+
+    @property
+    def myls_pwd(self):
+        _, pwd = self.__parse_myls_credentials()
+        return pwd
+
+    @property
+    def myls_db(self):
+        return self.__json['MYLS']['db']
+
+    @property
+    def myls_encode(self):
+        return self.__json['MYLS']['encode']
+
+
 
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@ class MysqlConnect(object):
         self.conf = Config
         self.log = logger
 
-    def _connect(self, encoding='utf8'):
+    def _connect(self, encoding='utf8mb4'):
         """
         连接数据库
         :param encoding:
@@ -33,6 +33,7 @@ class MysqlConnect(object):
                 password=self.conf.mysql_pwd,
                 database=self.conf.mysql_db,
                 charset=self.conf.mysql_encode
+
             )
             return conn, conn_err
         except pymysql.Error as e:

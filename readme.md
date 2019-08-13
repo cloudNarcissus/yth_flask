@@ -541,3 +541,26 @@ url:  get /fileana/one/
 parser.add_argument('__md5', type=str, required=True)
 ```
 
+
+## 五、大屏接口说明
+
+注意：大屏的URL前缀为： /ls/v1.0/
+
+### 5.1查询告警类型分布
+
+get  /alarmtype/ (加上前缀为：http://192.168.10.10:10086/ls/v1.0/alarmtype/)
+
+```buildoutcfg
+
+parser.add_argument('begin_day', type=int, required=True)  # 起始时间
+parser.add_argument('end_day', type=int,required=True)      # 结束时间
+
+parser.add_argument('province', type=str) #省编码（6位）
+parser.add_argument('city', type=str)  # 市编码（6）
+parser.add_argument('district',type=str)  # 区编码（6）
+
+```
+
+
+
+
