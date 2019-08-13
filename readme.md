@@ -603,3 +603,19 @@ parser.add_argument('district',type=str)  # 区编码（6）
 ```
 
 
+### 5.5 中央地图告警处置分布
+
+
+get  /alarmmap/ (加上前缀为：http://192.168.10.10:10086/ls/v1.0/alarmmap/)
+
+```buildoutcfg
+
+parser.add_argument('begin_day', type=int, required=True)  # 起始时间
+parser.add_argument('end_day', type=int,required=True)      # 结束时间
+
+parser.add_argument('province', type=str) # 这个参数目前不应该为空串
+parser.add_argument('city', type=str)  # 这个参数若不是空串，意味着查询某个市的下属区 ; 若这个参数是空串，则意味着查询某个省下属的市
+parser.add_argument('district',type=str)  # 这个参数应该永远传空串
+
+
+```

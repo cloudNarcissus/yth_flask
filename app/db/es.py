@@ -676,6 +676,7 @@ class ESClient(object):
                     return False, '入库pro_alarm_list_add失败'
 
             elif exists == 2:  # 存在且被判定为违规
+                self.log.info('存在且被判定为违规,md5:%s'%md5)
                 # 获取上次时间
                 result = mc.fun_action_list_getLastTime(md5)
                 if result[0]:
@@ -687,6 +688,7 @@ class ESClient(object):
                 else:
                     return False, '存在且被判定为违规,fun_action_list_getLastTime(%s) error' % md5
             elif exists == 1:  # 存在，但未被判定为违规
+                self.log.info('存在，但未被判定为违规,md5:%s' % md5)
                 # 获取上次时间
                 result = mc.fun_action_list_getLastTime(md5)
                 if result[0]:

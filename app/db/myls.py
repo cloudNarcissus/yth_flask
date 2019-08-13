@@ -204,7 +204,6 @@ class MylsConnect(object):
 
 
     # 4. 处置结果密级分布
-
     @addHead()
     def pro_alarm_alarmczstatus(self, params):
         """
@@ -243,5 +242,51 @@ class MylsConnect(object):
         finally:
             cur.close()
             conn.close()
+
+
+    # 5. 告警地图
+    def pro_alarm_map(self, params):
+        """
+        查询地图，分为两级（省和市）
+        :param params: 参数字典
+        :return: 
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8mb4')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+        sql = ''
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_alarm_map(%d,%d,"%s","%s","%s")' % (
+                params.get('begin_day'),
+                params.get('end_day'),
+
+                params.get('province') if params.get('province') is not None else '',
+                params.get('city') if params.get('city') is not None else '',
+                params.get('district') if params.get('district') is not None else '',
+
+            )
+
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+
+
+
+
+
 
 mc = MylsConnect()
