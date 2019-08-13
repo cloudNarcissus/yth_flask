@@ -4,12 +4,8 @@
     <bookmark url="file://$PROJECT_DIR$/_bak/yth_base.py" line="739" mnemonic="5" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="大屏第4个接口：alarmstatus">
+    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="大屏第5个接口：alarmmap">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/api/v1_0/ls/myls_resource.py" afterPath="$PROJECT_DIR$/app/api/v1_0/ls/myls_resource.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/es.py" afterPath="$PROJECT_DIR$/app/db/es.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/myls.py" afterPath="$PROJECT_DIR$/app/db/myls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -750,13 +746,6 @@
       <option name="presentableId" value="Default" />
       <updated>1557381008761</updated>
     </task>
-    <task id="LOCAL-00057" summary="&#10;### 4.21 查询轨迹的详细&#10;&#10;url : get /action/one/">
-      <created>1561637017596</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1561637017596</updated>
-    </task>
     <task id="LOCAL-00058" summary="关键字更新和删除">
       <created>1561686466674</created>
       <option name="number" value="00058" />
@@ -1093,7 +1082,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565678963261</updated>
     </task>
-    <option name="localTasksCounter" value="106" />
+    <task id="LOCAL-00106" summary="大屏第5个接口：alarmmap">
+      <created>1565683194071</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1565683194071</updated>
+    </task>
+    <option name="localTasksCounter" value="107" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1150,7 +1146,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="hbase连不上不影响服务运行" />
     <MESSAGE value="关键字增加转译码" />
     <MESSAGE value="文档查询增加 filename全文索引， 增加后缀名检索" />
     <MESSAGE value="修改hbase连接逻辑" />
@@ -1175,7 +1170,8 @@
     <MESSAGE value="关键字个数改为20" />
     <MESSAGE value="大屏第一个接口：alarmtype" />
     <MESSAGE value="大屏第4个接口：alarmstatus" />
-    <option name="LAST_COMMIT_MESSAGE" value="大屏第4个接口：alarmstatus" />
+    <MESSAGE value="大屏第5个接口：alarmmap" />
+    <option name="LAST_COMMIT_MESSAGE" value="大屏第5个接口：alarmmap" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
