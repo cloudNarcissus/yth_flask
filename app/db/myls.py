@@ -81,7 +81,6 @@ class MylsConnect(object):
     # -------- 查询告警处置统计 -----------------------#
 
     # 1. 查询告警类型分布
-
     @addHead()
     def pro_alarm_alarmtype(self, params):
         """
@@ -90,7 +89,7 @@ class MylsConnect(object):
         :return: 
         """
         cur = None
-        conn, conn_err = self._connect('utf8')
+        conn, conn_err = self._connect('utf8mb4')
 
         if conn is None:
             err = self.handle_connect_err(conn_err)
@@ -122,6 +121,127 @@ class MylsConnect(object):
             conn.close()
 
 
+    # 2. 查询告警级别分布 及 处置情况 （有3个图）
+    @addHead()
+    def pro_alarm_alarmtypelevel(self, params):
+        """
+        查询告警级别分布 及 处置情况 （有3个图）
+        :param params: 参数字典
+        :return: 
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8mb4')
 
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+        sql = ''
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_alarm_alarmtype_alarmlevel(%d,%d,"%s","%s","%s")'%(
+                params.get('begin_day'),
+                params.get('end_day'),
+
+                params.get('province') if params.get('province') is not None else '',
+                params.get('city') if params.get('city') is not None else '',
+                params.get('district') if params.get('district') is not None else '',
+
+            )
+
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+
+    # 3. 查询处置率变化趋势（以天展示，没有数据的那天就没有记录）
+    @addHead()
+    def pro_alarm_alarmcztrend(self, params):
+        """
+        处置趋势 ， 所谓趋势，就是按天给出数据（没有数据的天，不出现！）
+        :param params: 参数字典
+        :return: 
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8mb4')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+        sql = ''
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_alarm_cz_trend(%d,%d,"%s","%s","%s")' % (
+                params.get('begin_day'),
+                params.get('end_day'),
+
+                params.get('province') if params.get('province') is not None else '',
+                params.get('city') if params.get('city') is not None else '',
+                params.get('district') if params.get('district') is not None else '',
+
+            )
+
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+
+    # 4. 处置结果密级分布
+
+    @addHead()
+    def pro_alarm_alarmczstatus(self, params):
+        """
+        处置结果密级分布
+        :param params: 参数字典
+        :return: 
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8mb4')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+        sql = ''
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_alarm_cz_status(%d,%d,"%s","%s","%s")' % (
+                params.get('begin_day'),
+                params.get('end_day'),
+
+                params.get('province') if params.get('province') is not None else '',
+                params.get('city') if params.get('city') is not None else '',
+                params.get('district') if params.get('district') is not None else '',
+
+            )
+
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
 
 mc = MylsConnect()

@@ -561,6 +561,45 @@ parser.add_argument('district',type=str)  # 区编码（6）
 
 ```
 
+### 5.2 告警级别分布 及 处置情况 （有3个图）
 
+get  /alarmtypelevel/ (加上前缀为：http://192.168.10.10:10086/ls/v1.0/alarmtypelevel/)
+
+```buildoutcfg
+parser.add_argument('begin_day', type=int, required=True)  # 起始时间
+parser.add_argument('end_day', type=int,required=True)      # 结束时间
+
+parser.add_argument('province', type=str) #省编码（6位）
+parser.add_argument('city', type=str)  # 市编码（6）
+parser.add_argument('district',type=str)  # 区编码（6）
+
+```
+
+
+### 5.3 告警处置趋势
+
+get  /alarmcztrend/ (加上前缀为：http://192.168.10.10:10086/ls/v1.0/alarmcztrend/)
+
+```buildoutcfg
+parser.add_argument('begin_day', type=int, required=True)  # 起始时间
+parser.add_argument('end_day', type=int,required=True)      # 结束时间
+
+parser.add_argument('province', type=str) #省编码（6位）
+parser.add_argument('city', type=str)  # 市编码（6）
+parser.add_argument('district',type=str)  # 区编码（6）
+```
+
+### 5.4 异常数据密级分布
+
+get  /alarmczstatus/ (加上前缀为：http://192.168.10.10:10086/ls/v1.0/alarmczstatus/)
+
+```buildoutcfg
+parser.add_argument('begin_day', type=int, required=True)  # 起始时间
+parser.add_argument('end_day', type=int,required=True)      # 结束时间
+
+parser.add_argument('province', type=str) #省编码（6位）
+parser.add_argument('city', type=str)  # 市编码（6）
+parser.add_argument('district',type=str)  # 区编码（6）
+```
 
 
