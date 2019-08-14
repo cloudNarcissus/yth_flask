@@ -1,8 +1,11 @@
+import logging
 
 import threading
 import time
 
-exitFlag = 0
+from app.db.myls import mc
+
+logger = logging.getLogger(__name__)
 
 class dataEtlThread (threading.Thread):
     def __init__(self, threadID, name, counter):
@@ -13,15 +16,22 @@ class dataEtlThread (threading.Thread):
 
     def run(self):
         print("开始线程：" + self.name)
-        print_time(self.name, self.counter, 5)
+
+        while True:
+            logger.debug("开始执行数据导入")
+            print("开始执行数据导入")
+
+            mc.job_import_ls_alarm()
+
+            time.sleep(30)
+
+
         print("退出线程：" + self.name)
 
 
 
 def print_time(threadName, delay, counter):
     while counter:
-        if exitFlag:
-            threadName.exit()
         time.sleep(delay)
         print ("%s: %s" % (threadName, time.ctime(time.time())))
         counter -= 1

@@ -4,7 +4,7 @@ from ls_etl import dataEtlThread
 if __name__ == '__main__':
 
     # 开启dataetl线程,处理数据ETl
-    det = dataEtlThread(1, "Thread-1", 1)
+    det = dataEtlThread(1, "DataETL Thread", 1)
     det.start()
 
 

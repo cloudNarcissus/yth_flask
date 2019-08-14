@@ -76,6 +76,38 @@ class MylsConnect(object):
         # return json.dumps(data, ensure_ascii=False)
         return data
 
+    # 线程作业：告警数据抽取
+    def job_import_ls_alarm(self):
+        """
+        告警数据抽取
+        :param params: 参数字典
+        :return: 
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8mb4')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+        sql = ''
+        try:
+
+            cur = conn.cursor()
+            sql = 'call job_import_ls_alarm()'
+
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+
 
 
     # -------- 查询告警处置统计 -----------------------#

@@ -542,6 +542,21 @@ parser.add_argument('__md5', type=str, required=True)
 ```
 
 
+
+### 4.27 根据md5查询轨迹
+
+url:  get /action/guiji/
+```buildoutcfg
+
+parser.add_argument('__md5', type=str, required=True)
+```
+
+
+
+
+
+
+
 ## 五、大屏接口说明
 
 注意：大屏的URL前缀为： /ls/v1.0/

@@ -538,6 +538,11 @@ class ESClient(object):
         # self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
         return self.es.search('yth_base', 'mytype', body, size=20, _source_exclude=['sm_summary'])
 
+    @addHead()
+    def query_yth_base_by_md5_4_guiji(self,md5):
+        return self.query_yth_base_by_md5(md5)
+
+
     # -------------------------查询某个index_id的yth_base记录----------------------------------------
     @addHead()
     def query_yth_base_by_indexid(self, params):
@@ -571,6 +576,7 @@ class ESClient(object):
         index_id = params['index_id']
         md5 = params.get('__md5')
         alarmSour = params['__alarmSour']
+        self.log.debug('加入告警：add_alarm_list，index_id:%s,__md5:%s,__alarmSour:%s'%(index_id,md5,alarmSour))
 
         def panduan_yth_fileana_isroot():
             """
@@ -676,7 +682,7 @@ class ESClient(object):
                     return False, '入库pro_alarm_list_add失败'
 
             elif exists == 2:  # 存在且被判定为违规
-                self.log.info('存在且被判定为违规,md5:%s'%md5)
+                self.log.debug('存在且被判定为违规,md5:%s'%md5)
                 # 获取上次时间
                 result = mc.fun_action_list_getLastTime(md5)
                 if result[0]:
@@ -688,7 +694,7 @@ class ESClient(object):
                 else:
                     return False, '存在且被判定为违规,fun_action_list_getLastTime(%s) error' % md5
             elif exists == 1:  # 存在，但未被判定为违规
-                self.log.info('存在，但未被判定为违规,md5:%s' % md5)
+                self.log.debug('存在，但未被判定为违规,md5:%s' % md5)
                 # 获取上次时间
                 result = mc.fun_action_list_getLastTime(md5)
                 if result[0]:

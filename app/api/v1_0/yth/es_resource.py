@@ -38,6 +38,19 @@ class SearchYthBaseOne(Resource):
 
 
 
+@api.resource('/action/guiji/')
+class SearchYthBaseGJ(Resource):
+
+    def get(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('__md5', type=str)
+
+        params = parser.parse_args(strict=True)
+        return ec.query_yth_base_by_md5_4_guiji(params)
+
+
+
+
 @api.resource('/fileana/')
 class SearchYthFileana(Resource):
 
