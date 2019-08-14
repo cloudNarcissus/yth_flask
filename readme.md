@@ -552,6 +552,21 @@ parser.add_argument('__md5', type=str, required=True)
 ```
 
 
+### 4.28 平台的修改和查询 
+
+url : 这两个接口都是用   /platform/
+只是调用方法不一样，修改是Post  查询是get
+
+修改的参数：
+```buildoutcfg
+parser.add_argument('platformid',type=int, required=True)  # 平台id
+        parser.add_argument('name',type=str, required=True)  # 名称
+        parser.add_argument('nicname',type=str, required=True)  # 别名
+        parser.add_argument('simname',type=str, required=True)  # 简称
+```
+
+查询不需要参数
+
 
 
 

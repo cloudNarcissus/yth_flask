@@ -871,6 +871,76 @@ class MysqlConnect(object):
             cur.close()
             conn.close()
 
+    @addHead()
+    def pro_platform_edit(self, params):
+        """
+        #编辑平台的简称、别名
+        :param params: 一堆参数
+        :return: err:true/false  msg:文字信息
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = '''call pro_platform_edit(%d,"%s","%s","%s")'''%(
+                params.get('platformid'),
+                params.get('name'),
+                params.get('nicname'),
+                params.get('simname'),
+            )
+            cur.execute(sql)
+            conn.commit()
+            result = self.parse_result_to_json(cur)
+
+            err = result[0].get('err')
+
+            return err, result[0].get('msg')
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    @addHead()
+    def pro_platform_query(self, params):
+        """
+        #查询平台的简称、别名
+        :param params: 一堆参数
+        :return: 
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = '''call pro_platform_query()'''
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True,result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+
     # ------------------- 告警中心的统计 ---------------------
 
     # 1. 统计处置数量

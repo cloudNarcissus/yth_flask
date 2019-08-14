@@ -280,3 +280,28 @@ class KeywordBatch(Resource):
         parser.add_argument('keywords', required=True,action='append')  # 若干关键字组成的json串[{},{}]
         params = parser.parse_args(strict=True)
         return mc.pro_cfg_keyword_batchadd(params)
+
+
+
+@api.resource('/platform/')
+class Platform(Resource):
+    '''
+    平台的更新和查询
+    '''
+    def get(self):
+        return mc.pro_platform_query()
+
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('platformid',type=int, required=True)  # 平台id
+        parser.add_argument('name',type=str, required=True)  # 名称
+        parser.add_argument('nicname',type=str, required=True)  # 别名
+        parser.add_argument('simname',type=str, required=True)  # 简称
+        params = parser.parse_args(strict=True)
+        return mc.pro_platform_edit(params)
+
+
+
+
+
