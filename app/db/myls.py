@@ -277,6 +277,7 @@ class MylsConnect(object):
 
 
     # 5. 告警地图
+    @addHead()
     def pro_alarm_map(self, params):
         """
         查询地图，分为两级（省和市）
@@ -317,8 +318,50 @@ class MylsConnect(object):
 
 
 
+    # 6. 事件趋势
+    @addHead()
+    def pro_event_trend(self,params):
+        """
+        事件趋势
+        :param params: 
+        :return: 
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8mb4')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+        sql = ''
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_event_trend(%d,%d,"%s","%s","%s")' % (
+                params.get('begin_day'),
+                params.get('end_day'),
+
+                params.get('province') if params.get('province') is not None else '',
+                params.get('city') if params.get('city') is not None else '',
+                params.get('district') if params.get('district') is not None else '',
+
+            )
+
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
 
 
+    # 7. 事件类型-密级分布
+
+    def pro_event_typemiji(self,params):
 
 
 mc = MylsConnect()

@@ -649,3 +649,27 @@ parser.add_argument('district',type=str)  # 这个参数应该永远传空串
 
 
 ```
+
+
+### 5.6 事件趋势
+
+get /eventtrend/
+
+```buildoutcfg
+parser.add_argument('begin_day', type=int, required=True)  # 起始时间
+parser.add_argument('end_day', type=int,required=True)      # 结束时间
+
+parser.add_argument('province', type=str) #省编码（6位）
+parser.add_argument('city', type=str)  # 市编码（6）
+parser.add_argument('district',type=str)  # 区编码（6）
+```
+
+
+
+### 5.7 事件类型-密级分布图
+
+
+
+
+
+
