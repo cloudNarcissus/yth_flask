@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="大屏第5个接口：alarmmap">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/api/v1_0/yth/es_resource.py" afterPath="$PROJECT_DIR$/app/api/v1_0/yth/es_resource.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/es.py" afterPath="$PROJECT_DIR$/app/db/es.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/myls.py" afterPath="$PROJECT_DIR$/app/db/myls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ls_etl/dataetlthread.py" afterPath="$PROJECT_DIR$/ls_etl/dataetlthread.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run.py" afterPath="$PROJECT_DIR$/run.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -784,13 +778,6 @@
       <option name="presentableId" value="Default" />
       <updated>1557381008761</updated>
     </task>
-    <task id="LOCAL-00059" summary="关键字更新和删除">
-      <created>1561692750580</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1561692750580</updated>
-    </task>
     <task id="LOCAL-00060" summary="详细 bug message: &quot;too many values to unpack (expected 2)&quot;">
       <created>1561702950989</created>
       <option name="number" value="00060" />
@@ -1127,7 +1114,14 @@
       <option name="project" value="LOCAL" />
       <updated>1565683225730</updated>
     </task>
-    <option name="localTasksCounter" value="108" />
+    <task id="LOCAL-00108" summary="大屏第5个接口：alarmmap">
+      <created>1565748168878</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1565748168879</updated>
+    </task>
+    <option name="localTasksCounter" value="109" />
     <servers />
   </component>
   <component name="ToolWindowManager">
