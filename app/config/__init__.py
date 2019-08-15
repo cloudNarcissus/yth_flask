@@ -1,2 +1,2 @@
 
-from .config import Config
+from .localconfig import Config
