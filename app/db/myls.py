@@ -362,6 +362,7 @@ class MylsConnect(object):
     # 7. 事件类型-密级分布
 
     def pro_event_typemiji(self,params):
+        pass
 
 
 mc = MylsConnect()

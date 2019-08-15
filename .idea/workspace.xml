@@ -4,11 +4,12 @@
     <bookmark url="file://$PROJECT_DIR$/_bak/yth_base.py" line="739" mnemonic="5" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="平台的修改和查询">
+    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="### 5.6 事件趋势">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/api/v1_0/ls/myls_resource.py" afterPath="$PROJECT_DIR$/app/api/v1_0/ls/myls_resource.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/api/v1_0/yth/mysql_resource.py" afterPath="$PROJECT_DIR$/app/api/v1_0/yth/mysql_resource.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/es.py" afterPath="$PROJECT_DIR$/app/db/es.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/myls.py" afterPath="$PROJECT_DIR$/app/db/myls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/readme.md" afterPath="$PROJECT_DIR$/readme.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/run.py" afterPath="$PROJECT_DIR$/run.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -96,12 +97,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="run.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="run.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/run.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-              <folding />
+            <state relative-caret-position="170">
+              <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
+              <folding>
+                <element signature="e#0#19#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -109,8 +112,8 @@
       <file leaf-file-name="dataetlthread.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ls_etl/dataetlthread.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="201">
+              <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
               </folding>
@@ -121,38 +124,36 @@
       <file leaf-file-name="es.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/db/es.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="541" column="37" lean-forward="false" selection-start-line="541" selection-start-column="8" selection-end-line="541" selection-end-column="37" />
+            <state relative-caret-position="-79">
+              <caret line="669" column="51" lean-forward="true" selection-start-line="669" selection-start-column="51" selection-end-line="669" selection-end-column="51" />
               <folding>
                 <element signature="e#579#5689#0" expanded="false" />
                 <element signature="e#3424#3482#0" expanded="false" />
                 <element signature="e#5824#13194#0" expanded="false" />
                 <element signature="e#13327#14477#0" expanded="false" />
                 <element signature="e#14614#15565#0" expanded="false" />
-                <element signature="e#15699#17151#0" expanded="false" />
-                <element signature="e#17311#18126#0" expanded="false" />
-                <element signature="e#18408#19145#0" expanded="false" />
-                <element signature="e#26616#27626#0" expanded="false" />
-                <element signature="e#27696#28547#0" expanded="false" />
-                <element signature="e#28614#29134#0" expanded="false" />
-                <element signature="e#29208#29734#0" expanded="false" />
-                <element signature="e#29893#30507#0" expanded="false" />
-                <element signature="e#29893#30005#1" expanded="false" />
-                <element signature="e#30561#31661#0" expanded="false" />
-                <element signature="e#31732#32629#0" expanded="false" />
-                <element signature="e#32691#33567#0" expanded="false" />
-                <element signature="e#33636#34418#0" expanded="false" />
-                <element signature="e#34533#35853#0" expanded="false" />
-                <element signature="e#35923#36825#0" expanded="false" />
-                <element signature="e#36889#39098#0" expanded="false" />
-                <element signature="e#37054#37206#0" expanded="false" />
-                <element signature="e#37238#37377#0" expanded="false" />
-                <element signature="e#37381#37402#0" expanded="false" />
-                <element signature="e#37664#37928#0" expanded="false" />
-                <element signature="e#37946#38085#0" expanded="false" />
-                <element signature="e#38089#38110#0" expanded="false" />
-                <element signature="e#38373#38586#0" expanded="false" />
-                <element signature="e#38590#38611#0" expanded="false" />
+                <element signature="e#18450#19187#0" expanded="false" />
+                <element signature="e#26658#27668#0" expanded="false" />
+                <element signature="e#27738#28589#0" expanded="false" />
+                <element signature="e#28656#29176#0" expanded="false" />
+                <element signature="e#29250#29776#0" expanded="false" />
+                <element signature="e#29935#30549#0" expanded="false" />
+                <element signature="e#29935#30047#1" expanded="false" />
+                <element signature="e#30603#31703#0" expanded="false" />
+                <element signature="e#31774#32671#0" expanded="false" />
+                <element signature="e#32733#33609#0" expanded="false" />
+                <element signature="e#33678#34460#0" expanded="false" />
+                <element signature="e#34575#35895#0" expanded="false" />
+                <element signature="e#35965#36867#0" expanded="false" />
+                <element signature="e#36931#39140#0" expanded="false" />
+                <element signature="e#37096#37248#0" expanded="false" />
+                <element signature="e#37280#37419#0" expanded="false" />
+                <element signature="e#37423#37444#0" expanded="false" />
+                <element signature="e#37706#37970#0" expanded="false" />
+                <element signature="e#37988#38127#0" expanded="false" />
+                <element signature="e#38131#38152#0" expanded="false" />
+                <element signature="e#38415#38628#0" expanded="false" />
+                <element signature="e#38632#38653#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -161,8 +162,8 @@
       <file leaf-file-name="es_resource.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/api/v1_0/yth/es_resource.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-739">
-              <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+            <state relative-caret-position="195">
+              <caret line="48" column="36" lean-forward="false" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
               <folding>
                 <element signature="e#3099#3366#0" expanded="false" />
                 <element signature="e#3431#4039#0" expanded="false" />
@@ -171,12 +172,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="readme.md" pinned="false" current-in-tab="true">
+      <file leaf-file-name="readme.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="459">
-                <caret line="653" column="0" lean-forward="false" selection-start-line="653" selection-start-column="0" selection-end-line="653" selection-end-column="12" />
+              <first_editor relative-caret-position="10999">
+                <caret line="647" column="32" lean-forward="false" selection-start-line="647" selection-start-column="32" selection-end-line="647" selection-end-column="32" />
                 <folding>
                   <marker date="1565768078178" expanded="true" signature="193:376" ph="{&quot;begin_time&quot;: &quot;2019-05-16&quot;...}" />
                   <marker date="1565768078178" expanded="true" signature="5581:5620" ph="{...}" />
@@ -187,11 +188,29 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="mysql_resource.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/api/v1_0/yth/mysql_resource.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="196">
+              <caret line="291" column="39" lean-forward="true" selection-start-line="291" selection-start-column="39" selection-end-line="291" selection-end-column="39" />
+              <folding>
+                <element signature="e#1078#1722#0" expanded="false" />
+                <element signature="e#1790#2105#0" expanded="false" />
+                <element signature="e#2168#3050#0" expanded="false" />
+                <element signature="e#3134#3449#0" expanded="false" />
+                <element signature="e#3515#3759#0" expanded="false" />
+                <element signature="e#3816#4058#0" expanded="false" />
+                <element signature="e#4121#7157#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="common.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/utils/common.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="187">
+              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
               <folding>
                 <element signature="e#1056#1195#0" expanded="false" />
                 <element signature="e#1215#1424#0" expanded="false" />
@@ -205,8 +224,8 @@
       <file leaf-file-name="myls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/db/myls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="473">
-              <caret line="363" column="38" lean-forward="false" selection-start-line="363" selection-start-column="38" selection-end-line="363" selection-end-column="38" />
+            <state relative-caret-position="104">
+              <caret line="362" column="0" lean-forward="true" selection-start-line="362" selection-start-column="0" selection-end-line="362" selection-end-column="0" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
                 <element signature="e#1471#2136#0" expanded="false" />
@@ -214,7 +233,7 @@
                 <element signature="e#4231#5342#0" expanded="false" />
                 <element signature="e#6641#7729#0" expanded="false" />
                 <element signature="e#7799#8888#0" expanded="false" />
-                <marker date="1565768180734" expanded="false" signature="8950:10028" ph="..." />
+                <element signature="e#8959#10035#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -223,7 +242,7 @@
       <file leaf-file-name="myls_resource.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/api/v1_0/ls/myls_resource.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="95">
+            <state relative-caret-position="714">
               <caret line="105" column="30" lean-forward="false" selection-start-line="105" selection-start-column="18" selection-end-line="105" selection-end-column="30" />
               <folding>
                 <element signature="e#751#1273#0" expanded="false" />
@@ -339,15 +358,15 @@
         <option value="$PROJECT_DIR$/app/config/config.py" />
         <option value="$PROJECT_DIR$/config.json" />
         <option value="$PROJECT_DIR$/app/utils/config_parser.py" />
-        <option value="$PROJECT_DIR$/run.py" />
         <option value="$PROJECT_DIR$/ls_etl/dataetlthread.py" />
-        <option value="$PROJECT_DIR$/app/db/es.py" />
-        <option value="$PROJECT_DIR$/app/api/v1_0/yth/es_resource.py" />
-        <option value="$PROJECT_DIR$/app/api/v1_0/yth/mysql_resource.py" />
         <option value="$PROJECT_DIR$/app/db/mysql.py" />
         <option value="$PROJECT_DIR$/app/api/v1_0/ls/myls_resource.py" />
         <option value="$PROJECT_DIR$/readme.md" />
+        <option value="$PROJECT_DIR$/app/api/v1_0/yth/mysql_resource.py" />
         <option value="$PROJECT_DIR$/app/db/myls.py" />
+        <option value="$PROJECT_DIR$/app/api/v1_0/yth/es_resource.py" />
+        <option value="$PROJECT_DIR$/app/db/es.py" />
+        <option value="$PROJECT_DIR$/run.py" />
       </list>
     </option>
   </component>
@@ -398,6 +417,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -424,148 +445,8 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_data_api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_py" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ls_etl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_data_api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_py" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_data_api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_py" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="db" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_data_api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_py" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_data_api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_py" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="v1_0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_data_api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_py" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="v1_0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_data_api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_py" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="v1_0" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ls" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -809,13 +690,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1557381008761</updated>
-    </task>
-    <task id="LOCAL-00062" summary="解决一顿bug">
-      <created>1561968594723</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1561968594724</updated>
     </task>
     <task id="LOCAL-00063" summary="### 4.24 批量添加关键字&#10;&#10;url ： post /keyword/batch/">
       <created>1562034600282</created>
@@ -1153,14 +1027,21 @@
       <option name="project" value="LOCAL" />
       <updated>1565754624240</updated>
     </task>
-    <option name="localTasksCounter" value="111" />
+    <task id="LOCAL-00111" summary="### 5.6 事件趋势">
+      <created>1565768202685</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1565768202685</updated>
+    </task>
+    <option name="localTasksCounter" value="112" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="-4" width="1374" height="732" extended-state="0" />
+    <frame x="-4" y="-4" width="1374" height="732" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1580938" sideWeight="0.76521736" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13918306" sideWeight="0.76521736" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5121029" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27540985" sideWeight="0.48789713" order="2" side_tool="false" content_ui="tabs" />
@@ -1168,7 +1049,7 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17377049" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.035552192" sideWeight="0.8004158" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5098361" sideWeight="0.4969743" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2885246" sideWeight="0.5559758" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20655738" sideWeight="0.5559758" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19894099" sideWeight="0.2347826" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.036308624" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1210,7 +1091,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="修改hbase连接逻辑" />
     <MESSAGE value="关闭connection" />
     <MESSAGE value="修正告警清单中，告警等级始终为5的bug。" />
     <MESSAGE value="处置增加choice  ： NEIBU" />
@@ -1235,7 +1115,8 @@
     <MESSAGE value="大屏第5个接口：alarmmap" />
     <MESSAGE value="增加轨迹查询" />
     <MESSAGE value="平台的修改和查询" />
-    <option name="LAST_COMMIT_MESSAGE" value="平台的修改和查询" />
+    <MESSAGE value="### 5.6 事件趋势" />
+    <option name="LAST_COMMIT_MESSAGE" value="### 5.6 事件趋势" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1244,11 +1125,6 @@
           <url>file://$PROJECT_DIR$/app/db/myls.py</url>
           <line>132</line>
           <option name="timeStamp" value="259" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/api/v1_0/yth/mysql_resource.py</url>
-          <line>291</line>
-          <option name="timeStamp" value="265" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -1261,7 +1137,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="266" />
+      <option name="time" value="268" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1496,7 +1372,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="7" column="6" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1542,111 +1417,70 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/run.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/db/es.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="541" column="37" lean-forward="false" selection-start-line="541" selection-start-column="8" selection-end-line="541" selection-end-column="37" />
-          <folding>
-            <element signature="e#579#5689#0" expanded="false" />
-            <element signature="e#3424#3482#0" expanded="false" />
-            <element signature="e#5824#13194#0" expanded="false" />
-            <element signature="e#13327#14477#0" expanded="false" />
-            <element signature="e#14614#15565#0" expanded="false" />
-            <element signature="e#15699#17151#0" expanded="false" />
-            <element signature="e#17311#18126#0" expanded="false" />
-            <element signature="e#18408#19145#0" expanded="false" />
-            <element signature="e#26616#27626#0" expanded="false" />
-            <element signature="e#27696#28547#0" expanded="false" />
-            <element signature="e#28614#29134#0" expanded="false" />
-            <element signature="e#29208#29734#0" expanded="false" />
-            <element signature="e#29893#30507#0" expanded="false" />
-            <element signature="e#29893#30005#1" expanded="false" />
-            <element signature="e#30561#31661#0" expanded="false" />
-            <element signature="e#31732#32629#0" expanded="false" />
-            <element signature="e#32691#33567#0" expanded="false" />
-            <element signature="e#33636#34418#0" expanded="false" />
-            <element signature="e#34533#35853#0" expanded="false" />
-            <element signature="e#35923#36825#0" expanded="false" />
-            <element signature="e#36889#39098#0" expanded="false" />
-            <element signature="e#37054#37206#0" expanded="false" />
-            <element signature="e#37238#37377#0" expanded="false" />
-            <element signature="e#37381#37402#0" expanded="false" />
-            <element signature="e#37664#37928#0" expanded="false" />
-            <element signature="e#37946#38085#0" expanded="false" />
-            <element signature="e#38089#38110#0" expanded="false" />
-            <element signature="e#38373#38586#0" expanded="false" />
-            <element signature="e#38590#38611#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/db/mysql.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="830">
           <caret line="932" column="24" lean-forward="false" selection-start-line="932" selection-start-column="24" selection-end-line="932" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/api/v1_0/ls/myls_resource.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="105" column="30" lean-forward="false" selection-start-line="105" selection-start-column="18" selection-end-line="105" selection-end-column="30" />
           <folding>
-            <element signature="e#280#324#0" expanded="false" />
-            <element signature="e#378#1055#0" expanded="false" />
-            <element signature="e#1103#1327#0" expanded="false" />
-            <element signature="e#1381#1463#0" expanded="false" />
-            <element signature="e#1559#2224#0" expanded="false" />
-            <element signature="e#2279#2961#0" expanded="false" />
-            <element signature="e#3013#3641#0" expanded="false" />
-            <element signature="e#3699#4355#0" expanded="false" />
-            <element signature="e#4407#5718#0" expanded="false" />
-            <element signature="e#5787#7277#0" expanded="false" />
-            <element signature="e#7345#8651#0" expanded="false" />
-            <element signature="e#8717#9693#0" expanded="false" />
-            <element signature="e#9767#10507#0" expanded="false" />
-            <element signature="e#10560#11933#0" expanded="false" />
-            <element signature="e#12003#12722#0" expanded="false" />
-            <element signature="e#12788#13498#0" expanded="false" />
-            <element signature="e#13565#14829#0" expanded="false" />
-            <element signature="e#14898#16190#0" expanded="false" />
-            <element signature="e#16258#17293#0" expanded="false" />
-            <element signature="e#17361#18148#0" expanded="false" />
-            <element signature="e#18219#18895#0" expanded="false" />
-            <element signature="e#18963#20149#0" expanded="false" />
-            <element signature="e#20222#21761#0" expanded="false" />
-            <element signature="e#21831#23147#0" expanded="false" />
-            <element signature="e#23216#24440#0" expanded="false" />
-            <element signature="e#27420#28309#0" expanded="false" />
-            <element signature="e#28404#29211#0" expanded="false" />
-            <element signature="e#29278#30084#0" expanded="false" />
-            <element signature="e#30167#30979#0" expanded="false" />
-            <element signature="e#31060#31871#0" expanded="false" />
-            <element signature="e#31961#32880#0" expanded="false" />
-            <element signature="e#33057#42673#0" expanded="false" />
-            <marker date="1565754103085" expanded="false" signature="24500:25474" ph="..." />
+            <element signature="e#751#1273#0" expanded="false" />
+            <element signature="e#1348#1881#0" expanded="false" />
+            <element signature="e#1956#2470#0" expanded="false" />
+            <element signature="e#2534#3040#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/utils/common.py">
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="10999">
+            <caret line="647" column="32" lean-forward="false" selection-start-line="647" selection-start-column="32" selection-end-line="647" selection-end-column="32" />
+            <folding>
+              <marker date="1565768078178" expanded="true" signature="193:376" ph="{&quot;begin_time&quot;: &quot;2019-05-16&quot;...}" />
+              <marker date="1565768078178" expanded="true" signature="5581:5620" ph="{...}" />
+            </folding>
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ls_etl/dataetlthread.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="201">
+          <caret line="21" column="29" lean-forward="true" selection-start-line="21" selection-start-column="29" selection-end-line="21" selection-end-column="29" />
           <folding>
-            <element signature="e#1056#1195#0" expanded="false" />
-            <element signature="e#1215#1424#0" expanded="false" />
-            <element signature="e#1453#1518#0" expanded="false" />
-            <element signature="e#1557#1985#0" expanded="false" />
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/db/myls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="362" column="0" lean-forward="true" selection-start-line="362" selection-start-column="0" selection-end-line="362" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#1471#2136#0" expanded="false" />
+            <element signature="e#3047#3124#1" expanded="false" />
+            <element signature="e#4231#5342#0" expanded="false" />
+            <element signature="e#6641#7729#0" expanded="false" />
+            <element signature="e#7799#8888#0" expanded="false" />
+            <element signature="e#8959#10035#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/api/v1_0/yth/mysql_resource.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="299" column="68" lean-forward="true" selection-start-line="296" selection-start-column="8" selection-end-line="299" selection-end-column="68" />
+        <state relative-caret-position="196">
+          <caret line="291" column="39" lean-forward="true" selection-start-line="291" selection-start-column="39" selection-end-line="291" selection-end-column="39" />
           <folding>
             <element signature="e#1078#1722#0" expanded="false" />
             <element signature="e#1790#2105#0" expanded="false" />
@@ -1659,20 +1493,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ls_etl/dataetlthread.py">
+    <entry file="file://$PROJECT_DIR$/app/utils/common.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+        <state relative-caret-position="187">
+          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#1056#1195#0" expanded="false" />
+            <element signature="e#1215#1424#0" expanded="false" />
+            <element signature="e#1453#1518#0" expanded="false" />
+            <element signature="e#1557#1985#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/api/v1_0/yth/es_resource.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-739">
-          <caret line="90" column="0" lean-forward="true" selection-start-line="90" selection-start-column="0" selection-end-line="90" selection-end-column="0" />
+        <state relative-caret-position="195">
+          <caret line="48" column="36" lean-forward="false" selection-start-line="48" selection-start-column="36" selection-end-line="48" selection-end-column="36" />
           <folding>
             <element signature="e#3099#3366#0" expanded="false" />
             <element signature="e#3431#4039#0" expanded="false" />
@@ -1680,46 +1517,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/api/v1_0/ls/myls_resource.py">
+    <entry file="file://$PROJECT_DIR$/app/db/es.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="105" column="30" lean-forward="false" selection-start-line="105" selection-start-column="18" selection-end-line="105" selection-end-column="30" />
+        <state relative-caret-position="-79">
+          <caret line="669" column="51" lean-forward="true" selection-start-line="669" selection-start-column="51" selection-end-line="669" selection-end-column="51" />
           <folding>
-            <element signature="e#751#1273#0" expanded="false" />
-            <element signature="e#1348#1881#0" expanded="false" />
-            <element signature="e#1956#2470#0" expanded="false" />
-            <element signature="e#2534#3040#0" expanded="false" />
+            <element signature="e#579#5689#0" expanded="false" />
+            <element signature="e#3424#3482#0" expanded="false" />
+            <element signature="e#5824#13194#0" expanded="false" />
+            <element signature="e#13327#14477#0" expanded="false" />
+            <element signature="e#14614#15565#0" expanded="false" />
+            <element signature="e#18450#19187#0" expanded="false" />
+            <element signature="e#26658#27668#0" expanded="false" />
+            <element signature="e#27738#28589#0" expanded="false" />
+            <element signature="e#28656#29176#0" expanded="false" />
+            <element signature="e#29250#29776#0" expanded="false" />
+            <element signature="e#29935#30549#0" expanded="false" />
+            <element signature="e#29935#30047#1" expanded="false" />
+            <element signature="e#30603#31703#0" expanded="false" />
+            <element signature="e#31774#32671#0" expanded="false" />
+            <element signature="e#32733#33609#0" expanded="false" />
+            <element signature="e#33678#34460#0" expanded="false" />
+            <element signature="e#34575#35895#0" expanded="false" />
+            <element signature="e#35965#36867#0" expanded="false" />
+            <element signature="e#36931#39140#0" expanded="false" />
+            <element signature="e#37096#37248#0" expanded="false" />
+            <element signature="e#37280#37419#0" expanded="false" />
+            <element signature="e#37423#37444#0" expanded="false" />
+            <element signature="e#37706#37970#0" expanded="false" />
+            <element signature="e#37988#38127#0" expanded="false" />
+            <element signature="e#38131#38152#0" expanded="false" />
+            <element signature="e#38415#38628#0" expanded="false" />
+            <element signature="e#38632#38653#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/db/myls.py">
+    <entry file="file://$PROJECT_DIR$/run.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="473">
-          <caret line="363" column="38" lean-forward="false" selection-start-line="363" selection-start-column="38" selection-end-line="363" selection-end-column="38" />
+        <state relative-caret-position="170">
+          <caret line="10" column="4" lean-forward="false" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="4" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#1471#2136#0" expanded="false" />
-            <element signature="e#3047#3124#1" expanded="false" />
-            <element signature="e#4231#5342#0" expanded="false" />
-            <element signature="e#6641#7729#0" expanded="false" />
-            <element signature="e#7799#8888#0" expanded="false" />
-            <marker date="1565768180734" expanded="false" signature="8950:10028" ph="..." />
+            <element signature="e#0#19#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/readme.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="459">
-            <caret line="653" column="0" lean-forward="false" selection-start-line="653" selection-start-column="0" selection-end-line="653" selection-end-column="12" />
-            <folding>
-              <marker date="1565768078178" expanded="true" signature="193:376" ph="{&quot;begin_time&quot;: &quot;2019-05-16&quot;...}" />
-              <marker date="1565768078178" expanded="true" signature="5581:5620" ph="{...}" />
-            </folding>
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>

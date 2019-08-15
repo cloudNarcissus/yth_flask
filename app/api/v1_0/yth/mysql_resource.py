@@ -289,7 +289,7 @@ class Platform(Resource):
     平台的更新和查询
     '''
     def get(self):
-        return mc.pro_platform_query()
+         return mc.pro_platform_query()
 
 
     def post(self):

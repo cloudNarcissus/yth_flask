@@ -539,8 +539,9 @@ class ESClient(object):
         return self.es.search('yth_base', 'mytype', body, size=20, _source_exclude=['sm_summary'])
 
     @addHead()
-    def query_yth_base_by_md5_4_guiji(self,md5):
-        return self.query_yth_base_by_md5(md5)
+    def query_yth_base_by_md5_4_guiji(self,params):
+        md5 = params.get("__md5")
+        return True,self.query_yth_base_by_md5(md5)
 
 
     # -------------------------查询某个index_id的yth_base记录----------------------------------------
