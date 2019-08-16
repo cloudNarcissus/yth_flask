@@ -1,11 +1,9 @@
-import logging
-
 import pymysql
 
 from app.utils.common import addHead
 from app.config import Config
 
-logger = logging.getLogger(__name__)
+from app.utils.log import logger
 
 
 
@@ -35,7 +33,7 @@ class MylsConnect(object):
             return conn, conn_err
         except pymysql.Error as e:
             conn_err = repr(e)
-            # log.error(conn_err)
+            # log.py.error(conn_err)
             return conn, conn_err
 
     def _get_exception_msg(self, e):
@@ -361,8 +359,38 @@ class MylsConnect(object):
 
     # 7. 事件类型-密级分布
 
-    def pro_event_typemiji(self,params):
-        pass
+    def pro_event_mijitype(self,params):
+        cur = None
+        conn, conn_err = self._connect('utf8mb4')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+        sql = ''
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_event_mijitype(%d,%d,"%s","%s","%s")' % (
+                params.get('begin_day'),
+                params.get('end_day'),
+
+                params.get('province') if params.get('province') is not None else '',
+                params.get('city') if params.get('city') is not None else '',
+                params.get('district') if params.get('district') is not None else '',
+
+            )
+
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
 
 
 mc = MylsConnect()

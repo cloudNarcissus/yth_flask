@@ -18,7 +18,7 @@ from _bak.yth_mysql import config_path
 # api = Api(app)
 
 if 'nt' != os.name:
-    _log_path = './es_logger.log'
+    _log_path = './es_logger.log.py'
 else:
     _path = os.path.dirname(__file__)
     _log_path = os.path.join(_path, os.path.pardir, os.path.pardir, 'logs')
@@ -485,7 +485,7 @@ class ESClient(object):
                 }
             ]
         }
-        # self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
+        # self.log.py.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
         return self.es.search('yth_base', 'mytype', body, size=20)
 
     # -------------------------加入告警到alarm——list-------------------------------------------

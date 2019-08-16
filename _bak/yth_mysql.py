@@ -15,10 +15,10 @@ import logging
 import logging.handlers
 import os
 if 'nt' != os.name:
-    _log_path = './my_logger.log'
+    _log_path = './my_logger.log.py'
 else:
     _path = os.path.dirname(__file__)
-    _log_path = os.path.join(_path, 'my_logger.log')
+    _log_path = os.path.join(_path, 'my_logger.log.py')
 
 logger = logging.getLogger('yth_mysql')
 logger.setLevel(logging.INFO)
@@ -56,7 +56,7 @@ class mysqlConnect(object):
             return conn, conn_err
         except pymysql.Error as e:
             conn_err = repr(e)
-            # log.error(conn_err)
+            # log.py.error(conn_err)
             return conn, conn_err
 
     def _get_exception_msg(self, e):

@@ -1,5 +1,4 @@
 import json
-import logging
 from ast import literal_eval
 
 import pymysql
@@ -8,7 +7,7 @@ from app.config import Config
 from app.utils.common import addHead,del_teshu_char
 from app.db.mq import mq
 
-logger = logging.getLogger(__name__)
+from app.utils.log import logger
 
 
 class MysqlConnect(object):
@@ -38,7 +37,7 @@ class MysqlConnect(object):
             return conn, conn_err
         except pymysql.Error as e:
             conn_err = repr(e)
-            # log.error(conn_err)
+            # log.py.error(conn_err)
             return conn, conn_err
 
     def _get_exception_msg(self, e):
@@ -88,7 +87,7 @@ class MysqlConnect(object):
         :param output_args:
         :return:err,json
         """
-        # self.log.debug('test')
+        # self.log.py.debug('test')
         cur = None
         conn, conn_err = self._connect('utf8')
         if conn is None:

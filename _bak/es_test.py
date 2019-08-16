@@ -195,7 +195,7 @@ class ESClient(object):
 
 
 if __name__ == '__main__':
-    log_file = "./es_logger.log"
+    log_file = "./es_logger.log.py"
     logging.basicConfig(filename=log_file, level=logging.DEBUG)
     es_client = ESClient('192.168.10.136:9200', logging)
     parameter = Parameter()

@@ -1,20 +1,11 @@
 import os
-import logging.handlers
+
 
 from flask import Flask
 
-if 'nt' != os.name:
-    _log_path = './yth_logger.log'
-else:
-    _path = os.path.dirname(__file__)
-    _log_path = os.path.join(_path, os.path.pardir, 'my_logger.log')
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-fhtime = logging.handlers.TimedRotatingFileHandler(_log_path, when='D', interval=1, backupCount=10)
-fhtime.setFormatter(logging.Formatter("%(asctime)s-%(levelname)s-%(message)s"))
-logger.addHandler(fhtime)
 
+print("app.init.py--%s"%__name__)
 
 def register_blueprints(app):
     from app.api.v1_0 import api_bp_v1_0

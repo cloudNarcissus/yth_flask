@@ -1,31 +1,19 @@
 {
-    "HIVE": {
-        "credentials": "hive:",
-        "hosts": "192.168.10.137:10000"
-    },
-    "BEGIN_DAY": "2019-07-24",
-    "MQ": {
-        "credentials": "admin:admin",
-        "hosts": "192.168.40.161:5672"
-    },
-    "HBASE": {
-        "hosts": "192.168.40.161:9090"
-    },
-    "MYSQL": {
-        "encode": "utf8mb4",
-        "db": "yth_alarm",
-        "credentials": "root:123asd!@#ASD",
-        "hosts": "192.168.40.163:3306"
-    },
-    "MYLS": {
-        "encode": "utf8mb4",
-        "db": "yth_ls",
-        "credentials": "root:123asd!@#ASD",
-        "hosts": "192.168.40.163:3306"
-    },
-    "UPDATE_INTERVAL": 2000000,
-    "ElasticSearch": {
-        "credentials": "test:test",
-        "hosts": "192.168.40.161:9200"
-    }
+  "yda.hive.credentials": "hive:",
+  "yda.hive.hosts": "192.168.10.137:10000",
+  "yda.begin_day": "2019-07-24",
+  "yda.mq.credentials": "admin:admin",
+  "yda.mq.hosts": "192.168.40.161:5672",
+  "yda.hbase.hosts": "192.168.40.161:9090",
+  "yda.mysql.encode": "utf8mb4",
+  "yda.mysql.db": "yth_alarm",
+  "yda.mysql.credentials": "root:123asd!@#asd",
+  "yda.mysql.hosts": "192.168.40.163:3306",
+  "yda.myls.encode": "utf8mb4",
+  "yda.myls.db": "yth_ls",
+  "yda.myls.credentials": "root:123asd!@#asd",
+  "yda.myls.hosts": "192.168.40.163:3306",
+  "yda.update_interval": 2000000,
+  "yda.elasticsearch.credentials": "test:test",
+  "yda.elasticsearch.hosts": "192.168.40.161:9200"
 }

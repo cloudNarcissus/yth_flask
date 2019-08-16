@@ -10,7 +10,7 @@ from app.config import Config
 from app.utils.common import addHead,isIP,isMac,del_teshu_char
 from app.db.mysql import mc
 
-logger = logging.getLogger(__name__)
+from app.utils.log import logger
 
 
 # ES操作
@@ -535,7 +535,7 @@ class ESClient(object):
                 }
             ]
         }
-        # self.log.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
+        # self.log.py.debug('使用查询语句:{0}，从es中搜索数据'.format(body))
         return self.es.search('yth_base', 'mytype', body, size=20, _source_exclude=['sm_summary'])
 
     @addHead()

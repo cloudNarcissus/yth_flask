@@ -1,74 +1,82 @@
 # -*- coding:utf-8 -*-
-#!/usr/bin/env python
+# !/usr/bin/env python
 
-
-
+from functools import reduce
 from os.path import dirname, abspath, pardir, join
-import string
 import json
 
-class ConfigParser(object):
-    def __init__(self, filename):
-        self.filename = filename
-        with open(filename,"r") as f:
-            self.__json = json.load(f)
+import consul
 
-    def init_config_beginday(self,today):
-        self.__json['BEGIN_DAY'] = today
+
+class ConfigParser(object):
+    def __init__(self, filename=None):
+
+        if filename is None:  # 若没有配置文件，则从consul读取配置
+            self.cs = consul.Consul()
+
+            self.__json = reduce(lambda x, y: {**x, **y},
+                                 [{i['Key']: i['Value'].decode("utf-8")} for i in
+                                  self.cs.kv.get(key="yda", recurse=True)[1]])
+
+        else:
+            self.filename = filename
+            with open(filename, "r") as f:
+                self.__json = json.load(f)
+
+    def init_config_beginday(self, today):
+        self.__json['yda.begin_day'] = today
         with open(self.filename, "w") as fp:
             fp.write(json.dumps(self.__json, indent=4))
 
-
     def __parse_mq_hosts(self):
-        hosts = self.__json['MQ']['hosts']
+        hosts = self.__json['yda.mq.hosts']
         host, port = hosts.split(':')
         return host, port
 
     def __parse_mq_credentials(self):
-        creds = self.__json['MQ']['credentials']
+        creds = self.__json['yda.mq.credentials']
         user, pwd = creds.split(':')
         return user, pwd
 
     def __parse_hbase_hosts(self):
-        hosts = self.__json['HBASE']['hosts']
+        hosts = self.__json['yda.hbase.hosts']
         host, port = hosts.split(':')
         return host, port
 
     def __parse_mysql_hosts(self):
-        hosts = self.__json['MYSQL']['hosts']
+        hosts = self.__json['yda.mysql.hosts']
         host, port = hosts.split(':')
         return host, port
 
     def __parse_mysql_credentials(self):
-        creds = self.__json['MYSQL']['credentials']
+        creds = self.__json['yda.mysql.credentials']
         user, pwd = creds.split(':')
         return user, pwd
 
     def __parse_hive_hosts(self):
-        hosts = self.__json['HIVE']['hosts']
+        hosts = self.__json['yda.hive.hosts']
         host, port = hosts.split(':')
         return host, port
 
     def __parse_hive_credentials(self):
-        creds = self.__json['HIVE']['credentials']
+        creds = self.__json['yda.hive.credentials']
         user, pwd = creds.split(':')
         return user, pwd
 
     def __parse_es_credentials(self):
-        creds = self.__json['ElasticSearch']['credentials']
+        creds = self.__json['yda.elasticsearch.credentials']
         user, pwd = creds.split(':')
         return user, pwd
 
     def __parse_myls_hosts(self):
-        hosts = self.__json['MYLS']['hosts']
+        hosts = self.__json['yda.myls.hosts']
         host, port = hosts.split(':')
         return host, port
 
     def __parse_myls_credentials(self):
-        creds = self.__json['MYLS']['credentials']
+        creds = self.__json['yda.myls.credentials']
         user, pwd = creds.split(':')
         return user, pwd
-
 
     @property
     def mq_host(self):
@@ -122,11 +130,11 @@ class ConfigParser(object):
 
     @property
     def mysql_db(self):
-        return self.__json['MYSQL']['db']
+        return self.__json['yda.mysql.db']
 
     @property
     def mysql_encode(self):
-        return self.__json['MYSQL']['encode']
+        return self.__json['yda.mysql.encode']
 
     @property
     def hive_host(self):
@@ -150,8 +158,7 @@ class ConfigParser(object):
 
     @property
     def es_hosts(self):
-        return  self.__json['ElasticSearch']['hosts']
-
+        return self.__json['yda.elasticsearch.hosts']
 
     @property
     def es_user(self):
@@ -165,11 +172,11 @@ class ConfigParser(object):
 
     @property
     def update_interval(self):
-        return self.__json['UPDATE_INTERVAL']
+        return self.__json['yda.update_interval']
 
     @property
     def begin_day(self):
-        return self.__json['BEGIN_DAY']
+        return self.__json['yda.begin_day']
 
     @property
     def myls_host(self):
@@ -193,22 +200,21 @@ class ConfigParser(object):
 
     @property
     def myls_db(self):
-        return self.__json['MYLS']['db']
+        return self.__json['yda.myls.db']
 
     @property
     def myls_encode(self):
-        return self.__json['MYLS']['encode']
-
-
+        return self.__json['yda.myls.encode']
 
 
 if __name__ == '__main__':
     config = ConfigParser(abspath(join(dirname(__file__), pardir, 'config.json')))
-    print (config.mq_host)
-    print (config.mq_port)
+    print(config.mq_host)
+    print(config.mq_port)
 
     import os
-    print (os.path.splitext(abspath(join(dirname(__file__), pardir, 'config')))[-1][1:])
 
-    test_dict = {"1":"111"}
-    print (test_dict["1"])
+    print(os.path.splitext(abspath(join(dirname(__file__), pardir, 'config')))[-1][1:])
+
+    test_dict = {"1": "111"}
+    print(test_dict["1"])
