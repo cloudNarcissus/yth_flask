@@ -1,3 +1,5 @@
+from configswitch import get_use_consul
+
 
 
 
