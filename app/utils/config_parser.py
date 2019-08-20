@@ -1,32 +1,19 @@
 # -*- coding:utf-8 -*-
 # !/usr/bin/env python
 
-from functools import reduce
 from os.path import dirname, abspath, pardir, join
-import json
 
-import consul
 
 
 class ConfigParser(object):
-    def __init__(self, filename=None):
+    def __init__(self, config_keys):
+        self.__json = config_keys
 
-        if filename is None:  # 若没有配置文件，则从consul读取配置
-            self.cs = consul.Consul()
+    # def init_config_beginday(self, today):
+    #     self.__json['yda.begin_day'] = today
+    #     with open(self.filename, "w") as fp:
+    #         fp.write(json.dumps(self.__json, indent=4))
 
-            self.__json = reduce(lambda x, y: {**x, **y},
-                                 [{i['Key']: i['Value'].decode("utf-8")} for i in
-                                  self.cs.kv.get(key="yda", recurse=True)[1]])
-
-        else:
-            self.filename = filename
-            with open(filename, "r") as f:
-                self.__json = json.load(f)
-
-    def init_config_beginday(self, today):
-        self.__json['yda.begin_day'] = today
-        with open(self.filename, "w") as fp:
-            fp.write(json.dumps(self.__json, indent=4))
 
     def __parse_mq_hosts(self):
         hosts = self.__json['yda.mq.hosts']
@@ -99,12 +86,12 @@ class ConfigParser(object):
         return pwd
 
     @property
-    def hbase_host(self):
+    def hb_hosts(self):
         host, _ = self.__parse_hbase_hosts()
         return host
 
     @property
-    def hbase_port(self):
+    def hb_port(self):
         _, port = self.__parse_hbase_hosts()
         return int(port)
 

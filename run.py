@@ -11,15 +11,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-c', '--configpath')
     args = parser.parse_args()
-    if args.configpath:
+    if args.configpath: # 使用本地配置
         set_use_consul(False)
-
     else: # 使用consul
         set_use_consul(True)
-
-        pass
-
-
 
 
 
