@@ -217,6 +217,10 @@ class ESClient(object):
             filter_query = filter_query & query.Term(_expand__to_dot=False,
                                                      _alarmed=False)
 
+        # 平台
+        if params['_platforms'] is not None:
+            filter_query = filter_query & query.Terms(_expand__to_dot=False,
+                                                      _platforms=params['_platforms'])
 
         # #####################查询条件###############################
         match_query = query.MatchAll()
@@ -256,12 +260,7 @@ class ESClient(object):
                     }
                 }
 
-        # 平台
-        if params['_platform'] is not None:
-            match_query = match_query & query.QueryString(
-                default_field="_platforms",
-                query=params['_platform']
-            )
+
 
         must = [match_query.to_dict()]
 
@@ -541,7 +540,34 @@ class ESClient(object):
     @addHead()
     def query_yth_base_by_md5_4_guiji(self,params):
         md5 = params.get("__md5")
-        return True,self.query_yth_base_by_md5(md5)
+
+        doc = self.query_yth_base_by_md5(md5)
+
+        # 如果返回结果为空，则怀疑是嵌套文件，可以再次去fileana中找rootMD5
+        if doc["hits"]["total"] == 0:
+            body = {
+                "query": {
+                    "match": {
+                        "__md5": md5
+                    }}
+            }
+            fileana_doc = self.es.search('yth_fileana', 'mytype', body, size=1, _source_include=['__rootmd5s'])
+            if fileana_doc["hits"]["total"]>0:
+                rootmd5s_ = fileana_doc["hits"]["hits"][0]["_source"]["__rootmd5s"]
+
+
+                if md5 not in rootmd5s_:
+                    rootmd5 =  rootmd5s_[0] if isinstance(rootmd5s_, list) else rootmd5s_
+
+                    body = {
+                        "query": {
+                            "match": {
+                                "__md5": rootmd5
+                            }}
+                    }
+                    return True,self.es.search('yth_base', 'mytype', body, size=10,_source_exclude=['sm_summary'])
+
+        return True,doc
 
 
     # -------------------------查询某个index_id的yth_base记录----------------------------------------
