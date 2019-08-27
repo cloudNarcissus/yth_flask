@@ -219,8 +219,12 @@ class ESClient(object):
 
         # 平台
         if params['_platforms'] is not None:
+            plat_list = []
+            for plat_dict_str in params['_platforms']:
+                plat_list.append(literal_eval(plat_dict_str).get('key'))
+
             filter_query = filter_query & query.Terms(_expand__to_dot=False,
-                                                      _platforms=params['_platforms'])
+                                                      _platforms=plat_list)
 
         # #####################查询条件###############################
         match_query = query.MatchAll()
