@@ -1,11 +1,6 @@
-import os
-
 
 from flask import Flask
 
-
-
-print("app.init.py--%s"%__name__)
 
 def register_blueprints(app):
     from app.api.v1_0 import api_bp_v1_0

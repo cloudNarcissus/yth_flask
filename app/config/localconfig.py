@@ -18,7 +18,7 @@ with open(_cfg_file, "r") as f:
     config_json = json.load(f)
 
 Config = ConfigParser(config_json)
-
+print("使用本地配置")
 
 #
 # class Config(object):

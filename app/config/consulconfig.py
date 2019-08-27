@@ -16,7 +16,7 @@ class ConsulConn(object):
             params['port'] = port
         self.cs = consul.Consul(**params)
 
-    def get_kv_config(self,key_prefix="common",key=None):
+    def get_kv_config(self,key_prefix="yda",key=None):
 
         if key is None:
             return reduce(lambda x, y: {**x, **y}, [{i['Key']: i['Value'].decode("utf-8")} for i in
@@ -29,7 +29,7 @@ class ConsulConn(object):
 
 while True:
     try:
-        consulconn = ConsulConn()
+        consulconn = ConsulConn(host="192.168.10.136")
         break
     except Exception as e:
         i = i + 1
@@ -38,7 +38,8 @@ while True:
             exit(-1)
         time.sleep(30)
 
-keys = consulconn.get_kv_config("common")
+keys = consulconn.get_kv_config(key_prefix="yda")
 Config = ConfigParser(keys)
+
 
 
