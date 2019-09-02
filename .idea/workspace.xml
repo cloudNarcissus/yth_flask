@@ -4,8 +4,10 @@
     <bookmark url="file://$PROJECT_DIR$/_bak/yth_base.py" line="739" mnemonic="5" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="consul基本完成，可用">
+    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="测试stash">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/config/consulconfig.py" afterPath="$PROJECT_DIR$/app/config/consulconfig.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/es.py" afterPath="$PROJECT_DIR$/app/db/es.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -96,11 +98,11 @@
       <file leaf-file-name="es.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/db/es.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="250" column="21" lean-forward="true" selection-start-line="250" selection-start-column="21" selection-end-line="250" selection-end-column="21" />
+            <state relative-caret-position="391">
+              <caret line="251" column="21" lean-forward="true" selection-start-line="251" selection-start-column="21" selection-end-line="251" selection-end-column="21" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-                <marker date="1567412030668" expanded="false" signature="19551:20297" ph="..." />
+                <marker date="1567412659825" expanded="false" signature="19838:20584" ph="..." />
               </folding>
             </state>
           </provider>
@@ -173,8 +175,8 @@
       <file leaf-file-name="consulconfig.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/config/consulconfig.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="595">
-              <caret line="35" column="18" lean-forward="true" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+            <state relative-caret-position="663">
+              <caret line="39" column="18" lean-forward="true" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -297,7 +299,6 @@
         <option value="$PROJECT_DIR$/app/utils/config_parser.py" />
         <option value="$PROJECT_DIR$/config.json" />
         <option value="$PROJECT_DIR$/app/api/v1_0/yth/es_resource.py" />
-        <option value="$PROJECT_DIR$/app/db/es.py" />
         <option value="$PROJECT_DIR$/app/__init__.py" />
         <option value="$PROJECT_DIR$/app/config/localconfig.py" />
         <option value="$PROJECT_DIR$/run.py" />
@@ -305,6 +306,7 @@
         <option value="$PROJECT_DIR$/app/config/__init__.py" />
         <option value="$PROJECT_DIR$/my_logger.log" />
         <option value="$PROJECT_DIR$/app/my_logger.log" />
+        <option value="$PROJECT_DIR$/app/db/es.py" />
       </list>
     </option>
   </component>
@@ -789,13 +791,6 @@
       <option name="presentableId" value="Default" />
       <updated>1557381008761</updated>
     </task>
-    <task id="LOCAL-00070" summary="0708dabao">
-      <created>1562554389840</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1562554389842</updated>
-    </task>
     <task id="LOCAL-00071" summary="config.json增加begin_day&#10;增加mq模块">
       <created>1562653517596</created>
       <option name="number" value="00071" />
@@ -1132,7 +1127,14 @@
       <option name="project" value="LOCAL" />
       <updated>1566888637116</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="测试stash">
+      <created>1567412629023</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1567412629023</updated>
+    </task>
+    <option name="localTasksCounter" value="120" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1197,11 +1199,28 @@
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.log" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="调整首页的统计" />
     <MESSAGE value="修复行为栏查询mac地址报错的问题" />
     <MESSAGE value="调整hbase连接池为单hbase连接" />
     <MESSAGE value="修改事件查询bug&#10;修改统计不一致bug&#10;增加首页统计的范围查询&#10;修改特殊字符查询报错的bug" />
@@ -1226,7 +1245,8 @@
     <MESSAGE value="增加consul配置切换" />
     <MESSAGE value="文档页 ， 平台可以多选" />
     <MESSAGE value="文档页 ， 平台可以多选(修复约定)" />
-    <option name="LAST_COMMIT_MESSAGE" value="文档页 ， 平台可以多选(修复约定)" />
+    <MESSAGE value="测试stash" />
+    <option name="LAST_COMMIT_MESSAGE" value="测试stash" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1547,11 +1567,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/db/es.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="250" column="21" lean-forward="true" selection-start-line="250" selection-start-column="21" selection-end-line="250" selection-end-column="21" />
+        <state relative-caret-position="391">
+          <caret line="251" column="21" lean-forward="true" selection-start-line="251" selection-start-column="21" selection-end-line="251" selection-end-column="21" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <marker date="1567412030668" expanded="false" signature="19551:20297" ph="..." />
+            <marker date="1567412659825" expanded="false" signature="19838:20584" ph="..." />
           </folding>
         </state>
       </provider>
@@ -1604,8 +1624,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/config/consulconfig.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="595">
-          <caret line="35" column="18" lean-forward="true" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+        <state relative-caret-position="663">
+          <caret line="39" column="18" lean-forward="true" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>

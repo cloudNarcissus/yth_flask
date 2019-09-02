@@ -219,24 +219,25 @@ class ESClient(object):
 
         # 平台
         if params['_platforms'] is not None:
-            plat_list = []
             for plat_dict_str in params['_platforms']:
-                plat_list.append(literal_eval(plat_dict_str).get('key'))
-
-            filter_query = filter_query & query.Terms(_expand__to_dot=False,
-                                                      _platforms=plat_list)
+                filter_query = filter_query & query.Term(_expand__to_dot=False,
+                                                        _platforms=literal_eval(plat_dict_str).get('key'))
 
         # #####################查询条件###############################
         match_query = query.MatchAll()
         highlight = {}
         if params['match_str'] is not None:
-            qs = del_teshu_char(str(params['match_str']).strip())
+            qs = str(params['match_str']).strip()
             if qs.startswith('.'):  # 以.开头则默认为查询后缀名
+                qs = del_teshu_char(qs)
                 qs = qs.strip('.')  # 去掉.开始查询
                 filter_query = filter_query & query.Term(_expand__to_dot=False,__tikaExtention=qs)
             else:
                 if params['exact_query']:
                     qs = '\"' + qs + '\"'
+                else: #精确搜索的时候不去掉特殊字符，非精确搜索的时候去掉
+                    qs = del_teshu_char(qs)
+
                 match_query = match_query & (
                     query.QueryString(
                         default_field="__Content-text",
@@ -269,20 +270,19 @@ class ESClient(object):
         must = [match_query.to_dict()]
 
         # 关键词(嵌套文档查询)
-        alarmKey_list = []
         if params['__alarmKey'] is not None:
             for keyword_dict_str in params['__alarmKey']:
                 keyword_dict = literal_eval(keyword_dict_str)
-                alarmKey_list.append({"term": {"__alarmKey.__keyword": keyword_dict.get('key')}})
+                #alarmKey_list.append({"term": {"__alarmKey.__keyword": keyword_dict.get('key')}})
 
-            must.append({"nested": {
-                "path": "__alarmKey",
-                "query": {
-                    "bool": {
-                        "should": alarmKey_list
+                must.append({"nested": {
+                    "path": "__alarmKey",
+                    "query": {
+                        "terms": {
+                            "__alarmKey.__keyword": [keyword_dict.get('key')]
+                        }
                     }
-                }
-            }})
+                }})
         # 查询语句
         all_query = {
             "bool": {
@@ -308,7 +308,12 @@ class ESClient(object):
         # 排序  按接入时间或涉密风险值排序
         sort = []
         if params['order'] is not None:
-            if params['order'] == '__connectTime':
+            if params['match_str'] is not None:
+                self.log.debug('按接入时间排序')
+                sort = [
+                    {"_score": {"order": "desc"}}
+                    ]
+            elif params['order'] == '__connectTime':
                 self.log.debug('按接入时间排序')
                 sort = [
                     {
@@ -331,13 +336,13 @@ class ESClient(object):
                     }
                 ]
 
-        sort.append(
-            {
-                "_id": {
-                    "order": "asc"
-                }
-            }
-        )
+        # sort.append(
+        #     {
+        #         "_id": {
+        #             "order": "asc"
+        #         }
+        #     }
+        # )
 
         body = {
             "aggs": {

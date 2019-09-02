@@ -27,18 +27,22 @@ class ConsulConn(object):
 
 
 
+i =0
 while True:
     try:
-        consulconn = ConsulConn(host="192.168.10.136")
+        consulconn = ConsulConn()
+        keys = consulconn.get_kv_config(key_prefix="yda")
         break
     except Exception as e:
         i = i + 1
+        print('尝试第%d次ConsulConn'%i)
+        logger.info('尝试第%d次ConsulConn'%i)
         if i == 5:
             logger.error('ConsulConn Error,程序退出')
             exit(-1)
         time.sleep(30)
 
-keys = consulconn.get_kv_config(key_prefix="yda")
+
 Config = ConfigParser(keys)
 
 
