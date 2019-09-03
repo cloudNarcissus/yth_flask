@@ -30,7 +30,7 @@ class ConsulConn(object):
 i =0
 while True:
     try:
-        consulconn = ConsulConn()
+        consulconn = ConsulConn(host="192.168.10.136")
         keys = consulconn.get_kv_config(key_prefix="yda")
         break
     except Exception as e:

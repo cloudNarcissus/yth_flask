@@ -304,4 +304,26 @@ class Platform(Resource):
 
 
 
+@api.resource('/alarmlist/add/')
+class AlarmListAdd(Resource):
+    '''
+    添加告警清单
+    '''
 
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('yth_fileana_id', type=str)
+        parser.add_argument('__md5', type=str,)
+        parser.add_argument('__connectTime', type=str)
+        parser.add_argument('__title', type=str)
+        parser.add_argument('__alarmLevel', type=int)
+        parser.add_argument('summary', type=str)
+        parser.add_argument('__alarmKey', type=str)
+        parser.add_argument('__document', type=str)
+        parser.add_argument('__industry', type=str)
+        parser.add_argument('__security', type=str)
+        parser.add_argument('__ips', type=str)
+        parser.add_argument('__alarmType', type=int)
+
+        params = parser.parse_args(strict=True)
+        return mc.pro_alarm_list_add(params)

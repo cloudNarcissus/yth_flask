@@ -569,7 +569,26 @@ parser.add_argument('platformid',type=int, required=True)  # 平台id
 
 
 
+### 4.29 华哥添加三合一告警
 
+
+post  /alarmlist/add/ (加上前缀为：http://192.168.12.38:10086/v1.0/alarmlist/add/)
+
+
+```buildoutcfg
+        parser.add_argument('yth_fileana_id', type=str)
+        parser.add_argument('__md5', type=str,)
+        parser.add_argument('__connectTime', type=str)
+        parser.add_argument('__title', type=str)
+        parser.add_argument('__alarmLevel', type=int)
+        parser.add_argument('summary', type=str)
+        parser.add_argument('__alarmKey', type=str)
+        parser.add_argument('__document', type=str)
+        parser.add_argument('__industry', type=str)
+        parser.add_argument('__security', type=str)
+        parser.add_argument('__ips', type=str)
+        parser.add_argument('__alarmType', type=int)
+```
 
 
 ## 五、大屏接口说明
