@@ -270,6 +270,25 @@ class Keyword(Resource):
         params = parser.parse_args(strict=True)
         return mc.pro_cfg_keyword_drop(params)
 
+
+@api.resource('/keyword/valid/')
+class KeywordValid(Resource):
+    '''
+    关键字有效性
+    '''
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('auid', type=int)  # 关键字的auid
+        parser.add_argument('valid', type=int)  # 是否有效
+
+        params = parser.parse_args(strict=True)
+        return mc.pro_cfg_keyword_edit_valid(params)
+
+
+
+
+
+
 @api.resource('/keyword/batch/')
 class KeywordBatch(Resource):
     '''
@@ -326,4 +345,4 @@ class AlarmListAdd(Resource):
         parser.add_argument('__alarmType', type=int)
 
         params = parser.parse_args(strict=True)
-        return mc.pro_alarm_list_add(params)
+        return mc.pro_alarm_list_add_4api(params)

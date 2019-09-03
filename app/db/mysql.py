@@ -204,6 +204,52 @@ class MysqlConnect(object):
             conn.close()
 
     @addHead()
+    def pro_alarm_list_add_4api(self,params):
+        """
+        加入告警
+        :param params: 参数字典
+        :return:
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = 'call pro_alarm_list_add'
+            sql += ('(' + (''' '%s',''' * len(params))[:-1] + ')') % (
+                params.get('yth_fileana_id'),
+                params.get('__md5'),
+                params.get('__connectTime'),
+                params.get('__title'),
+                params.get('__alarmLevel'),
+                params.get('__alarmSour'),
+                params.get('summary'),
+                params.get('__alarmKey'),
+                params.get('__document'),
+                params.get('__industry'),
+                params.get('__security'),
+                params.get('__ips'),
+                params.get('__alarmType'),
+            )
+            # 构造(%s,%s,...)
+            cur.execute(sql)
+            conn.commit()
+            return True, '插入成功'
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    @addHead()
     def pro_alarm_list_query(self, params):
         """
         查询告警清单
@@ -830,6 +876,44 @@ class MysqlConnect(object):
         finally:
             cur.close()
             conn.close()
+
+    @addHead()
+    def pro_cfg_keyword_edit_valid(self,params):
+        """
+        更新关键字的有效性
+        :param params: 一堆参数
+        :return: err:true/false  msg:文字信息
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = '''call pro_cfg_keyword_edit_valid'''
+            sql += '''(%d,%d)''' % (
+                params.get('auid'),
+                params.get('valid')
+            )
+            cur.execute(sql)
+            conn.commit()
+            result = self.parse_result_to_json(cur)
+
+            err = result[0].get('err')
+            return err, result[0].get('msg')
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
 
     @addHead()
     def pro_cfg_keyword_drop(self, params):
