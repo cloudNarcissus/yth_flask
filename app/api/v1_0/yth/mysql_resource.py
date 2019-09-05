@@ -343,6 +343,8 @@ class AlarmListAdd(Resource):
         parser.add_argument('__security', type=str)
         parser.add_argument('__ips', type=str)
         parser.add_argument('__alarmType', type=int)
+        parser.add_argument('__alarmSour', type=int)
+
 
         params = parser.parse_args(strict=True)
         return mc.pro_alarm_list_add_4api(params)

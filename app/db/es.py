@@ -865,6 +865,52 @@ class ESClient(object):
                                     _source_exclude=['__Content-text'])
 
 
+    @addHead()
+    def ud_search_from_es(self,params ):
+        '''
+        在指定的表中查询的条目和匹配的值
+        :param table: ES的表
+        :param key: 查询的条目
+        :param value: 匹配的值
+        :return (True, es_json)
+        '''
+
+        index_name = params.get('index_name')
+        key = params.get('key')
+        value = params.get('value')
+        self.log.debug('进入UncleDong api search_from_es：search for key[%s], value[%s] in index[%s]' , key, value, index_name)
+        body = {"query": {"term": {key: value}}}
+        return True,self.es.search(index=index_name, doc_type='mytype', body=body)
+
+    @addHead()
+    def ud_add_to_es(self,params):
+        '''
+        往指定的表中插入记录
+        :param params: 
+        :return: 
+        '''
+        index_name = params.get('index_name')
+        item = params.get('item')
+        try:
+            return True ,self.es.index(index=index_name, doc_type='mytype', body=item)
+        except Exception as err:
+            return False, str(err)
+
+    @addHead()
+    def ud_modify_on_es(self, params):
+        '''
+        往指定的表中插入记录
+        :param params: 
+        :return: 
+        '''
+        index_name = params.get('index_name')
+        es_id = params.get('es_id')
+        item = params.get('item')
+        try:
+            return True,self.es.update(index=index_name, doc_type='mytype', id=es_id, body=item)
+        except Exception as err:
+            return False, str(err)
+
 
 
     # -------------------------首页统计---------------------------------------------------------

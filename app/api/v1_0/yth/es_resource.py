@@ -175,3 +175,32 @@ class TjFrontpage(Resource):
         parser.add_argument('end_day', type=str, required=True)  # 2019-07-11
         params = parser.parse_args()
         return ec.tj_frontpage_all(params)
+
+
+
+@api.resource('/ud/es_curd/')
+class UdEsOp(Resource):
+
+    def get(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('index_name', type=str, required=True)
+        parser.add_argument('key', type=str, required=True)
+        parser.add_argument('value', type=str, required=True)
+        params = parser.parse_args()
+        return ec.ud_search_from_es(params)
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('index_name', type=str, required=True)
+        parser.add_argument('item', type=dict, required=True)
+        params = parser.parse_args()
+        return ec.ud_add_to_es(params)
+
+
+    def put(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('index_name', type=str, required=True)
+        parser.add_argument('es_id', type=str, required=True)
+        parser.add_argument('item', type=dict, required=True)
+        params = parser.parse_args()
+        return ec.ud_modify_on_es(params)
