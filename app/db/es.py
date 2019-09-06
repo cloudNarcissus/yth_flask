@@ -662,7 +662,9 @@ class ESClient(object):
                             '__unitaddr': row['_source'].get('__unitaddr', ''),
                             '__contact': row['_source'].get('__contact', '')
                         }
-                        return mc.pro_action_list_add(params_dict)
+                        ret = mc.pro_action_list_add(params_dict)
+                        if not ret[0]:
+                            return ret
             return True, ''
 
         def add_alarm_list(alarmSour):
