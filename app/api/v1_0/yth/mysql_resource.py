@@ -348,3 +348,84 @@ class AlarmListAdd(Resource):
 
         params = parser.parse_args(strict=True)
         return mc.pro_alarm_list_add_4api(params)
+
+
+
+
+@api.resource('/ud/wdpfiletask/')
+class WdpFileTask(Resource):
+    """wdp_file_task的操作"""
+
+    def get(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('n', type=int)
+        params = parser.parse_args(strict=True)
+        return mc.ud_wdp_file_task_query(params)
+
+    def delete(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('file_md5', type=str)
+        params = parser.parse_args(strict=True)
+        return mc.ud_wdp_file_task_delete(params)
+
+
+@api.resource('/ud/tasktmp/')
+class TaskTmp(Resource):
+    """task_tmp的操作"""
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('uuid', type=str)
+        parser.add_argument('md5', type=str)
+        parser.add_argument('root_md5', type=str)
+        parser.add_argument('parent_md5', type=str)
+        params = parser.parse_args(strict=True)
+        return mc.ud_task_tmp_add(params)
+
+    def get(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('uuid', type=str)
+        params = parser.parse_args(strict=True)
+        return mc.ud_task_tmp_search(params)
+
+    def delete(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('uuid', type=str)
+        parser.add_argument('md5', type=str)
+        params = parser.parse_args(strict=True)
+        return mc.ud_task_tmp_delete(params)
+
+
+@api.resource('/ud/fileanares/')
+class FileanaRes(Resource):
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('md5', type=str)
+        params = parser.parse_args(strict=True)
+        return mc.ud_file_ana_res_insert(params)
+
+
+@api.resource('/ud/anares/')
+class anaRes(Resource):
+    def post(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('uuid', type=str)
+        parser.add_argument('md5', type=str)
+        parser.add_argument('root_md5', type=str)
+        parser.add_argument('parent_md5', type=str)
+        parser.add_argument('fileinfo', type=str) #jsondump转成的字符串
+        parser.add_argument('__deepinfo', type=str)#base64编码的深度分析结果字符串
+        parser.add_argument('__handleStatus', type=int)
+        params = parser.parse_args(strict=True)
+        return mc.ud_ana_res_insert(params)
+
+    def get(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('uuid', type=str)
+        params = parser.parse_args(strict=True)
+        return mc.ud_ana_res_search(params)
+
+    def delete(self):
+        parser = reqparse.RequestParser()
+        parser.add_argument('uuid', type=str)
+        params = parser.parse_args(strict=True)
+        return mc.ud_ana_res_delete(params)

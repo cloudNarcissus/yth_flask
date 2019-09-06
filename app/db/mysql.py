@@ -4,7 +4,7 @@ from ast import literal_eval
 import pymysql
 
 from app.config import Config
-from app.utils.common import addHead,del_teshu_char
+from app.utils.common import addHead, del_teshu_char
 from app.db.mq import mq
 
 from app.utils.log import logger
@@ -204,7 +204,7 @@ class MysqlConnect(object):
             conn.close()
 
     @addHead()
-    def pro_alarm_list_add_4api(self,params):
+    def pro_alarm_list_add_4api(self, params):
         """
         加入告警
         :param params: 参数字典
@@ -320,7 +320,7 @@ class MysqlConnect(object):
                 params.get('alarmlevel_query') if params.get('alarmlevel_query') is not None else '',
                 params.get('fulltext_query') if params.get('fulltext_query') is not None else '',
                 params.get('actiontype') if params.get('actiontype') is not None else '',
-                params.get('__alarmType',0),
+                params.get('__alarmType', 0),
                 params.get('__alarmSour', 0),
                 params.get('_interested', 0)
             )
@@ -878,7 +878,7 @@ class MysqlConnect(object):
             conn.close()
 
     @addHead()
-    def pro_cfg_keyword_edit_valid(self,params):
+    def pro_cfg_keyword_edit_valid(self, params):
         """
         更新关键字的有效性
         :param params: 一堆参数
@@ -913,7 +913,6 @@ class MysqlConnect(object):
         finally:
             cur.close()
             conn.close()
-
 
     @addHead()
     def pro_cfg_keyword_drop(self, params):
@@ -971,7 +970,7 @@ class MysqlConnect(object):
         try:
 
             cur = conn.cursor()
-            sql = '''call pro_platform_edit(%d,"%s","%s","%s")'''%(
+            sql = '''call pro_platform_edit(%d,"%s","%s","%s")''' % (
                 params.get('platformid'),
                 params.get('name'),
                 params.get('nicname'),
@@ -1013,7 +1012,7 @@ class MysqlConnect(object):
             sql = '''call pro_platform_query()'''
             cur.execute(sql)
             result = self.parse_result_to_json(cur)
-            return True,result
+            return True, result
         except Exception as e:
             err = self._get_exception_msg(e)
             logger.error(sql)
@@ -1022,7 +1021,6 @@ class MysqlConnect(object):
         finally:
             cur.close()
             conn.close()
-
 
     # ------------------- 告警中心的统计 ---------------------
 
@@ -1225,7 +1223,7 @@ class MysqlConnect(object):
 
     # ------------------- 首页的统计 ---------------------
 
-    def tj_frontpage_alarm_list(self, today, yesterday, monday, firstdayofmonth, diff_days, begin_day,end_day):
+    def tj_frontpage_alarm_list(self, today, yesterday, monday, firstdayofmonth, diff_days, begin_day, end_day):
         """
         
         :param today: 
@@ -1248,7 +1246,7 @@ class MysqlConnect(object):
             cur = conn.cursor()
 
             summary = {
-                "平台数":4,
+                "平台数": 4,
                 "告警量": {
                     "今日": 0,
                     "昨日": 0,
@@ -1275,7 +1273,7 @@ class MysqlConnect(object):
                 }
             }
 
-            alarm_ana={
+            alarm_ana = {
                 "告警量": {
                     "1": 0,
                     "2": 0,
@@ -1342,12 +1340,11 @@ class MysqlConnect(object):
             summary["告警量"]['峰值'] = alarm_day_max
 
             # 7. 自定义事件
-            sql = '''call tj_frontpage_alarm_list('%s','%s','')'''%(begin_day,end_day)
+            sql = '''call tj_frontpage_alarm_list('%s','%s','')''' % (begin_day, end_day)
             cur.execute(sql)
             result = self.parse_result_to_json(cur)
             all_cz = int(result[0]['count_'])
             summary["告警量"]['自定'] = all_cz
-
 
             # ------------------- 处置量
 
@@ -1401,7 +1398,6 @@ class MysqlConnect(object):
             cz_self = int(result[0]['count_'])
             summary["处置量"]['自定'] = cz_self
 
-
             # ------------------- 违规量
 
             # 3.1 处置量today
@@ -1454,10 +1450,9 @@ class MysqlConnect(object):
             wg_self = int(result[0]['count_'])
             summary["违规量"]['自定'] = wg_self
 
-
             # -----  按时间段，按平台分组
 
-            sql = '''call tj_frontpage_alarm_platform('%s','%s')'''%(begin_day,end_day)
+            sql = '''call tj_frontpage_alarm_platform('%s','%s')''' % (begin_day, end_day)
             cur.execute(sql)
             result = self.parse_result_to_json(cur)
             alarm_ana['告警量']["1"] = int(result[0]['count_p1_all'])
@@ -1475,15 +1470,267 @@ class MysqlConnect(object):
             alarm_ana['处置量']["3"] = int(result[0]['count_p3_cz'])
             alarm_ana['处置量']["4"] = int(result[0]['count_p4_cz'])
 
-
-            #--- 雷达图
+            # --- 雷达图
             sql = '''call tj_frontpage_alarm_sour('%s','%s')''' % (begin_day, end_day)
             cur.execute(sql)
             leida_my = self.parse_result_to_json(cur)
 
+            return True, summary, alarm_ana, leida_my
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
 
+    # ------------------- 东叔那边后台的数据存储 ------------
 
-            return True, summary ,alarm_ana,leida_my
+    @addHead()
+    def ud_wdp_file_task_query(self, params):
+        """
+        
+        取出n条任务
+        :param params: 
+        :return: 
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = 'SELECT * FROM wdp_file_task LIMIT %d' % params.get('n')
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    @addHead()
+    def ud_wdp_file_task_delete(self, params):
+
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+            cur = conn.cursor()
+            sql = "DELETE FROM wdp_file_task WHERE file_md5 = '%s'" % params.get('file_md5')
+            cur.execute(sql)
+            conn.commit()
+            return True, '删除成功'
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    @addHead()
+    def ud_task_tmp_add(self, params):
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+            cur = conn.cursor()
+            sql = ("INSERT INTO task_tmp "
+                   "(uuid,md5,root_md5,parent_md5) "
+                   "VALUES ('%s','%s','%s','%s')") % (params['uuid'], params['md5'], params['root_md5'],
+                                                      params['parent_md5'])
+            cur.execute(sql)
+            conn.commit()
+            return True, '插入成功'
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    @addHead()
+    def ud_task_tmp_search(self, params):
+        """
+
+        查询tmp_search
+        :param params: 
+        :return: 
+        """
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = ("select * from task_tmp "
+                   "where uuid='%s'") % (params['uuid'])
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    @addHead()
+    def ud_task_tmp_delete(self, params):
+
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+            cur = conn.cursor()
+            sql = "DELETE FROM task_tmp WHERE uuid = '%s' and md5 = '%s'" % (params['uuid'], params['md5'])
+            cur.execute(sql)
+            conn.commit()
+            return True, '删除成功'
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    @addHead()
+    def ud_file_ana_res_insert(self, params):
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+            cur = conn.cursor()
+            sql = "insert into file_ana_res(md5,deepinfo,fileinfo) select a.md5,a.deepinfo,a.fileinfo  "
+            "from ana_res a where a.md5=%s and a.error=0"
+            "and not exists(select * from file_ana_res b where b.md5=a.md5'%s')" % params['md5']
+
+            cur.execute(sql)
+            conn.commit()
+            return True, '删除成功'
+
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    @addHead()
+    def ud_ana_res_insert(self, params):
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+            cur = conn.cursor()
+            sql = ("INSERT INTO ana_res "
+                   "(taskid,md5,rootmd5,parentmd5,fileinfo,deepinfo,error) "
+                   "VALUES (%s,%s,%s,%s,%s,%s,%s)")
+            val = (params['uuid'],
+                   params['md5'],
+                   params['root_md5'],
+                   params['parent_md5'],
+                   params['fileinfo'],
+                   params['__deepinfo'],
+                   params['__handleStatus'])
+
+            cur.execute(sql, val)
+            conn.commit()
+            return True, '插入成功'
+
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    @addHead()
+    def ud_ana_res_search(self,parmas):
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+
+            cur = conn.cursor()
+            sql = "SELECT * from ana_res where taskid='%s'" % params['uuid']
+            cur.execute(sql)
+            result = self.parse_result_to_json(cur)
+            return True, result
+        except Exception as e:
+            err = self._get_exception_msg(e)
+            logger.error(sql)
+            logger.error(err)
+            return False, err
+        finally:
+            cur.close()
+            conn.close()
+
+    @addHead()
+    def ud_ana_res_delete(self, params):
+        cur = None
+        conn, conn_err = self._connect('utf8')
+
+        if conn is None:
+            err = self.handle_connect_err(conn_err)
+            return False, err
+
+        try:
+            cur = conn.cursor()
+            sql = "DELETE FROM ana_res WHERE taskid = '%s'" % (params['uuid'])
+            cur.execute(sql)
+            conn.commit()
+            return True, '删除成功'
+
         except Exception as e:
             err = self._get_exception_msg(e)
             logger.error(sql)
@@ -1501,7 +1748,7 @@ mc = MysqlConnect()
 #
 if __name__ == '__main__':
     mc = MysqlConnect()
-    mc.tj_frontpage_alarm_list('2019-07-10', '2019-07-09', '2019-07-08', '2019-07-01',10)
+    mc.tj_frontpage_alarm_list('2019-07-10', '2019-07-09', '2019-07-08', '2019-07-01', 10)
 
 
     # params = {}
