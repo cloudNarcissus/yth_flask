@@ -16,7 +16,7 @@ class ConsulConn(object):
             params['port'] = port
         self.cs = consul.Consul(**params)
 
-    def get_kv_config(self,key_prefix="yda",key=None):
+    def get_kv_config(self, key_prefix="yda", key=None):
 
         if key is None:
             return reduce(lambda x, y: {**x, **y}, [{i['Key']: i['Value'].decode("utf-8")} for i in
@@ -26,24 +26,19 @@ class ConsulConn(object):
                                                     self.cs.kv.get(key=key_prefix, recurse=True)[1]]).get(key)
 
 
-
-i =0
+i = 0
 while True:
     try:
-        consulconn = ConsulConn(host="192.168.10.136")
+        consulconn = ConsulConn(host="192.168.40.162")
         keys = consulconn.get_kv_config(key_prefix="yda")
         break
     except Exception as e:
         i = i + 1
-        print('尝试第%d次ConsulConn'%i)
-        logger.info('尝试第%d次ConsulConn'%i)
+        print('尝试第%d次ConsulConn' % i)
+        logger.info('尝试第%d次ConsulConn,原因%s' % (i, str(e)))
         if i == 5:
             logger.error('ConsulConn Error,程序退出')
             exit(-1)
         time.sleep(30)
 
-
 Config = ConfigParser(keys)
-
-
-

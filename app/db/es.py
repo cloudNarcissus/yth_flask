@@ -31,9 +31,14 @@ class ESClient(object):
         filter_query = query.MatchAll()
         # 日期
         if params['begin_time'] is not None and params['end_time'] is not None:
-            date_query = query.Range(_expand__to_dot=False, __connectTime={
-                'gte': params['begin_time'],
-                'lte': params['end_time'], 'format': params['time_format']})
+            if params['__connectTime'] is not None and params['__connectTime'] is True:
+                date_query = query.Range(_expand__to_dot=False, __connectTime={
+                    'gte': params['begin_time'],
+                    'lte': params['end_time'], 'format': params['time_format']})
+            else:
+                date_query = query.Range(_expand__to_dot=False, __bornTime={
+                    'gte': params['begin_time'],
+                    'lte': params['end_time'], 'format': params['time_format']})
             filter_query = filter_query & date_query
 
         # 行为类型
