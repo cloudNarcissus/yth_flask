@@ -10,6 +10,7 @@ class SearchYthBase(Resource):
     parser.add_argument('begin_time', type=str)
     parser.add_argument('end_time', type=str)
     parser.add_argument('time_format', type=str)
+    parser.add_argument('__connectTime', type=bool) #如果是None或者false就按照__bornTIme排序， true:按照接入时间排序
     parser.add_argument('match_str', type=str)
     parser.add_argument('exact_query', type=bool)
     parser.add_argument('order', type=str)

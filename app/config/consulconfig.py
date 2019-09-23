@@ -19,17 +19,17 @@ class ConsulConn(object):
     def get_kv_config(self, key_prefix="yda", key=None):
 
         if key is None:
-            return reduce(lambda x, y: {**x, **y}, [{i['Key']: i['Value'].decode("utf-8")} for i in
+            return reduce(lambda x, y: {**x, **y}, [{i['Key']: i['Value'].decode("utf-8") if i['Value'] is not None else i['Value'] } for i in
                                                     self.cs.kv.get(key=key_prefix, recurse=True)[1]])
         else:
-            return reduce(lambda x, y: {**x, **y}, [{i['Key']: i['Value'].decode("utf-8")} for i in
+            return reduce(lambda x, y: {**x, **y}, [{i['Key']: i['Value'].decode("utf-8") if i['Value'] is not None else i['Value'] } for i in
                                                     self.cs.kv.get(key=key_prefix, recurse=True)[1]]).get(key)
 
 
 i = 0
 while True:
     try:
-        consulconn = ConsulConn(host="192.168.40.162")
+        consulconn = ConsulConn()
         keys = consulconn.get_kv_config(key_prefix="yda")
         break
     except Exception as e:

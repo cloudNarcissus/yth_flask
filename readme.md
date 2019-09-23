@@ -52,6 +52,7 @@ Url：/v1.0/fileana/
 ('end_time', type=str)
 
 ('time_format', type=str)
+parser.add_argument('__connectTime', type=bool)
 
 ('__md5', type=str)
 
