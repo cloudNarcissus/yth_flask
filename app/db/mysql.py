@@ -440,6 +440,7 @@ class MysqlConnect(object):
                 params.get('sport'),
                 params.get('__unitaddr'),
                 params.get('__contact'),
+                params.get('__bornTime'),
 
             )
             # 构造(%s,%s,...)

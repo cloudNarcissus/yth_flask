@@ -665,7 +665,8 @@ class ESClient(object):
                             'smac': row['_source'].get('smac', ''),
                             'sport': row['_source'].get('sport', ''),
                             '__unitaddr': row['_source'].get('__unitaddr', ''),
-                            '__contact': row['_source'].get('__contact', '')
+                            '__contact': row['_source'].get('__contact', ''),
+                            '__bornTime': row['_source'].get('__bornTime','')
                         }
                         ret = mc.pro_action_list_add(params_dict)
                         if not ret[0]:
