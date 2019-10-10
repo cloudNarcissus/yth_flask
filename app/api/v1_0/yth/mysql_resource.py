@@ -49,6 +49,8 @@ class AlarmListLeft(Resource):
         parser.add_argument('__alarmType', type=int)
         parser.add_argument('__alarmSour', type=int)
         parser.add_argument('_interested', type=int)
+        parser.add_argument('__security', type=str)
+        parser.add_argument('__alarmKey', type=str)
 
         params = parser.parse_args(strict=True)
         return mc.pro_alarm_list_left(params)
@@ -89,6 +91,9 @@ class AlarmList(Resource):
         parser.add_argument('orderby', type=str, required=True)
         parser.add_argument('page_capa', type=int, required=True)
         parser.add_argument('page_num', type=int, required=True)
+
+        parser.add_argument('__security', type=str)
+        parser.add_argument('__alarmKey', type=str)
 
         params = parser.parse_args(strict=True)
         return mc.pro_alarm_list_query(params)

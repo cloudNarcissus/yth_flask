@@ -59,24 +59,30 @@ class MysqlConnect(object):
 
     # 把查询出来的数据搞成  json: [{}] 结构  # 认为只有一个结果集
     def parse_result_to_json(self, cur):
-        data = []
-
-        if cur.description is not None:
-            columns = [None if desc is None or not desc or len(desc) == 1 else desc[0] for desc in
-                       cur.description]
-            for row in cur:
-                temp = dict()
-                for i in range(len(columns)):
-                    val = row[i]
-                    # ignore None value, otherwise you'll get a 'None' string
-                    if val is not None:
-                        val = str(val)
-                    key = columns[i]
-                    temp[key] = val
-                data.append(temp)
+        dataset = {}
+        n = 0
+        while True:
+            data = []
+            if cur.description is not None:
+                columns = [None if desc is None or not desc or len(desc) == 1 else desc[0] for desc in
+                           cur.description]
+                for row in cur:
+                    temp = dict()
+                    for i in range(len(columns)):
+                        val = row[i]
+                        # ignore None value, otherwise you'll get a 'None' string
+                        if val is not None:
+                            val = str(val)
+                        key = columns[i]
+                        temp[key] = val
+                    data.append(temp)
+            dataset[str(n)] = data
+            n += 1
+            if not cur.nextset():
+                break
 
         # return json.dumps(data, ensure_ascii=False)
-        return data
+        return dataset["0"] if n-1<=1 else dataset
 
     @addHead()
     def pro_dict_query(self):
@@ -281,6 +287,8 @@ class MysqlConnect(object):
                 params.get('orderby'),
                 params.get('page_capa'),
                 params.get('page_num'),
+                params.get('__security') if params.get('__security') is not None else '',
+                params.get('__alarmKey') if params.get('__alarmKey') is not None else ''
             )
 
             cur.execute(sql)
@@ -322,7 +330,9 @@ class MysqlConnect(object):
                 params.get('actiontype') if params.get('actiontype') is not None else '',
                 params.get('__alarmType', 0),
                 params.get('__alarmSour', 0),
-                params.get('_interested', 0)
+                params.get('_interested', 0),
+                params.get('__security') if params.get('__security') is not None else '',
+                params.get('__alarmKey') if params.get('__alarmKey') is not None else ''
             )
 
             cur.execute(sql)

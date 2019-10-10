@@ -200,7 +200,12 @@ URL：
     
     page_capa  int , -- 每页的容量（400）
     
-    page_num  int -- 跳页数（ 首页为0 ，第二页是1 ）
+    page_num  int -- 跳页数（ 首页为0 ，第二页是1 ）,
+    
+    
+    
+     '__security', type=str -- 密级
+     '__alarmKey', type=str) -- 关键字
     
     }
 
@@ -225,6 +230,8 @@ URL: /v1.0/alarmlist/left
         parser.add_argument('__alarmType', type=int)
         parser.add_argument('__alarmSour', type=int)
         parser.add_argument('_interested', type=int) -- 0: 全部  1：关注  2：未关注
+        '__security', type=str -- 密级
+     '__alarmKey', type=str) -- 关键字
 }
 
 
