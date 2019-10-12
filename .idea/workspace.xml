@@ -4,8 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/_bak/yth_base.py" line="739" mnemonic="5" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="告警清单的查询和左侧栏统计查询增加两个参数：密级、关键字">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/mysql_procedure.md" />
+    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="增加mysql存储过程的文档">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -666,13 +665,6 @@
       <option name="presentableId" value="Default" />
       <updated>1557381008761</updated>
     </task>
-    <task id="LOCAL-00080" summary="修改hbase连接逻辑">
-      <created>1563328733939</created>
-      <option name="number" value="00080" />
-      <option name="presentableId" value="LOCAL-00080" />
-      <option name="project" value="LOCAL" />
-      <updated>1563328733940</updated>
-    </task>
     <task id="LOCAL-00081" summary="关闭connection">
       <created>1563329942349</created>
       <option name="number" value="00081" />
@@ -1009,7 +1001,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570672555035</updated>
     </task>
-    <option name="localTasksCounter" value="129" />
+    <task id="LOCAL-00129" summary="增加mysql存储过程的文档">
+      <created>1570847184177</created>
+      <option name="number" value="00129" />
+      <option name="presentableId" value="LOCAL-00129" />
+      <option name="project" value="LOCAL" />
+      <updated>1570847184186</updated>
+    </task>
+    <option name="localTasksCounter" value="130" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1084,7 +1083,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="增加_alarmed = false的查询" />
     <MESSAGE value="left 增加_interested 的查询" />
     <MESSAGE value="关键字个数改为20" />
     <MESSAGE value="大屏第一个接口：alarmtype" />
@@ -1109,7 +1107,8 @@
     <MESSAGE value="增加对bornTime的筛选，增加__connectTime的条件" />
     <MESSAGE value="action_list增加行为发生时间" />
     <MESSAGE value="告警清单的查询和左侧栏统计查询增加两个参数：密级、关键字" />
-    <option name="LAST_COMMIT_MESSAGE" value="告警清单的查询和左侧栏统计查询增加两个参数：密级、关键字" />
+    <MESSAGE value="增加mysql存储过程的文档" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加mysql存储过程的文档" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
