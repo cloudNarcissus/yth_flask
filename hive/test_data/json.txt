@@ -1,0 +1,57 @@
+{
+	"device_type": "01",
+	"device_version": "20170205_9527 ",
+	"interface": [{
+			"ip": "192.168.1.1",
+			"netmask": "192.168.0.0/24",
+			"gateway": "192.168.1.254",
+			"mac": "00:0d:48:09:4e:88",
+			"manage": true
+		},
+		{
+			"ip": "192.168.0.1",
+			"netmask": "192.168.0.0/24",
+			"gateway": "192.168.0.254",
+			"mac": "00:0d:48:09:4e:89",
+			"manage": false
+		}
+	],
+	"mem_total": 8192,
+	"cpu_info": [{
+			"physical_id": 0,
+			"core": 4,
+			"clock": 1.8
+		},
+		{
+			"physical_id": 1,
+			"core": 8,
+			"clock": 2.5
+		}
+	],
+	"disk_info": [{
+			"size": 500,
+			"serial": "ST1000NM0011"
+		},
+		{
+			"size": 160,
+			"serial": "ST1000NM0012"
+		}
+	],
+	"organs": " XX信息中心",
+	"address": "北京市海淀区复兴路128号区政府互联网接入机房",
+	"address_code": "100000",
+	"contact": [{
+			" name": "张三",
+			" email": "zhangsan@zhangsan.com",
+			" phone": "138********",
+			"position": "处长"
+		},
+		{
+			"name": "李四",
+			" email": "lisi@zhangsan.com",
+			" phone": "139********",
+			" position": "主任"
+		}
+	],
+	"memo": "首次注册"
+}

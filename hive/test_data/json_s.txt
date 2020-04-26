@@ -1,0 +1,1 @@
+{ "device_type": "01", "device_time": "2017-02-05 12:00:00", "mem_total": 8192,"address_code": "100000", "memo": "first regist" }

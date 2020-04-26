@@ -87,7 +87,7 @@ class ESClient(object):
             # )
                 must = (
                     query.QueryString(
-                        default_field="__full_query",
+                        default_field="__full_query", 
                         query=qs
                     ) | query.QueryString(
                         default_field="__summary",

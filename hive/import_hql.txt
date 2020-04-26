@@ -1,0 +1,106 @@
+insert into table wdp.alarm_wgxw partition(lts_ymd)
+select row_number() over() + tid.max_id as auid,
+cast(get_json_object(a.json,'$.lts') as float) as lts, 
+1 as platform,
+get_json_object(a.json,'$.app_pro') as sour_obj,
+get_json_object(a.json,'$.app_opt.protocol') as sour_obj_sub,
+get_json_object(a.json,'$.alert_type')as wgxw_type,
+get_json_object(a.json,'$.filename') as title,
+b.organs as unit,
+b.contact as duty,
+get_json_object(a.json,'$.sm_summery') as alarm_desc,
+get_json_object(a.json,'$.risk')as alarm_level,
+0 as deepana_status,
+concat(c.rule_type,':',c.rule_content)  as tag,
+1 as file_count,
+'endpoint.sensitive_raw' as table_name,
+get_json_object(a.json,'$.id')as table_id,
+get_json_object(a.json,'$.checksum') as file_md5,
+concat(get_json_object(a.json,'$.sm_inpath'),'|',b.organs,'|',b.contact,'|',get_json_object(a.json,'$.sm_summery'))as search_fields,
+concat(a.lts_ym,a.lts_d)as lts_ymd
+from endpoint.sensitive_raw a
+left join endpoint.dtr_info_raw b
+on (get_json_object(a.json,'$.dtr_id') = b.dtr_id)
+left join endpoint.dtr_rules_raw c
+on (get_json_object(a.json,'$.rule_id') = c.rule_id)
+cross join (select coalesce(max(auid),0) max_id from wdp.alarm_wgxw) tid
+
+
+
+
+insert into table wdp.alarm_wgxw partition(lts_ymd)
+select row_number() over() + tid.max_id as auid,
+a.lts,
+2 as platform,
+1 as sour_obj,
+NULL as sour_obj_sub,
+10 as wgxw_type,
+concat(a.hostname,'接入互联网') as title,
+a.unit,
+a.user_info as duty,
+a.desc_ as alarm_desc,
+5 as alarm_level,
+0 as deepana_status,
+'违规外联' as tag,
+0 as file_count,
+'csmp.logex_raw' as table_name,
+a.LOG_ID as table_id,
+NULL as file_md5,
+concat(a.hostname,'|',a.unit,'|',a.user_info,'|',a.desc_)as search_fields,
+concat(a.lts_ym,a.lts_d)as lts_ymd
+from csmp.logex_raw a
+cross join (select coalesce(max(auid),0) max_id from wdp.alarm_wgxw) tid
+
+
+
+
+
+
+
+
+insert into table wdp.alarm_wgxw partition(lts_ymd)
+select row_number() over() + tid.max_id as auid,
+a.lts,
+3 as platform,
+2 as sour_obj,
+NULL as sour_obj_sub,
+9 as wgxw_type,
+a.title,
+a.g_unit_name as unit,
+a.user_ as duty,
+a.summary as alarm_desc,
+2 as alarm_level,
+0 as deepana_status,
+a.keywords as tag,
+1 as file_count,
+'docaudit.netward_raw' as table_name,
+a.id as table_id,
+a.filemd5 as file_md5,
+concat(a.title,'|',a.g_unit_name,'|',a.user_,'|',a.summary)as search_fields,
+concat(a.lts_ym,a.lts_d)as lts_ymd
+from docaudit.netward_raw a 
+cross join (select coalesce(max(auid),0) max_id from wdp.alarm_wgxw) tid
+
+
+insert into table wdp.alarm_wgxw partition(lts_ymd)
+select row_number() over() + tid.max_id as auid,
+a.lts,
+4 as platform,
+4 as sour_obj,
+0 as sour_obj_sub,
+7 as wgxw_type,
+a.title,
+a.company as unit,
+a.person as duty,
+a.summary as alarm_desc,
+a.alarm_level,
+1 as deepana_status,
+NULL as tag,
+1 as file_count,
+'menhu.alarm_raw' as table_name,
+a.id as table_id,
+a.file_md5,
+concat(a.title,'|',a.company,'|',a.person,'|',a.summary)as search_fields,
+a.lts_ymd
+from menhu.alarm_raw a
+cross join (select coalesce(max(auid),0) max_id from wdp.alarm_wgxw) tid

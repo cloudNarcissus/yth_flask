@@ -1,0 +1,226 @@
+insert into table stu
+select row_number() over() + t2.max_id as id, t1.name 
+from (select name from students) t1 
+cross join (select coalesce(max(key),0) max_id from stu) t2;
+
+
+create table t6(
+    id      int
+   ,name    string
+   ,hobby   array<string>
+   ,add     array<map<String,string>>
+)
+row format delimited
+fields terminated by ','
+collection items terminated by '-'
+map keys terminated by ':'
+stored as TEXTFILE
+;
+
+
+create external table ex_stu_par (id int,name string)
+partitioned by (name1 string)
+row format delimited
+fields terminated by ','
+collection items terminated by '-'
+map keys terminated by ':'
+location '/warehouse/tablespace/lty'
+;
+
+
+alter table ex_stu_par add partition (name1='C') location '/warehouse/tablespace/lty/C';
+
+
+load data local inpath '/opt/datas/weibotest.json' overwrite into table tmp_json_test;
+
+
+CTAS语句：create table in_stu as select * from  ex_stu_par where name1='A';
+
+
+create table test_json_filter(
+	contact array<string>
+);
+
+insert into test_json_filter
+select get_json_object(t.json,'$.interface.ip')ip from tmp_json_test t;
+
+
+ where array_contains(get_json_object(t.json,'$.contact. name'),'lty')
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ #外部分区表
+ 
+ create external table alarm_tran_banshi_ex(json string)partitioned by (lts_ym string,lts_d string) location '/warehouse/tablespace/external/hive/endpoint.db/alarm_tran_banshi';
+ 
+ #移动文件
+ load data inpath '/warehouse/tablespace/external/hive/endpoint.db/alarm_tran_banshi/json_s.txt' into table alarm_tran_banshi_ex partition(lts_ym='201901',lts_d='25');
+ 
+ 
+ insert overwrite  table test_par_day partition (ym_='201901',day_='02') values('qwert0102');
+ 
+ 
+ 
+ //动态分区
+ 
+ set hive.exec.dynamic.partition = true;
+ set hive.exec.dynamic.partition.mode = nonstrict;
+ 
+ insert overwrite  table csmp.logex  partition (lts_ym,lts_d) 
+select 
+lts,LOG_ID,LOG_CLASS,MACHINE_NAME,LOG_TYPE,USER_INFO,LOG_IP,user_,
+zone,unit,ncard,reserved1_,ver,date_,company,mboard,dept,hdid,os,
+hostname,ip,mac,desc_,LOG_DATE,RECV_DATE,LOG_SIGN,RESERVED1,RESERVED2,RESERVED3,
+lts_ym,lts_d
+from csmp.logex_raw ;
+
+
+insert overwrite table wadp.alarm_wgxw partition(lts_ym,lts_d)
+select get_json_object(a.json,'$.lts') lts,1 as platform,get_json_object(a.json,'$.app_pro') as sour_obj,get_json_object(a.json,'$.app_opt.protocol') as sour_obj_sub,      
+get_json_object(a.json,'$.alert_type')as alarm_type,get_json_object(a.json,'$.sm_inpath'),'' as unit,'' as duty,'this is sm_summery' as alarm_desc,
+get_json_object(a.json,'$.risk')as alarm_level,0 as deepana_status,0 as chuzhi_status,'' as tag,0 as file_count,0 as star,'sensitive_raw' as table_name,
+get_json_object(a.json,'$.id')as table_id,get_json_object(a.json,'$.sip')sip,get_json_object(a.json,'$.dip')dip,
+get_json_object(a.json,'$.smac')smac,get_json_object(a.json,'$.dmac')dmac,a.lts_ym,a.lts_d
+from endpoint.sensitive_raw a
+
+
+
+insert into table wdp.alarm_wgxw partition(lts_ym,lts_d)
+select 
+get_json_object(a.json,'$.lts') lts,
+1 as platform,
+get_json_object(a.json,'$.app_pro') as sour_obj,
+get_json_object(a.json,'$.app_opt.protocol') as sour_obj_sub,      
+get_json_object(a.json,'$.alert_type')as alarm_type,
+get_json_object(a.json,'$.sm_inpath') as title,
+b.organs as unit,
+b.contact as duty,
+'this is sm_summery' as alarm_desc,
+get_json_object(a.json,'$.risk')as alarm_level,
+0 as deepana_status,
+0 as chuzhi_status,
+'' as tag,
+0 as file_count,
+0 as star,
+'sensitive_raw' as table_name,
+get_json_object(a.json,'$.id')as table_id,
+get_json_object(a.json,'$.sip') as sip,
+get_json_object(a.json,'$.dip') as dip,
+get_json_object(a.json,'$.smac')as smac,
+get_json_object(a.json,'$.dmac')as dmac,
+a.lts_ym,
+a.lts_d
+from endpoint.sensitive_raw a
+left join endpoint.dtr_info_raw b
+on (get_json_object(a.json,'$.dtr_id') = b.dtr_id)
+
+
+
+
+
+#按日分桶以后：
+insert into table wdp.alarm_wgxw partition(lts_ym)
+select 
+get_json_object(a.json,'$.lts') lts,a.lts_d,
+1 as platform,
+get_json_object(a.json,'$.app_pro') as sour_obj,
+get_json_object(a.json,'$.app_opt.protocol') as sour_obj_sub,      
+get_json_object(a.json,'$.alert_type')as alarm_type,
+get_json_object(a.json,'$.sm_inpath') as title,
+b.organs as unit,
+b.contact as duty,
+'this is sm_summery' as alarm_desc,
+get_json_object(a.json,'$.risk')as alarm_level,
+0 as deepana_status,
+0 as chuzhi_status,
+'' as tag,
+0 as file_count,
+0 as star,
+'sensitive_raw' as table_name,
+get_json_object(a.json,'$.id')as table_id,
+get_json_object(a.json,'$.sip') as sip,
+get_json_object(a.json,'$.dip') as dip,
+get_json_object(a.json,'$.smac')as smac,
+get_json_object(a.json,'$.dmac')as dmac,
+a.lts_ym
+from endpoint.sensitive_raw a
+left join endpoint.dtr_info_raw b
+on (get_json_object(a.json,'$.dtr_id') = b.dtr_id)
+
+
+
+
+
+
+
+
+where a.lts_ym='201901' and a.lts_d='29'
+
+
+
+{"dmac": "c4:eb:e3:29:28:e3", "alert_type": 6, "risk": 1, "sm_inpath": "002878f46b6e02c5c1846244d960fd59/cancel_1_480.png", "xm_dir": 1, "smac": "0c:c4:7a:49:28:56", "dport": "1024", "checksum": "af6571df048e35f41532f7cba67f878a", "sm_summary": "\u56fe\u7247\u5927\u5c0f\u4e3a\uff1a1632\u5b57\u8282", "sport": "50433", "is_upload": false, "sip": "192.168.5.159", "dip": "192.168.5.158", "filename": "cancel_1_480.png", "sm_desc": "", "filetype": ".PNG", "time": "2017-11-06 17:10:56", "app_opt": {"pwd": "123asd", "trans_dir": 1, "protocol": "ftp", "account": "wangan"}, "app_pro": "Filetransfer", "type": "picture_file", "rule_id": "5071053223368851646"}
+
+
+create  table csmp.test_col (lts timestamp)
+partitioned by (lts_ym string,lts_d string)
+
+
+
+ insert overwrite  table csmp.test_col  partition (lts_ym,lts_d) 
+select 10000,'201901','01' from csmp.logex_raw
+
+
+
+
+ 
+ select distinct(ym_,day_) from test_par_day where ym_ like '2019%';
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+insert into table wdp.alarm_wgxw_1 partition(lts_ym,lts_d)
+select get_json_object(a.json,'$.lts') as lts, get_json_object(a.json,'$.risk') as platform,'sensitive_raw' as table_name,
+a.lts_ym,a.lts_d
+from endpoint.sensitive_raw a
+
+
+
+insert into table wdp.alarm_wgxw_2 partition(lts_ym,lts_d)
+select get_json_object(a.json,'$.lts') as lts,2as platform,'sensitive_raw' as table_name,
+a.lts_ym,a.lts_d
+from endpoint.sensitive_raw a
+
+
+-- 合并分区内额小文件
+alter table wdp.alarm_wgxw partition(lts_ym='201902') concatenate;
+
+ 
+ 
+ 
+ --hive 属性设置
+ 
+  set hive.exec.dynamic.partition = true;
+ set hive.exec.dynamic.partition.mode = nonstrict;
+ 
+ set hive.enforce.bucketing = true;
+ 
+ 
+-- tez 属性设置
+set tez.am.resource.memory.mb=256mb
+ 
+ 
+ 
+ 
+ 
+ 
