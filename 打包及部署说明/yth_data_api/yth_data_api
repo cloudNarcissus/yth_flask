@@ -1,0 +1,49 @@
+#!/bin/bash
+#chkconfig:2345 80 50
+#description yth_data_api
+
+source /root/.bash_profile
+cmdline="uwsgi yth_data_api.ini"
+servname=yth_data_api
+
+install_path=/opt/wangan/yth_data_api
+
+
+if [ 'root' != `whoami` ]; then
+	echo 'operation need root ,please use [root] or start with [sudo]'  
+	exit 2
+fi
+case $1 in
+start)
+	echo "start $servname service ..."
+	source ${install_path}/venv/bin/activate
+	cd ${install_path}
+	nohup ${cmdline} >>/dev/null 2>&1 &
+	;;
+stop)
+	echo "stop $servname service"
+	pids=`ps -ef|grep -w "$cmdline"|grep -v "grep" |awk -F ' ' '{print $2}'`
+	for pid in ${pids}
+	do
+		kill -9 ${pid}
+	done
+	;;
+status)
+	echo "check $servname service"
+	pid_num=`ps -ef|grep -w "$cmdline"|grep -v "grep" |wc  -l`
+	if [ ${pid_num} -gt 0 ];then
+		echo -e  "\033[31m[running]\033[0m"
+		exit 98
+	else
+		echo -e  "\033[31m[stopped]\033[0m"
+		exit 99
+	fi
+	;;
+restart)
+	$0 stop
+	$0 start
+	;;
+*)
+	echo $"Usage: $0 {start|stop|restart|status}"
+	;;
+esac

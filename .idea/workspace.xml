@@ -4,23 +4,99 @@
     <bookmark url="file://$PROJECT_DIR$/_bak/yth_base.py" line="739" mnemonic="5" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="增加mysql存储过程的文档">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hive/Git-2.16.0.2-64-bit.exe" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hive/TortoiseGit-2.1.0.0-64bit.msi" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hive/HQL.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hive/hive small files .txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hive/import_hql.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hive/pymysql.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hive/test_data/1.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hive/test_data/json.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hive/test_data/json_flat.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hive/test_data/json_s.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hive/test_data/students.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hive/test_data/students_error.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hive/test_data/time" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hive/total.sql" />
+    <list default="true" id="7077113a-739b-468a-849c-c1c1fe1ffb74" name="Default Changelist" comment="添加hive脚本">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/my_logger.log.2019-08-30" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/my_logger.log.2019-09-06" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/my_logger.log.2019-09-09" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/my_logger.log.2019-09-12" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/my_logger.log.2019-09-19" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/my_logger.log.2019-09-23" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/my_logger.log.2019-09-29" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/Click-7.0-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/Flask-1.0.3-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/Flask_RESTful-0.3.7-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/Jinja2-2.10.1-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/MarkupSafe-1.1.1-cp35-cp35m-win32.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/MarkupSafe-1.1.1-cp36-cp36m-manylinux1_x86_64.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/MarkupSafe-1.1.1-cp37-cp37m-manylinux1_x86_64.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/PyMySQL-0.9.3-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/Werkzeug-0.15.4-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/aniso8601-6.0.0-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/certifi-2019.6.16-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/chardet-3.0.4-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/elasticsearch-6.3.1-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/elasticsearch_dsl-6.3.1-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/happybase-1.2.0.tar.gz" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/idna-2.8-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/itsdangerous-1.1.0-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/pika-1.0.1-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/ply-3.11-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/python_consul-1.1.0-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/python_dateutil-2.8.0-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/pytz-2019.1-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/redis-3.3.5-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/requests-2.22.0-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/six-1.12.0-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/thrift-0.11.0.tar.gz" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/thriftpy2-0.4.4.tar.gz" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/urllib3-1.25.3-py2.py3-none-any.whl" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/packs/uwsgi-2.0.17.1.tar.gz" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api_190802.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api_190807.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api_190812.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api_190815.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api_190826.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api_190827.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api_190828.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api_190909.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api_191008.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api_191010.zip" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/一体化系统版本跟踪20190904更新.xlsx" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/es.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/install.sh" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/readme.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_alarm_data.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_alarm_schema.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/api/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/api/v1_0/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/api/v1_0/ls/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/api/v1_0/ls/myls_resource.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/api/v1_0/yth/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/api/v1_0/yth/es_resource.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/api/v1_0/yth/hbase_resource.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/api/v1_0/yth/mysql_resource.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/api/v1_1/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/config/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/config/consulconfig.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/config/localconfig.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/db/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/db/es.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/db/hbase.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/db/mq.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/db/myls.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/db/myred.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/db/mysql.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/my_logger.log" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/utils/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/utils/common.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/utils/config_parser.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/utils/error.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/utils/log.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/app/utils/stopwords.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/config.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/configswitch.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/ls_etl/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/ls_etl/dataetlthread.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/readme.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/requirements.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/run.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/yth_data_api" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_data_api/yth_data_api.ini" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/yth_ls_schema.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/打包及部署说明/打包说明.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/db/es.py" afterPath="$PROJECT_DIR$/app/db/es.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -111,7 +187,7 @@
       <file leaf-file-name="es.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/db/es.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1547">
+            <state relative-caret-position="1751">
               <caret line="103" column="9" lean-forward="false" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -168,8 +244,8 @@
       <file leaf-file-name="total.sql" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/hive/total.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-204">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="34">
+              <caret line="216" column="28" lean-forward="false" selection-start-line="216" selection-start-column="28" selection-end-line="216" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -178,7 +254,7 @@
       <file leaf-file-name="mysql.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/db/mysql.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4896">
+            <state relative-caret-position="4981">
               <caret line="297" column="44" lean-forward="false" selection-start-line="297" selection-start-column="44" selection-end-line="297" selection-end-column="44" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -435,34 +511,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_data_api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_py" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ls_etl" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_data_api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="yth_py" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="hive" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -470,7 +518,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="D:/pyhive" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
@@ -709,13 +757,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1557381008761</updated>
-    </task>
-    <task id="LOCAL-00082" summary="修正告警清单中，告警等级始终为5的bug。">
-      <created>1563501326518</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1563501326520</updated>
     </task>
     <task id="LOCAL-00083" summary="处置增加choice  ： NEIBU">
       <created>1563502861233</created>
@@ -1053,22 +1094,29 @@
       <option name="project" value="LOCAL" />
       <updated>1570847243506</updated>
     </task>
-    <option name="localTasksCounter" value="131" />
+    <task id="LOCAL-00131" summary="添加hive脚本">
+      <created>1587912256308</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1587912256308</updated>
+    </task>
+    <option name="localTasksCounter" value="132" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="-4" width="1374" height="732" extended-state="0" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26701966" sideWeight="0.76521736" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27912253" sideWeight="0.76521736" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5121029" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2442623" sideWeight="0.48789713" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.119672135" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17377049" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2442623" sideWeight="0.48789713" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0" sideWeight="0.8004158" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.08688524" sideWeight="0.4969743" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19894099" sideWeight="0.2347826" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3229508" sideWeight="0.5559758" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19894099" sideWeight="0.2347826" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.036308624" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1127,7 +1175,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="left 增加_interested 的查询" />
     <MESSAGE value="关键字个数改为20" />
     <MESSAGE value="大屏第一个接口：alarmtype" />
     <MESSAGE value="大屏第4个接口：alarmstatus" />
@@ -1152,7 +1199,8 @@
     <MESSAGE value="action_list增加行为发生时间" />
     <MESSAGE value="告警清单的查询和左侧栏统计查询增加两个参数：密级、关键字" />
     <MESSAGE value="增加mysql存储过程的文档" />
-    <option name="LAST_COMMIT_MESSAGE" value="增加mysql存储过程的文档" />
+    <MESSAGE value="添加hive脚本" />
+    <option name="LAST_COMMIT_MESSAGE" value="添加hive脚本" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1498,7 +1546,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="21" column="10" lean-forward="false" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1537,7 +1584,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/db/mysql.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4896">
+        <state relative-caret-position="4981">
           <caret line="297" column="44" lean-forward="false" selection-start-line="297" selection-start-column="44" selection-end-line="297" selection-end-column="44" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
@@ -1565,7 +1612,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/db/es.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1547">
+        <state relative-caret-position="1751">
           <caret line="103" column="9" lean-forward="false" selection-start-line="103" selection-start-column="9" selection-end-line="103" selection-end-column="9" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
@@ -1624,8 +1671,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/hive/total.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-204">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="34">
+          <caret line="216" column="28" lean-forward="false" selection-start-line="216" selection-start-column="28" selection-end-line="216" selection-end-column="28" />
           <folding />
         </state>
       </provider>

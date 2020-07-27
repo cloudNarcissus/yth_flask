@@ -1,0 +1,69 @@
+1.首先把代码拷贝到文件夹yth_data_api，并打包成yth_data_api.zip（注意是zip）
+
+拷贝的代码包括以下文件：
+
+文件夹app : 是自己写的python包
+config.json: 在此修改es，mysql，hbase等的连接信息
+readme.md:接口说明
+requirements.txt：依赖包列表
+run.py:程序入口
+yth_data_api:启动uwsgi服务的代码，他会执行"uwsgi yth_data_api.ini" 
+    在安装以后，这个文件会被剪切到/etc/init.d目录下，作为自启动，
+	这就是服务名了,可以执行service yth_data_api start/stop/status来操作服务
+yth_data_api.ini:
+	这就是uwsgi的配置文件了，里面主要以下两个配置
+	http-socket = 0.0.0.0:10086
+
+   
+
+wsgi-file = run.py
+
+
+2.其次把packs文件夹放在与上面的压缩包同级（注意不是压缩在里面）
+
+packs : 是依赖包的安装文件。 
+	☆这里面的文件是按照如下步骤生成的：
+	1.先在开发环境中，新建venv虚拟环境
+		python3 -m venv venv  （第一个venv是命令，第二个venv是当前目录下创建名为venv的虚拟目录，代码将会放在这个虚拟环境中运行）
+		这时候在pycharm中就可以选这个venv作为编译环境了。
+		然后在这个环境上边开发边pip install 代码需要的包即可                
+	2.待到程序开发完毕，venv中就有了所有的包了，就用如下命令将依赖文件生成出来：
+                pip freeze > requirements.txt
+	☆然后在可以上网的，和生产环境一样的linux系统上，就可以用如下命令把依赖包下载下来：
+		pip download -r requirements.txt -d packs
+
+                在生产环境上，因为是离线的，就要用自己下载好的packs，所以install.sh中要写下：
+		pip install --no-index --find-links=./packs/ -r ${targetpath}/requirements.txt
+		意思是从本地的packs文件夹中安装依赖包，而不访问互联网
+
+		但是，在把代码从开发环境部署到测试环境中时，因为开发环境是windows，
+		所以需要在测试环境联网下载依赖包，所以install.sh中要写下：
+		pip install -r ${targetpath}/requirements.txt
+		意思是从互联网下载安装依赖包
+
+
+		
+3. 同级再放一个shell脚本：install.sh
+这个shell脚本主要4个步骤：
+
+	1.卸载老版本程序（其实就是删除原文件夹）
+		rm -rf ${targetpath}
+
+
+	2.把yth_data_api.zip解压到 /opt/wangan
+	3.创建虚拟环境venv，并进入虚拟环境安装依赖（安装有离线和在线两种方式，2中已经讲过了）
+		
+python3 -m venv ${targetpath}/venv
+		
+source ${targetpath}/venv/bin/activate
+		pip install --no-index --find-links=./packs/ -r ${targetpath}/requirements.txt
+	4.创建服务
+		这一步主要就是执行yth_data_api
+（uwsgi）
+
+
+
+
+在现场部署的时候，把这单个部分：packs，install.sh，yth_data_api.zip放在一起，执行install.sh就自动化安装了。
+
+                
